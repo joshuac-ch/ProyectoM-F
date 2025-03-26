@@ -1,0 +1,21 @@
+.btn-icons{
+    display: flex;
+    
+    gap: .5rem;
+    button{
+        width: 50px;
+        
+    }
+}
+.nombre{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    button{
+        border-radius: 50px;        
+        width: 40px;
+    }
+}
+.header-table {
+    background-color: rebeccapurple;
+}

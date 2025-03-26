@@ -1,0 +1,12 @@
+.profile-icon{
+    display: flex;
+    justify-content: center;
+}
+.icon{
+      
+    img{
+        width: 200px;
+        border-radius: 55%;
+       
+    }
+}

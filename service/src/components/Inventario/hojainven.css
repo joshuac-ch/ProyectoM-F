@@ -1,0 +1,56 @@
+.header-inven{
+    display: flex;
+    justify-content: space-between;
+}
+.tools{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    
+    .add-warehouse,.add-product{
+        button{
+            padding: 5px ;
+        border: 2px solid black;
+        background-color: rgb(137, 173, 228);
+        font-weight: bold;
+        border-radius: 10px;
+        }
+        button:hover{
+            background-color: transparent;
+            transition: .3s;
+        }
+    }
+    .search{
+        button{
+        background-color: rgb(137, 173, 228);
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 5px;
+        }
+        input{
+        padding: 5px;
+        }
+}
+}
+.product{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    img{
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 8px 1px black;    
+    }
+    .btn-icons{
+        
+    }
+}
+.table-header-inventario tr th{
+    background-color:rgb(137, 173, 228);
+    
+    
+}
+.content-inventario table{
+    border-radius: 20px;
+}

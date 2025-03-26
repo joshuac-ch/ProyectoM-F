@@ -1,0 +1,106 @@
+.table-responsive{
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px 1px #2c3d57;
+}
+.header-productos{
+    margin: 40px 0px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.herra{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.box{
+    font-size: 18px
+}
+.addp{
+    
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    background-color:rgb(137, 173, 228);
+    border: 2px solid black;
+    font-weight: bold;
+    border-radius: 10px;
+
+}
+.addp:hover{
+    background-color: transparent;
+    transition: .3s;
+}
+.filter{
+    display: flex;
+    align-items: center;
+}
+.bx-search{
+    border: 2px solid #ffff;
+    background-color: #fff;
+    padding:7px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+   
+}
+.lista-tarjetas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.tarjeta{
+    border: 2px solid black;
+    padding: 4px 10px 20px 10px;
+    margin: 10px 0px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 8px 1px black;
+}
+.tarjeta:hover{
+    transform: scale(.9);
+    transition: .3s;
+}
+.header-card{
+    display: flex;
+    font-weight: bolder;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0px;
+    align-items: center;
+    button{
+        background-color: transparent;
+        width: 40px;
+               
+    }
+    button:hover{
+        background-color:  rgb(137, 173, 228);
+        transition: .3s;
+        i{
+            transform: scale(1.2);
+            transition: .3s;
+        }
+    }
+}
+
+.imagen{
+    
+    img{
+        width: 190px;
+        height: 220px;
+        border-radius: 10px;
+
+    }
+}
+.des-card{
+   margin-top: 5px;
+    .precio, .categoria, .fecha-ven{
+    display: flex;
+    justify-content: space-between;
+    label:nth-child(2){
+        font-weight: bolder;
+    }
+   }
+}
