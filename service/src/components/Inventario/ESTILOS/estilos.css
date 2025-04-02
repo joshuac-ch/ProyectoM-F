@@ -1,0 +1,11 @@
+.header-almacen{
+    display: flex;
+    justify-content: space-between;
+    button{
+        color: black;
+        font-weight: bold;
+        background-color: rgb(137, 173, 228);
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+}
