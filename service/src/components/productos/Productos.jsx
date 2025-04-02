@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../productos/hojaproduct.css"
 import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 export default function Productos() {
+  const formato=new Date()
     const productos=[
 {imagen:"https://i.pinimg.com/236x/36/af/33/36af3325c88b9711b6285a4d408faa77.jpg","fecha_ven":"-",precio_compra:10,codigo:"VIN001",nombre:"Vino tinto",precio:"32.00",cantidad:10,Unidad:"L",proveedor:"joshua gustav",categoria:"licores"},
 {imagen:"https://i.pinimg.com/736x/c7/4f/46/c74f46a35b41019058b669936a2f7d44.jpg","fecha_ven":"-",precio_compra:9,codigo:"VIN002",nombre:"Vino blanco",precio:"27.00",cantidad:15,Unidad:"L",proveedor:"miyo benavides",categoria:"licores"},
@@ -26,6 +28,51 @@ const redirigir=useNavigate()
 const CrearProducto=()=>{
     redirigir("/crear-producto")
 }
+const [myproduct, setmyproduct] = useState([])
+const GetProductos=async()=>{
+  try{
+    const {data}=await axios.get("http://localhost:4000/api/users/producto/g/")
+    setmyproduct(data)
+  }catch(e){
+    alert("Hubo un error",e)
+  }
+}
+const [subcategoria, setsubcategoria] = useState({})
+useEffect(()=>{
+  const FectSubcate=async()=>{
+   try{
+    const {data}=await axios.get("http://localhost:4000/api/users/subcategoria/g/") 
+    const recorrer={};
+    data.forEach((c)=>{
+      recorrer[c.id]=c.nombre 
+    })
+    setsubcategoria(recorrer)
+   }catch(err){
+    alert("Hubo un error",err)
+   }
+  }
+  FectSubcate()
+},[])
+ 
+
+useEffect(()=>{
+  GetProductos()
+},[])
+const onUpdate=(id)=>{
+  redirigir(`/update-producto/${id}`)
+}
+const onDelete=async(id)=>{
+  const mensaje=window.confirm("Estas seguro querer eliminar este producto?")
+  if(mensaje){
+    try{
+      await axios.delete(`http://localhost:4000/api/users/producto/d/${id}`)
+      alert("Se elimino correctamente el producto")
+      setmyproduct(myproduct.filter((m)=>m.id!==id))
+    }catch(e){
+      alert("Hubo un error la eliminar este producto",e)
+    }
+  }
+} 
 return (  
     <div className="container mt-4">
       <div className="header-productos">
@@ -35,6 +82,7 @@ return (
           <div className="box">
           <button className='addp' type='button' onClick={CrearProducto}>Agregar producto</button>
           </div>
+          
           <div className="box">
             <select className="form-select" onChange={(e)=>setcategoriaSeleccionada(e.target.value)}  name="" id="">
               <option value="todos" selected>todos</option>
@@ -53,29 +101,32 @@ return (
       </div>
       <div className="tarjetas">
         <div className="lista-tarjetas">
-          {productosSeleccionado.map((p)=>{
+          {myproduct.map((p)=>{
             return(
               <div className="tarjeta">
                 <div className="header-card">
                 <label htmlFor="">{p.nombre}</label>
-                <button type="button" className='form-control'><i class='bx bx-show-alt' ></i></button>
+                <div className="btn-producto">
+                  <button type="button" onClick={()=>onUpdate(p.id)} className='form-control'><i class='bx bx-show-alt' ></i></button>
+                  <button type="button" onClick={()=>onDelete(p.id)} className='form-control'><i class='bx bxs-trash'></i></button>
+                </div>
                 </div>
                 <div className="imagen">
-                  <img src={p.imagen} alt={p.nombre} />
+                  <img src={p.image} alt={p.nombre} />
                 </div>
                 <div className="des-card">
                   <div className='precio'>
                     <label htmlFor="">Precio:</label>
-                    <label htmlFor="">${p.precio}</label>                   
+                    <label htmlFor="">${p.precio_venta}.00</label>                   
                   </div>
                   <div className='categoria'>
-                    <label htmlFor="">Categoria:</label>
-                    <label htmlFor="">{p.categoria}</label>
+                    <label htmlFor="">Subcategoria:</label>
+                    <label htmlFor="">{subcategoria[p.subcategoria_id]}</label>
                     
                   </div>
                   <div className='fecha-ven'>
                     <label htmlFor="">Vence:</label>
-                    <label htmlFor="">{p.fecha_ven}</label> 
+                    <label htmlFor="">{formato.getDate(p.fecha_vencimiento)}-0{formato.getMonth(p.fecha_vencimiento)}-{formato.getFullYear(p.fecha_vencimiento)}</label> 
                   </div>
                   
                  

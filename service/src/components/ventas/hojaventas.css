@@ -1,4 +1,6 @@
-.header-proveedor{
+.header-ventas{
+    display: flex;
+    justify-content: space-between;
     button{
         color: black;
         font-weight: bold;
@@ -6,8 +8,4 @@
         border: 2px solid black;
         border-radius: 10px;
     }
-}
-.header-proveedor{
-    display: flex;
-    justify-content: space-between;
 }

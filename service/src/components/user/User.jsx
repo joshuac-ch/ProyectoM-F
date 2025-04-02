@@ -1,26 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import "../user/hojauser.css"
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
 export default function User() {
-  const usuarios=[
-        {id:1,imagen:"https://i.pinimg.com/474x/0f/31/41/0f31417053111c551663e0e8c0b9e5c9.jpg",contacto:"anais paliyo" ,password:"animales1424",username:"joshua",rol:"vendedor",estado:"activo"},
-        {id:2,imagen:"https://i.pinimg.com/474x/0f/b7/43/0fb74310291412e498e81b6493ff1ea8.jpg",contacto:"amanda elera" ,password:"pyJHcrz132",username:"erick",rol:"administrador",estado:"activo"},
-        {id:3,imagen:"https://i.pinimg.com/474x/b9/b3/8a/b9b38aac2791b02b81e166d1a0819201.jpg",contacto:"andrea wiese" ,password:"blackMan2121",username:"andres",rol:"vendedor",estado:"no activo"},
-  ]
+ // const navigae=Navigate()
+  const [users, setusers] = useState([])
+  const FectchUsers=async()=>{
+    try{
+      const {data}=await axios.get("http://localhost:4000/api/users/usuario/g")
+      setusers(data)
+    }catch(e){
+      console.error("hubo un error",e)
+    }
+  }
+  useEffect(()=>{
+    FectchUsers()
+  },[])
   const redirigir=useNavigate()
   const CreateEmpleado=()=>{
     redirigir("/crear-empleado")
   }
-  const [Empleados, setEmpleado] = useState("todos")
-  const EmpleadosFiltar=Empleados==="todos"?
-  usuarios: usuarios.filter((e)=>e.rol===Empleados)
+  //SHOW
+  const handleViewUser = (id) => {
+    redirigir(`/user/${id}`); // Redirige a la página de detalles del usuario
+  };
   
+  //const [Empleados, setEmpleado] = useState("todos")
+  //const EmpleadosFiltar=Empleados==="todos"?
+  //usuarios: usuarios.filter((e)=>e.rol===Empleados)
   
+  //DELETE
+  const handleDeleteUser = async (id) => {
+    const confirmar = window.confirm("¿Estás seguro de eliminar este usuario?");
+    if (confirmar) {
+      try {
+        await axios.delete(`http://localhost:4000/api/users/usuario/d/${id}`);
+        setusers(users.filter((user) => user.id !== id)); // Actualiza la lista eliminando el usuario
+        
+        alert("Usuario eliminado correctamente");
+      } catch (error) {
+        console.error("Error al eliminar el usuario", error);
+        alert("No se pudo eliminar el usuario");
+      }
+    }
+  };  
   
-  const CambiarRolEmpleado=(v)=>{
-      setEmpleado(v)
-  }
+ 
 
   return (
     <>
@@ -34,7 +61,7 @@ export default function User() {
           <button type='button' className='addp' onClick={CreateEmpleado} >Agregar empleado</button>
           </div>
           <div className="box">
-            <select className="form-select" onChange={(e)=>CambiarRolEmpleado(e.target.value)}  name="" id="">
+            <select className="form-select" onChange={""}  name="" id="">
               <option value="todos" selected>todos</option>
               <option value="vendedor">vendedor</option>
               <option value="administrador">administrador</option>
@@ -50,48 +77,51 @@ export default function User() {
           </div>
      </div>
     </div>
-    <div className="container mt-4" >
+    <div className="p-3 ">
         <div className="table-responsive">
                 <table className="table table-hover custom-table">
                   <thead>
                     <tr>
-                      <th>Foto</th>
-                      <th>Id</th>                      
+                    <th>Id</th>  
+                    
+                                          
                       <th>Contacto</th>
                       <th>Username</th>
                       <th>Password</th>
+                      <th>Correo</th>
+                      <th>Telefono</th>
+                      <th>Direccion</th>
                       <th>Rol</th>
-                      <th>Estado</th>
+                      <th>Almacen ID</th>
                       <th>Acciones</th>                      
                     </tr>
                   </thead>
                   <tbody>
-                    {EmpleadosFiltar.map((user) => (
+                    {users.map((user) => (
                         
                       <tr key={user.id}>
-                        <td className="align-middle text-center">
-                          <img
-                            src={user.imagen}
-                            alt={user.contacto}
-                            className="product-img"
-                          />
-                        </td> 
-                        <td className="align-middle text-center">{user.id}</td>
-                        <td className="align-middle">{user.contacto}</td>               
-                        <td className="align-middle text-center">{user.username}</td>
-                        <td className="align-middle text-center">                        
-                          <input type="password" value={user.password} name="" id="" />
+                       
+                        <td className="align-middle ">{user.id}</td>
+                        
+                        <td className="align-middle btn-user">
                           
-                         
+                          <button type='button'>{user.nombre.charAt(0).toLocaleUpperCase()}{user.apellido.charAt(0).toLocaleUpperCase()}  </button>
                           
+                          {user.nombre} {user.apellido}</td>               
+                        <td className="align-middle">{user.username}</td>               
+                        <td className="align-middle">                        
+                          <input type="password" value={user.password} name="" id="" />                         
                           </td>
-                        <td className="align-middle text-center">{user.rol}</td>
-                        <td className="align-middle text-center">{user.estado}</td>                       
-                        <td className="align-middle text-center">
-                          <button className="btn btn-warning btn-sm me">
+                        <td className="align-middle text-start">{user.correo}</td>
+                        <td className="align-middle text-start">{user.telefono}</td>
+                        <td className="align-middle text-start">{user.direccion}</td>
+                        <td className="align-middle text-start">{user.rol}</td>
+                        <td className="align-middle text-start">{user.almacen_id}</td>                       
+                        <td className="align-middle text-start botones">
+                          <button onClick={()=>handleViewUser(user.id)} className="btn btn-warning btn-sm me">
                           <i className='bx bxs-edit-alt' ></i>
                           </button>
-                          <button className="btn btn-danger btn-sm">
+                          <button onClick={()=>handleDeleteUser(user.id)} className="btn btn-danger btn-sm">
                           <i className='bx bxs-trash' ></i>
                           </button>
                         </td>
@@ -112,7 +142,7 @@ export default function User() {
                   .custom-table th {
                     background: rgb(137, 173, 228);
                     color: black;
-                    text-align: center;
+                    text-align: start;
                   }
                   .custom-table tbody tr:hover {
                     background: #f1f5f9;

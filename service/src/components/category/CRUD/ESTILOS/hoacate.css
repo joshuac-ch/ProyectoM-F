@@ -1,0 +1,61 @@
+.categoria1{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid black;
+    min-width: 600px;
+    padding: 5px 20px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow:0px 0px 8px 1px black;
+    background-color: white;
+        
+}
+.categoria1:hover{
+    transition: all .5s ease;
+    transform: scale(.9);
+    
+}
+.first-cate{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.identificador{
+    border-radius: 50px;
+    padding: 0px;
+    text-align: center;
+    min-width: 32px;
+    min-height: 32px;
+    border: 1px solid black;
+}
+.tarjeta-cate{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.titulo{
+    display: flex;
+    gap: .5rem;
+}
+label{
+    font-weight: bold;
+}
+.header-categorias{
+    display: flex;
+    justify-content: space-between;
+    button{
+        color: black;
+        font-weight: bold;
+        background-color: rgb(137, 173, 228);
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+    button:hover{
+        transition: .5s ease;
+        background-color: white;
+    }
+}

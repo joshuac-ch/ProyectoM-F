@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "../Inventario/hojainven.css";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export default function Inventario() {
   const inventario=[
 {imagen:"https://i.pinimg.com/236x/36/af/33/36af3325c88b9711b6285a4d408faa77.jpg",id:1,cantidad:10,nombre:"Vino tinto",code:"VIN001",condicion:"Buena",Ubicacion:"Tienda 1",precio:"32.00",modificado:"25/03/2025"},
@@ -9,6 +11,34 @@ export default function Inventario() {
 {imagen:"https://i.pinimg.com/736x/0d/a5/57/0da55748082548311c3ad6a9843cc15b.jpg",id:5,cantidad:5,nombre:"Absolute vodka",code:"VOD004",condicion:"Mala",Ubicacion:"Tienda 1",precio:"40.00",modificado:"25/03/2025"},
 {imagen:"https://i.pinimg.com/236x/76/92/91/769291c0e153b016b29cf7a6adcc5387.jpg",id:6,cantidad:7,nombre:"Mermelada",code:"MER001",condicion:"Mala",Ubicacion:"Tienda 2",precio:"6.00",modificado:"25/03/2025"},    
   ]
+  const [almacen, setalmacen] = useState([])
+  const navegar=useNavigate()
+  const FecthAlmacen=async()=>{
+    try{
+      const {data}=await axios.get("http://localhost:4000/api/users/almacen/g")
+      setalmacen(data)
+    }catch(e){
+      alert("Hubo un error",e)
+    }
+  }
+  useEffect(()=>{
+    FecthAlmacen()
+  },[])
+  const onUpdate=(id)=>{
+    navegar(`/update-almacen/${id}`)
+  } 
+  const onDelete=async(id)=>{
+    const mensaje=window.confirm("Estas seguro de eliminar este inventario?")
+    if(mensaje){
+      try{
+        await axios.delete(`http://localhost:4000/api/users/almacen/d/${id}`)
+        alert("Se elimino correctamente el almacen")
+        setalmacen(almacen.filter((a)=>a.id!==id))
+      }catch(e){  
+        alert("hubo un error al eliminar el almacen",e.message)
+      }
+    }
+  } 
   return (
     <>
     <div className="container mt-4">
@@ -16,13 +46,11 @@ export default function Inventario() {
         <h1>Inventario</h1>
         <div className="tools">
           <div className="add-warehouse">
-            <button type='button'>
-            Agregar deposito
-            </button>
+            <button type='button' onClick={()=>navegar("/crear-almacen")}> Agregar Almacen </button>
                         
          </div>
           <div className="add-product">
-            <button type="button">Agregar producto</button>
+            <button type="button" >Agregar producto</button>
           </div>
           <div className="search ">
             <input type="text" placeholder='buscar...'/>
@@ -31,51 +59,40 @@ export default function Inventario() {
         </div>
       </div>
       <hr />
-      <div className="content-inventario overflow-auto">
-      <table class="table table-hover shadow-sm">
-  <thead className="table-header-inventario">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">NOMBRE</th>
-      <th scope="col">CODIGO</th>
-      <th scope="col">CONDICION</th>
-      <th scope="col">UBICACION</th>
-      <th scope="col">DISPONIBLE</th>
-      <th scope="col">PRECIO</th>
-      <th scope="col">MODICICADO</th>
-      <th scope="col">ACCIONES</th>
-    </tr>
-  </thead>
-  <tbody >  
-    {inventario.map((i=>{
-      return(
-        <tr>
-      <th scope="row">{i.id}</th>
-      <td><div className="product ">
-          <img src={i.imagen} alt="" />
-          <label htmlFor="">{i.nombre}</label>
-        </div>
-      </td>
-      <td className="align-middle text-start">{i.code}</td>
-      <td className="align-middle text-start">{i.condicion}</td>
-      <td className="align-middle text-start">{i.Ubicacion}</td>
-      <td className="align-middle text-start">{i.cantidad}</td>
-      <td className="align-middle text-start">{i.precio}</td>
-      <td className="align-middle text-start">{i.modificado}</td>
-      <td className="align-middle text-start">
-        <div  className="btn-icons">
-          <i class='bx bx-dots-horizontal-rounded '></i>
-        </div>
-        </td>
-    </tr>
-      )
-    }))} 
-    
-   
-    
-  </tbody>
-</table>
+      <div className="body-categorias">
+             <div className="tarjeta-cate">
+              {almacen.map((c)=>{
+                return(
+                  <div key={c.id} className="categoria1">
+                    <div className="first-cate">
+                   <h4 className='identificador'>{c.id}</h4>
+                      <div className="cont">
+                        <div className="titulo">
+                        <label htmlFor="">Almacen:</label>
+                        <label>{c.nombre}</label>
+                        </div>
+                        <div className="contenido">
+                        <label htmlFor="">Descripcion:</label>
+                        <p>Descripcion:{c.descripcion}</p>
+                        </div>                      
+                      </div>
+                    </div>
+                    
+                      <div className="tools">
+                      <button onClick={()=>onUpdate(c.id)} className="btn btn-warning btn-sm me-2">
+                        <i class='bx bxs-edit-alt' ></i>
+                      </button>
+                     <button onClick={()=>onDelete(c.id)} className="btn btn-danger btn-sm me">
+                        <i class='bx bxs-trash' ></i>
+                      </button>
+                      </div>
+                  </div>
+                  
+                )
+              })}
+             </div>
       </div>
+      
     </div>
     </>    
   )

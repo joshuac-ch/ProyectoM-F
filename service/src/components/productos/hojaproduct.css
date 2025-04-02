@@ -63,7 +63,9 @@
     transform: scale(.9);
     transition: .3s;
 }
+
 .header-card{
+    
     display: flex;
     font-weight: bolder;
     justify-content: space-between;
@@ -84,7 +86,10 @@
         }
     }
 }
-
+.btn-producto{
+    display: flex;
+    
+}
 .imagen{
     
     img{

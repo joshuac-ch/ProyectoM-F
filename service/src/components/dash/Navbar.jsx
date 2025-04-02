@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link,NavLink } from "react-router-dom";
 import "../dash/hojanavbar.css"
-import { FaHome, FaUser, FaCog, FaBars, FaSignOutAlt, FaContao, FaFileContract, FaProductHunt, FaUserTag, FaTag, FaVectorSquare, FaUserFriends, FaInbox, FaBoxes } from "react-icons/fa";
+import { FaHome, FaUser, FaCog, FaBars, FaSignOutAlt, FaContao, FaFileContract, FaProductHunt, FaUserTag, FaTag, FaVectorSquare, FaUserFriends, FaInbox, FaBoxes, FaBox, FaBullseye } from "react-icons/fa";
 import Dashboard from './dashboard';
 export default function Navbar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -37,6 +37,17 @@ export default function Navbar() {
             >
               <FaUser className="icon" />
               {!isCollapsed && <span className="ms-3">Empleados</span>}
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/caja"
+              className={({ isActive }) =>
+                "nav-link text-white d-flex align-items-center" + (isActive ? " active-route" : "")
+              }
+            >
+              <FaBox className="icon" />
+              {!isCollapsed && <span className="ms-3">Caja</span>}
             </NavLink>
           </li>
         <li className="nav-item">
@@ -94,6 +105,14 @@ export default function Navbar() {
                       "nav-link text-white d-flex align-items-center" + (isActive ? " active-route ": "")}>
                   <FaVectorSquare className="icon" />
                   {!isCollapsed && <span className="ms-3">Movimientos</span>}
+          </NavLink>
+          
+        </li>
+        <li className="nav-item">
+          <NavLink to="/ventas" className={({isActive})=> 
+                      "nav-link text-white d-flex align-items-center" + (isActive ? " active-route ": "")}>
+                  <FaBullseye className="icon" />
+                  {!isCollapsed && <span className="ms-3">Ventas</span>}
           </NavLink>
           
         </li>

@@ -1,25 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../contact/hojacontact.css"
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 export default function Contact() {
-  const contactos=[
-{id:1,imagen:"JG",nombre:"joshua gustavo",dirrecion:"Av. inca",correo:"joshua@gmail.com",telefono:"910320803"},
-{id:2,imagen:"EE",nombre:"erick elera",dirrecion:"Av. argentina",correo:"pez@gmail.com",telefono:"954320803"},
-{id:3,imagen:"DC",nombre:"dante castro",dirrecion:"Av. peru",correo:"dant@gmail.com",telefono:"910345803"},
-{id:4,imagen:"MA",nombre:"miguel angel",dirrecion:"Av. chile",correo:"am2mumu@gmail.com",telefono:"940620803"},
-{id:5,imagen:"JG",nombre:"jhon gutierrez",dirrecion:"Av. nicaragua",correo:"gui21@gmail.com",telefono:"960380803"},
-{id:6,imagen:"MC",nombre:"miguel cahuana",dirrecion:"Av. EE.UU.",correo:"cahu@gmail.com",telefono:"910470835"},
-{id:7,imagen:"GA",nombre:"gustavo arias",dirrecion:"mariscal castilla",correo:"gustavo@gmail.com",telefono:"960428893"},
-{id:8,imagen:"MA",nombre:"miguel arse",dirrecion:"miguel grau",correo:"miguel@gmail.com",telefono:"980428763"},
-{id:9,imagen:"DC",nombre:"diego coata",dirrecion:"puerto rico",correo:"diego@gmail.com",telefono:"990380583"},
-{id:10,imagen:"BE",nombre:"brad espejo",dirrecion:"urb las nieves",correo:"brad@gmail.com",telefono:"948427863"},
-
-
-  ]
+  
+  const [clientes, setclientes] = useState([])
+  const GetContactos=async()=>{
+    try{
+      const {data}=await axios.get("http://localhost:4000/api/users/cliente/g")
+      setclientes(data)
+    }catch(e){  
+      console.log("hubo un error",e)
+    }
+  }
+  useEffect(()=>{
+    GetContactos()
+  },[])
+  
   const navegar=useNavigate()
   const redirigirCliente=()=>{
        navegar("/crear-cliente")
   }
+  const UpdateCliente=(id)=>{
+    navegar(`/cliente/${id}`)
+}
+  const DeleteCliente=async(id)=>{
+    const mensaje=window.confirm("Estas seguro de eliminar este contacto")
+    if(mensaje){
+      try{
+        await axios.delete(`http://localhost:4000/api/users/cliente/d/${id}`)
+        setclientes(clientes.filter((s)=>s.id!==id)) //Siver para filtrar solo los que hay
+        navegar("/contact")
+      }catch(e){
+        alert("No se pudo eliminar el cliente",e)
+      }
+    }
+  }  
+  
   return (
     <>
     <div className="contactos container mt-4">
@@ -35,34 +52,37 @@ export default function Contact() {
         </div>
         </div>
       </div>
+      <hr />
       <div className="table-responsive">
         <table className="table table-hover shadow-sm rounded res">
-          <thead className="table-header text-center ">
+          <thead className="table-header ">
             <tr>
               <th>ID</th>
               <th>Nombre</th>
               <th>Correo</th>
               <th>Dirección</th>
               <th>Teléfono</th>
+              <th>Tipo Cliente</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {contactos.map((c, index) => (
-              <tr key={index} className="align-middle text-center">
+            {clientes.map((c, index) => (
+              <tr key={index} className="align-middle ">
                 <td>{c.id}</td>
                 <td className="icon-user">
-                <label>{c.imagen}</label>                
-                  {c.nombre}
+                <button>{c.nombre.charAt(0).toLocaleUpperCase()}{c.apellido.charAt(0).toLocaleUpperCase()}</button>                
+                  {c.nombre} {c.apellido}
                 </td>
                 <td>{c.correo}</td>
                 <td>{c.dirrecion}</td>
                 <td>{c.telefono}</td>
+                <td>{c.tipo_cliente}</td>
                 <td>
-                  <button className="btn btn-warning btn-sm me-2">
+                  <button onClick={()=>UpdateCliente(c.id)} className="btn btn-warning btn-sm me-2">
                   <i class='bx bxs-edit-alt' ></i>
                   </button>
-                  <button className="btn btn-danger btn-sm me">
+                  <button onClick={()=>DeleteCliente(c.id)} className="btn btn-danger btn-sm me">
                   <i class='bx bxs-trash' ></i>
                   </button>
                 
