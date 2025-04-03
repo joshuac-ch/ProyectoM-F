@@ -39,6 +39,7 @@ export default function Caja() {
             <h2>Caja</h2>
             <button type="button" onClick={()=>navegar("/create-caja")}>Crear Caja</button>
         </div>
+        <hr />
         <div className="body-caja mt-4">
         <table class="table">
                 <thead>
@@ -51,6 +52,7 @@ export default function Caja() {
                     <th scope="col">Fecha de apertura</th>
                     <th scope="col">Fecha de cierre</th>
                     <th scope="col">Usuario ID</th>
+                    <th scope="col">Tienda ID</th>
                     <th scope='col'>Acciones</th>
                     </tr>
                 </thead>
@@ -82,6 +84,7 @@ export default function Caja() {
                                    
                                 </td>
                                 <td>{c.usuario_id}</td>
+                                <td>{c.tienda_id}</td>
                                 <td>
                                     <div className="btn-icons">
                                         <button type="button" onClick={()=>onUpdate(c.id)} className='form-control'><i class='bx bx-edit-alt'></i></button>

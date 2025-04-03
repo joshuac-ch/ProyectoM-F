@@ -12,7 +12,8 @@ export default function Createcaja() {
     total_egresos:"", 
     fecha_apertura:"",
     fecha_cierre:"",
-    usuario_id:""
+    usuario_id:"",
+    tienda_id:""
     })
     const handleText=(e)=>{
         setFormCajaData({...FormCajaData,[e.target.name]:e.target.value})
@@ -24,7 +25,7 @@ export default function Createcaja() {
             alert("Se creo la caja")
             navegar("/caja")
         }catch(err){
-            alert("Hubo un error",err)
+            alert("Los campos no deben estar vacios",err)
         }
     }
    
@@ -35,6 +36,7 @@ export default function Createcaja() {
             <h2>Crear Nueva caja</h2>
             <button type="button" onClick={()=>navegar("/caja")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-caja">
             <form onSubmit={FormCrearCaja}>
                 <div className="input-group">
@@ -70,6 +72,10 @@ export default function Createcaja() {
                 <div className="w-100 p-3">
                         <label htmlFor=""  className='form-label'>Usuario ID</label>
                         <input type="text" className='form-control' onChange={handleText} name='usuario_id' placeholder='ingrese el usuario'/>
+                </div>
+                <div className="w-100 p-3">
+                        <label htmlFor=""  className='form-label'>Tienda ID</label>
+                        <input type="text" className='form-control' onChange={handleText} name='tienda_id' placeholder='ingrese la tienda id'/>
                 </div>
                 <div className="w-100 p-3">
                     <button type="submit" className='btn btn-primary'>Crear Caja</button>
