@@ -87,7 +87,7 @@ export default function User() {
                                           
                       <th>Contacto</th>
                       <th>Username</th>
-                      <th>Password</th>
+                     
                       <th>Correo</th>
                       <th>Telefono</th>
                       <th>Direccion</th>
@@ -109,9 +109,7 @@ export default function User() {
                           
                           {user.nombre} {user.apellido}</td>               
                         <td className="align-middle">{user.username}</td>               
-                        <td className="align-middle">                        
-                          <input type="password" value={user.password} name="" id="" />                         
-                          </td>
+                        
                         <td className="align-middle text-start">{user.correo}</td>
                         <td className="align-middle text-start">{user.telefono}</td>
                         <td className="align-middle text-start">{user.direccion}</td>

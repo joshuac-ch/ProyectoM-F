@@ -55,7 +55,7 @@ export default function Category() {
                         </div>
                         <div className="contenido">
                         <label htmlFor="">Descripcion:</label>
-                        <p>Descripcion:{c.descripcion}</p>
+                        <p>{c.descripcion}</p>
                         </div>                      
                       </div>
                     </div>

@@ -17,8 +17,7 @@ export default function Create() {
             precio_ingreso:"",
             precio_venta:"",
             descripcion:"",
-            codigo_producto:"",
-            estado_producto:"",
+            codigo_producto:"",           
             nombre:"",
             unidad_medida:"",
             proveedor_id:"",
@@ -67,11 +66,7 @@ export default function Create() {
                 <div class="w-50 p-3">
                     <label for="" class="form-label">Codigo</label>
                     <input type="text" class="form-control" onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
-                </div>
-                <div class="w-50 p-3">
-                    <label for="" class="form-label">Estado de Producto</label>
-                    <input type="text" class="form-control" onChange={handleText} name='estado_producto' placeholder='ingrese nombre'/>                
-                </div>     
+                </div>                   
             </div>
             <div class="w-50 p-3">
                     <label for="" class="form-label">Nombre</label>
@@ -106,6 +101,7 @@ export default function Create() {
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Unidad</label>                            
                             <select onChange={handleText} class="form-control" name='unidad_medida' id="">
+                                <option value="" selected>Por favor seleccione la unidad de medida</option>
                                 <option value="G">(G) gramo</option>
                                 <option value="L">(L) Litro</option>
                                 <option value="K">(K) Kilo</option>
@@ -115,7 +111,7 @@ export default function Create() {
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Subcategoria ID</label>
                             <select  onChange={handleText} class="form-control" name='subcategoria_id' id="">
-                                <option value="" disabled>Elija una Subcategoria</option>
+                                <option value="" selected disabled>Elija una Subcategoria</option>
                                 {Subcategoria_id.map((s)=>{
                                     return(
                                         <option value={s.id}>ID: {s.id}|| Nombre:{s.nombre}</option>                                        
@@ -129,7 +125,7 @@ export default function Create() {
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Almacen id</label>                            
                             <select  onChange={handleText} class="form-control" name='almacen_id' id="">
-                                    <option value="" disabled>Por favor seleccione su almacen</option>
+                                    <option value="" selected disabled>Por favor seleccione su almacen</option>
                                     {almacen_id.map((a)=>{
                                         return(
                                             <option value={a.id}>ID:{a.id} || Almacen: {a.nombre}</option>
@@ -140,7 +136,7 @@ export default function Create() {
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Proveedor ID</label>
                             <select name='proveedor_id' onChange={handleText} class="form-control" id="">
-                                <option value="" disabled>Por favor seleccione su proveedor</option>
+                                <option value="" selected disabled>Por favor seleccione su proveedor</option>
                                 {proveedores_id.map((p)=>{
                                     return(
                                         <option value={p.id}>ID: {p.id} || Nombre: {p.nombre} {p.apellido} || Empresa: {p.empresa}</option>

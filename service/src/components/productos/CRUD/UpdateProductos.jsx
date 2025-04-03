@@ -16,7 +16,7 @@ export default function UpdateProductos() {
             precio_venta:"",
             descripcion:"",
             codigo_producto:"",
-            estado_producto:"",
+           
             nombre:"",
             unidad_medida:"",
             proveedor_id:"",
@@ -58,10 +58,11 @@ export default function UpdateProductos() {
   return (
     <>
     <div className="container mt-4">
-    <div className="header-productos-create">
-        <h2>Editar producto</h2>
-        <button type="button" onClick={()=>navigate("/productos")} className='btn-crear'>Regresar</button>        
+        <div className="header-productos-create">
+            <h2>Editar producto</h2>
+            <button type="button" onClick={()=>navigate("/productos")} className='btn-crear'>Regresar</button>        
         </div>
+        <hr />
      <div className="body-productos">
      <form onSubmit={UpdateForm} >
                 <div className="img-product w-100 p-3">
@@ -74,16 +75,7 @@ export default function UpdateProductos() {
                     <label for="" class="form-label">Codigo</label>
                     <input type="text" class="form-control" value={productos.codigo_producto} onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
                 </div>
-                <div class="w-50 p-3">
-                    <label for="" class="form-label">Estado de Producto</label>
-                    <select onChange={handleText} name='estado_producto' id="" class="form-control">
-                      <option value={productos.estado_producto} selected>{productos.estado_producto}</option>
-                      <option value="" disabled>Cambiar estado de producto</option>
-                      <option value="bueno">bueno</option>
-                      <option value="decente">decente</option>
-                      <option value="malo">malo</option>
-                    </select>
-                </div>     
+                
             </div>
             <div class="w-50 p-3">
                     <label for="" class="form-label">Nombre</label>

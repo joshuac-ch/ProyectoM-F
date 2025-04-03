@@ -38,6 +38,7 @@ export default function Ventas() {
             <h2>Ventas</h2>
             <button type="button" onClick={()=>navegar("/create-ventas")}>Crear venta</button>
         </div>
+        <hr />
         <div className="body-ventas p-3">
         <table class="table">
             <thead>

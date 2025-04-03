@@ -11,25 +11,34 @@
         border: 2px solid black;
         border-radius: 10px;
     }
+    button:hover{
+        background-color:transparent;
+        transition: .3s ease;
+    }
 }
 .content{
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 2px solid black;
-    
+    box-shadow: 0px 0px 15px  1px black;
     background-color: white; 
     border-radius: 10px;
     padding: 18px 10px;
    
 }
+.content:hover{
+    background-color: transparent;
+    transition: all .5s ease;
+    
+}
 .content-1{
-    border: 2px solid black;
+    
     margin-left: 10px;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 8px 1px black;
-    background-color: white;
+    
+   
 }   
 
 .accion{
@@ -58,9 +67,7 @@
    
 }
 .fecha{
-    box-shadow: 0px 0px 8px 1px black;
-    border: 2px solid black;
-    background-color: white;
+    
     width: 250px;   
     border-radius: 10px;    
     margin: 10px;
@@ -77,15 +84,21 @@
 .cantidad{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 10px;
     button{
+        
+        margin: 0px 3px;
         text-align: center;
         background-color: white;
         border: 2px solid black;
-        padding:3px 4px;
-        border-radius: 10px;
-       
+        padding:2px 4px;
+        border-radius: 10px;       
     }
+    button:hover{
+        transition: all .5s ease;
+        transform: scale(.9);
+        }
 }
 
 .header-list{

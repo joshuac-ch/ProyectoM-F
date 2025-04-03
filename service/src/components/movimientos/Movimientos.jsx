@@ -3,16 +3,7 @@ import "../movimientos/hojamo.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 export default function Movimientos() {
-  const movimientos=[
-{id:1,accion:"D",color:"#fc5353",nombre:"joshua gustavo",des:"Realizó una edición en la configuración del sistema.",fecha:"22/02/2025"},
-{id:1,accion:"C",color:"#4a84e0",nombre:"maria sanchez",des:"Creó un nuevo usuario en la plataforma.",fecha:"04/02/2025"},
-{id:1,accion:"D",color:"#fc5353",nombre:"erick elera",des:"Borró un registro de clientes.",fecha:"22/03/2025"},
-{id:1,accion:"E",color:"#babd24",nombre:"martin vizcarra",des:"Realizó una edición en la configuración del sistema",fecha:"17/02/2025"},
-{id:1,accion:"E",color:"#babd24",nombre:"Gusatvo Moscoso",des:"Creó un nuevo usuario en la plataforma.",fecha:"15/02/2025"},
-{id:1,accion:"C",color:"#4a84e0",nombre:"Editson mamani",des:"Borró un registro de clientes.",fecha:"30/12/2024"},
-{id:1,accion:"E",color:"#babd24",nombre:"Oscar alonso",des:"Creó un nuevo usuario en la plataforma.",fecha:"22/01/2025"},
-
-  ]
+  
   const navegar=useNavigate()
   const [movimiento, setmovimiento] = useState([])
   const FectchMovimientos=async()=>{
@@ -81,8 +72,10 @@ export default function Movimientos() {
                 <div className="fecha">
                   <div className="cantidad">
                   <label htmlFor="">Cantidad: {m.cantidad}</label>
+                  <div className="btn">
                   <button type="button" onClick={()=>onUpdate(m.id)} ><i class='bx bxs-show'></i></button>
                   <button type="button" onClick={()=>onDelete(m.id)} ><i class='bx bx-trash' ></i></button>
+                  </div>
                   </div>
                   
                   <div className="bus">

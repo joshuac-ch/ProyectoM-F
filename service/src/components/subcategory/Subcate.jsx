@@ -79,8 +79,7 @@ export default function Subcate() {
                    <h4 className='identificador'>{c.id}</h4>
                       <div className="cont">
                         <div className="id-cate">
-                            <label htmlFor="">Categoria id:
-                              {c.categoria_id}-{categorias[c.categoria_id]||"..cargando"}</label>                          
+                            <label htmlFor="">Categoria id: {categorias[c.categoria_id]||"..cargando"}</label>                          
                         </div>
                         
                         <div className="titulo">

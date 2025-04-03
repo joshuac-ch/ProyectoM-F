@@ -31,6 +31,7 @@ export default function CreateVentas() {
             <h2>Crear nueva Venta</h2>
             <button type='button' onClick={()=>navegar("/ventas")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-ventas">
             <form action="" onSubmit={SubmitCreateVenta}>
                 <div className="input-group">

@@ -45,6 +45,7 @@ export default function UpdateVentas() {
             <h2>Actualizar venta</h2>
             <button type="button" onClick={()=>navegar("/ventas")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-ventas">
         <form onSubmit={SumibtUpdateVentas} action="" >
                 <div className="input-group">

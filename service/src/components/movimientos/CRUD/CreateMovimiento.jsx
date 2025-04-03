@@ -1,6 +1,9 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import FuncionAlmacenes from '../../hooks/Almacenes'
+import FunctionProducto from '../../hooks/Producto'
+import FunctionUsuario from '../../hooks/Usuario'
 
 export default function CreateMovimiento() {
   const [Formmovimiento, setFormmovimiento] = useState({
@@ -26,6 +29,13 @@ export default function CreateMovimiento() {
         alert("No se pudo crear el movimiento",err)
     }
    }
+   const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
+   const {producto, FectProdcutos}=FunctionProducto()
+   const {usuario,FectUsuario}= FunctionUsuario()
+   useEffect(()=>{
+    FectAlmacen_id(),
+    FectProdcutos(),FectUsuario()
+   },[])
   return (
     <>
     <div className="container mt-4">
@@ -33,6 +43,7 @@ export default function CreateMovimiento() {
          <h2>Crear movimiento</h2>
          <button type="button" onClick={()=>navegar("/movimientos")}>Regresar</button>   
      </div>
+     <hr />
      <div className="body-movimiento">
         <form onSubmit={SubmitCreateMovimiento} >
             <div className="input-group ">
@@ -58,17 +69,38 @@ export default function CreateMovimiento() {
             <div className="input-group ">
             <div className="w-50 p-3">
                 <label htmlFor="">Almacen ID</label>
-                <input type="text" className='form-control' onChange={handleText} placeholder='Ingrese el almacen id' name='almacen_id'/>
+                <select className='form-control' onChange={handleText} name='almacen_id' id="">
+                    <option value="" selected disabled>Selecione un Almacen</option>
+                    {almacen_id.map((a)=>{
+                        return(
+                            <option value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
+                        )
+                    })}
+                </select>
             </div>
             <div className="w-50 p-3">
                 <label htmlFor="">Producto ID</label>
-                <input type="text" className='form-control' onChange={handleText} placeholder='Ingrese el producto id' name='producto_id'/>
+                <select className='form-control' onChange={handleText} name='producto_id' id="">
+                    <option value="" selected disabled>Selecione un Producto</option>
+                    {producto.map((p)=>{
+                        return(
+                            <option value={p.id}>ID: {p.id} || Nombre: {p.nombre}</option>
+                        )
+                    })}
+                </select>
             </div>
            
             </div>
             <div className="w-50 p-3">
             <label htmlFor="">Usuario ID</label>
-            <input type="text" className='form-control' onChange={handleText} placeholder='Ingrese el usuario id' name='usuario_id'/>
+            <select className='form-control' onChange={handleText} name='usuario_id' id="">
+                    <option value="" selected disabled>Selecione un Usuario</option>
+                    {usuario.map((u)=>{
+                        return(
+                            <option value={u.id}>ID: {u.id} || Nombre: {u.nombre}</option>
+                        )
+                    })}
+                </select>
             </div>
             <div className="w-50 p-3">           
             <button type="submit" className='btn btn-primary'>Crear Movimiento</button>

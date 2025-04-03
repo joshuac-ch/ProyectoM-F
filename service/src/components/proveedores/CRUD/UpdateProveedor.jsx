@@ -40,6 +40,7 @@ export default function UpdateProveedor() {
             <h1>Actualizar Proveedor</h1>
             <button type="button" onClick={()=>navegar("/proveedores")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-proveedor">
         <form onSubmit={SubmitUpdateProveedores}>
         <div className="input-group">
@@ -77,7 +78,7 @@ export default function UpdateProveedor() {
             <input type="text" name='ruc' value={proveedor.ruc} onChange={handleText} class="form-control" />    
         </div>
         <div className="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-25 p-10">Submit</button>
+            <button type="submit" class="btn btn-primary w-25 p-10">Actualizar proveedor</button>
         </div>
         
     </form>

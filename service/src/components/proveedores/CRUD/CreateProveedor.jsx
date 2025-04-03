@@ -38,6 +38,7 @@ export default function CreateProveedor() {
             <button type="button" onClick={regresarPrincipal} className='btn-crear'>Regresar</button>
         </div>        
     </div>
+    <hr />
     <div className="second">
     <form onSubmit={SubmitProveedor}>
         <div className="input-group">
@@ -75,7 +76,7 @@ export default function CreateProveedor() {
             <input type="text" name='ruc' onChange={handleText} class="form-control" />    
         </div>
         <div className="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-25 p-10">Submit</button>
+            <button type="submit" class="btn btn-primary w-25 p-10">Crear proveedor</button>
         </div>
         
     </form>

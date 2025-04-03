@@ -87,7 +87,7 @@ export default function Navbar() {
           <NavLink to="/inventario" className={({isActive})=> 
                       "nav-link text-white d-flex align-items-center" + (isActive ? " active-route ": "")}>
                   <FaBoxes className='icon'></FaBoxes>
-                  {!isCollapsed && <span className="ms-3">Inventario</span>}
+                  {!isCollapsed && <span className="ms-3">Almacen</span>}
           </NavLink>
           
         </li>

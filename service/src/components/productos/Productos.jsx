@@ -99,6 +99,7 @@ return (
           </div>
         </div>
       </div>
+      <hr />
       <div className="tarjetas">
         <div className="lista-tarjetas">
           {myproduct.map((p)=>{
@@ -111,8 +112,10 @@ return (
                   <button type="button" onClick={()=>onDelete(p.id)} className='form-control'><i class='bx bxs-trash'></i></button>
                 </div>
                 </div>
+                <div className="body-card">
                 <div className="imagen">
                   <img src={p.image} alt={p.nombre} />
+                </div>
                 </div>
                 <div className="des-card">
                   <div className='precio'>
@@ -126,7 +129,7 @@ return (
                   </div>
                   <div className='fecha-ven'>
                     <label htmlFor="">Vence:</label>
-                    <label htmlFor="">{formato.getDate(p.fecha_vencimiento)}-0{formato.getMonth(p.fecha_vencimiento)}-{formato.getFullYear(p.fecha_vencimiento)}</label> 
+                    <label htmlFor="">{p.fecha_vencimiento.split("T")[0]}</label> 
                   </div>
                   
                  

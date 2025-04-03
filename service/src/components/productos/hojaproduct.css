@@ -53,6 +53,8 @@
     gap: 1rem;
 }
 .tarjeta{
+    min-width: 270px;
+   
     border: 2px solid black;
     padding: 4px 10px 20px 10px;
     margin: 10px 0px;
@@ -89,6 +91,10 @@
 .btn-producto{
     display: flex;
     
+}
+.body-card{
+    display: flex;
+    justify-content: center;
 }
 .imagen{
     
