@@ -43,14 +43,14 @@ export default function Inventario() {
     <>
     <div className="container mt-4">
       <div className="header-inven">
-        <h1>Inventario</h1>
+        <h1>Almacen</h1>
         <div className="tools">
           <div className="add-warehouse">
             <button type='button' onClick={()=>navegar("/crear-almacen")}> Agregar Almacen </button>
                         
          </div>
           <div className="add-product">
-            <button type="button" >Agregar producto</button>
+            <button type="button" onClick={()=>navegar("/crear-producto")}>Agregar producto</button>
           </div>
           <div className="search ">
             <input type="text" placeholder='buscar...'/>
@@ -73,7 +73,7 @@ export default function Inventario() {
                         </div>
                         <div className="contenido">
                         <label htmlFor="">Descripcion:</label>
-                        <p>Descripcion:{c.descripcion}</p>
+                        <p>{c.descripcion}</p>
                         </div>                      
                       </div>
                     </div>

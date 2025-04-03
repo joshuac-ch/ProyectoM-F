@@ -28,6 +28,7 @@ export default function CreateAlmacen() {
             <h2>Crear nuevo almacen</h2>
             <button type='button' onClick={()=>navegar("/inventario")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-alamcen">
             <form onSubmit={SubmitCreate} action="">
                 <div className="w-100 p-3">

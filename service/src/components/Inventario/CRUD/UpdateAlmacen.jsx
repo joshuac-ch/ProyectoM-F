@@ -41,6 +41,7 @@ export default function UpdateAlmacen() {
             <h2>Editar Almacen</h2>
             <button type='button' onClick={()=>navegar("/inventario")}>Regresar</button>
         </div>
+        <hr />
         <div className="body-almacen">
         <form onSubmit={UpdateAlmacen} action="">
                 <div className="w-100 p-3">

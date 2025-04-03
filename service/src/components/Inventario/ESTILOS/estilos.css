@@ -4,8 +4,12 @@
     button{
         color: black;
         font-weight: bold;
-        background-color: rgb(137, 173, 228);
+        background-color: transparent;
         border: 2px solid black;
         border-radius: 10px;
+    }
+    button:hover{
+        background: rgb(137, 173, 228);
+        transition: .5s ease;
     }
 }
