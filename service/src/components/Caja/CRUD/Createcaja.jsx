@@ -1,15 +1,17 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import FunctionUsuario from '../../hooks/Usuario'
+import FuncionAlmacenes from '../../hooks/Almacenes'
 
 export default function Createcaja() {
     const navegar=useNavigate()
     const [FormCajaData, setFormCajaData] = useState({
-    saldo_final:"", 
-    saldo_inicial:"", 
-    total_ingresos:"",
-    total_egresos:"", 
+    saldo_final:0, 
+    saldo_inicial:0, 
+    total_ingresos:0,
+    total_egresos:0, 
     fecha_apertura:"",
     fecha_cierre:"",
     usuario_id:"",
@@ -20,6 +22,7 @@ export default function Createcaja() {
     }
     const FormCrearCaja=async(e)=>{
         e.preventDefault()
+        console.log(FormCajaData)
         try{
             await axios.post("http://localhost:4000/api/users/caja/c",FormCajaData)
             alert("Se creo la caja")
@@ -28,7 +31,11 @@ export default function Createcaja() {
             alert("Los campos no deben estar vacios",err)
         }
     }
-   
+    const {usuario,FectUsuario}=FunctionUsuario()
+    const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
+    useEffect(()=>{
+        FectUsuario(),FectAlmacen_id()
+    },[])
     return (
     <>
     <div className="container mt-4">
@@ -42,21 +49,21 @@ export default function Createcaja() {
                 <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Saldo Inicial</label>
-                        <input type="text" className='form-control' onChange={handleText} name='saldo_inicial' placeholder='ingrese el saldo incial'/>
+                        <input type="number" step={0.01} className='form-control' onChange={handleText} name='saldo_inicial' placeholder='ingrese el saldo incial'/>
                     </div>
                     <div className="w-50 p-3" >
                         <label htmlFor=""  className='form-label'>Saldo Final</label>
-                        <input type="text" className='form-control' onChange={handleText} name='saldo_final' placeholder='ingrese el saldo final'/>
+                        <input type="number" step={0.01} className='form-control' onChange={handleText} name='saldo_final' placeholder='ingrese el saldo final'/>
                     </div>
                 </div>
                 <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Total de Ingresos</label>
-                        <input type="text" className='form-control' onChange={handleText} name='total_ingresos' placeholder='ingrese el total de ingresos'/>
+                        <input type="number" step={0.01}  className='form-control' onChange={handleText} name='total_ingresos' placeholder='ingrese el total de ingresos'/>
                     </div>
                     <div className="w-50 p-3" >
                         <label htmlFor=""  className='form-label'>Total de Egresos</label>
-                        <input type="text" className='form-control' onChange={handleText} name='total_egresos' placeholder='ingrese el total de egresos'/>
+                        <input type="number" step={0.01}  className='form-control' onChange={handleText} name='total_egresos' placeholder='ingrese el total de egresos'/>
                     </div>
                 </div>
                 <div className="input-group">
@@ -67,15 +74,31 @@ export default function Createcaja() {
                     <div className="w-50 p-3" >
                         <label htmlFor=""  className='form-label'>Fecha de Cierre</label>
                         <input type="datetime-local" className='form-control' onChange={handleText} name='fecha_cierre' placeholder='ingrese la fecha de cierre'/>
+                        
                     </div>
                 </div>
                 <div className="w-100 p-3">
                         <label htmlFor=""  className='form-label'>Usuario ID</label>
-                        <input type="text" className='form-control' onChange={handleText} name='usuario_id' placeholder='ingrese el usuario'/>
+                        <select  className='form-control' onChange={handleText} name='usuario_id' id="">
+                            <option value="" disabled selected>Elija un usuaio ID</option>
+                            {usuario.map((u)=>{
+                                return(
+                                    <option value={u.id}>ID: {u.id} || Nombre: {u.nombre} {u.apellido}</option>
+                                )
+                            })}
+                        </select>
                 </div>
                 <div className="w-100 p-3">
                         <label htmlFor=""  className='form-label'>Tienda ID</label>
-                        <input type="text" className='form-control' onChange={handleText} name='tienda_id' placeholder='ingrese la tienda id'/>
+                        
+                        <select className='form-control' onChange={handleText} name='tienda_id' id="">
+                            <option value="" disabled selected>Elija una Tienda</option>
+                            {almacen_id.map((a)=>{
+                                return(
+                                    <option value={a.id}>ID: {a.id} || Nombre {a.nombre}</option>
+                                )
+                            })}
+                        </select>
                 </div>
                 <div className="w-100 p-3">
                     <button type="submit" className='btn btn-primary'>Crear Caja</button>

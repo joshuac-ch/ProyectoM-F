@@ -38,6 +38,10 @@ import UpdateMovimiento from './components/movimientos/CRUD/UpdateMovimiento.jsx
 import Ventas from './components/ventas/Ventas.jsx';
 import CreateVentas from './components/ventas/CRUD/CreateVentas.jsx';
 import UpdateVentas from './components/ventas/CRUD/UpdateVentas.jsx';
+import HistorialCaja from './components/Caja/HistorialCaja.jsx';
+import CerrarCaja from './components/Caja/CerrarCaja.jsx';
+import RegistrarMovimiento from './components/Caja/CRUD/RegistrarMovimiento.jsx';
+import CreateDetalleVenta from './components/ventas/CRUD/CreateDetalleVenta.jsx';
 function App() {
     return (
     <>
@@ -60,7 +64,12 @@ function App() {
         <Route path='/inventario' element={<Inventario></Inventario>}></Route>
         <Route path='/sub' element={<Subcate></Subcate>}></Route>
         {/*RUTAS DE CRUD */}
+          <Route path='/crear-detalle-venta' element={<CreateDetalleVenta></CreateDetalleVenta>}></Route>
+
         <Route path='/caja' element={<Caja></Caja>}></Route>
+        <Route path='/movimiento-caja' element={<HistorialCaja></HistorialCaja>}></Route>
+        <Route path='/cerrar-caja' element={<CerrarCaja></CerrarCaja>}></Route>
+        <Route path='/registrar-caja' element={<RegistrarMovimiento></RegistrarMovimiento>}></Route>
         <Route path='/ventas' element={<Ventas></Ventas>}></Route>
         <Route path='/create-ventas' element={<CreateVentas></CreateVentas>}></Route>
         <Route path='/update-ventas/:id' element={<UpdateVentas></UpdateVentas>}></Route>

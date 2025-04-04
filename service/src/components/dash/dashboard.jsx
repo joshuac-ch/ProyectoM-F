@@ -76,11 +76,11 @@ const Dashboard = () => {
       <div className="datos">
         <h1>Bienvenido al Dashboard</h1>
             <div className="lista-content">
-              <div className="content" onClick={()=>navegar("/create-cate")}>
-                <img src="https://i.pinimg.com/736x/18/9e/84/189e84d3d2d79c7274a99996ef7daf36.jpg" alt="no se encontro la imagen" />
-                <h2>Nueva categoria</h2>
+            <div className="content" id="venta" onClick={()=>navegar("/create-ventas")}>
+                <img src="https://i.pinimg.com/236x/b4/2f/47/b42f479d8d444ef42b9bd10eae2f0139.jpg" alt="no se encontro la imagen" />
+                <h2>Nueva venta</h2>
               </div>
-              
+                           
               <div className="content" onClick={CrearCliente}>
                 <img src="https://i.pinimg.com/736x/2e/8a/e7/2e8ae738fc5b9b7e9919e0e4cc5c615f.jpg" alt="no se encontro la imagen" />
                 <h2>Nuevo cliente</h2>
@@ -112,22 +112,22 @@ const Dashboard = () => {
                 <img src="https://i.pinimg.com/236x/30/63/8c/30638cb914dfcb962e607e9c6455b5d2.jpg" alt="no se encontro la imagen" />
                 <h2>Ver Inventario</h2>
               </div>
-              <div className="content" onClick={()=>navegar("/create-ventas")}>
-                <img src="https://i.pinimg.com/236x/b4/2f/47/b42f479d8d444ef42b9bd10eae2f0139.jpg" alt="no se encontro la imagen" />
-                <h2>Nueva venta</h2>
+              <div className="content" onClick={()=>navegar("/create-cate")}>
+                <img src="https://i.pinimg.com/736x/18/9e/84/189e84d3d2d79c7274a99996ef7daf36.jpg" alt="no se encontro la imagen" />
+                <h2>Nueva categoria</h2>
               </div>
              
               <div className="content" onClick={NuevoEmpleado}>
                 <img src="https://i.pinimg.com/236x/49/8f/d5/498fd5d75b4fe59809b4d7095a79be21.jpg" alt="no se encontro la imagen" />
                 <h2>Nuevo empleado</h2>
               </div>
-              <div className="content" onClick={Proceso}>
+              <div className="content" onClick={()=>navegar("/caja")}>
                 <img src="https://i.pinimg.com/236x/21/e0/2d/21e02d39c7c0333eeb563b13c7ab941e.jpg" alt="no se encontro la imagen" />
-                <h2>Nueva nota </h2>
+                <h2>Caja </h2>
               </div>
-              <div className="content" onClick={Proceso}>
+              <div className="content" onClick={()=>navegar("/movimiento-caja")}>
                 <img src="https://i.pinimg.com/736x/9f/43/38/9f4338dd591f5f53e75be70cef3211d0.jpg" alt="no se encontro la imagen" />
-                <h2>Nueva boleta</h2>
+                <h2>Movimiento de caja</h2>
               </div>
              {/*  <div className="content">
                 <img src="https://i.pinimg.com/236x/54/9f/cb/549fcb808a436d8f296be09d12aeccb0.jpg" alt="" />

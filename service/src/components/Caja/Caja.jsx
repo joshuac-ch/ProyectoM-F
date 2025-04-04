@@ -30,16 +30,36 @@ export default function Caja() {
             }catch(err){
                 alert("Hubo un error no se puede eliminar esta caja",err)
             }
-        }
-        
+        }       
     }
+    const CerrarCaja=async(id)=>{
+        const mesaje=window.confirm("Estas seguro de cerrar esta caja?")
+        if(mesaje){
+            try{
+                await axios.put(`http://localhost:4000/api/users/caja/cerrar/${id}`)
+                alert("Se cerro la caja exitosamente")                
+                             
+            }catch (err) {
+                console.error("Error al cerrar la caja:", err);
+                alert("Hubo un error al cerrar la caja.");
+            }
+        }
+    }
+    
+    
+      
   return (
     <div className="container mt-4">
         <div className="header-caja">
-            <h2>Caja</h2>
-            <button type="button" onClick={()=>navegar("/create-caja")}>Crear Caja</button>
+            <h1>Caja</h1>
+            <div className="header-btn">
+                <button type="button" onClick={()=>navegar("/create-caja")}>Crear Caja</button>
+                <button type="button" onClick={()=>navegar("/registrar-caja")}>Registrar movimiento</button>
+                <button type="button" onClick={()=>navegar("/movimiento-caja")}>Ver Movimientos</button>
+            </div>
         </div>
         <hr />
+        
         <div className="body-caja mt-4">
         <table class="table">
                 <thead>
@@ -54,6 +74,7 @@ export default function Caja() {
                     <th scope="col">Usuario ID</th>
                     <th scope="col">Tienda ID</th>
                     <th scope='col'>Acciones</th>
+                    <th scope='col'>Cerrar Caja</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -91,6 +112,9 @@ export default function Caja() {
                                         <button type="button" onClick={()=>onDelete(c.id)} className='form-control'><i class='bx bx-trash' ></i></button>
                                     </div>
                                 </td>
+                                <th>
+                                    <button type="button" className='btn btn-danger cerrar_caja' onClick={()=>CerrarCaja(c.tienda_id)}>Cerrar caja</button>
+                                </th>
                             </tr>    
                         )
                     })}

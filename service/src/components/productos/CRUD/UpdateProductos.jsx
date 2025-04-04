@@ -109,14 +109,8 @@ export default function UpdateProductos() {
            <div className="input-group ">
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Unidad</label>
-                            <select onChange={handleText} class="form-control" name='unidad_medida' id="">
-                                <option value={productos.unidad_medida} selected>{productos.unidad_medida} </option>
-                                <option value="" disabled>Cambiar de Unidad</option>
-                                <option value="G">(G) gramo</option>
-                                <option value="L">(L) Litro</option>
-                                <option value="K">(K) Kilo</option>
-                                <option value="P">(P) Pulgada</option>
-                                </select>               
+                            <input type="text" onChange={handleText} class="form-control" value={productos.unidad_medida} name='unidad_medida' />     
+                                                     
                     </div>
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Subcategoria ID</label>

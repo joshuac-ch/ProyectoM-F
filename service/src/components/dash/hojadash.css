@@ -39,6 +39,7 @@
     gap: 1rem;
     flex-wrap: wrap;
     margin-top: 20px;
+    background-color: white;
 }
 .target1{
     display: flex;
@@ -74,6 +75,10 @@
 .descuentos{
     font-size: 15px;
     
+}
+#venta{
+    box-shadow: 0px 0px 18px 1px  rgb(137, 173, 228);
+    border: 2px solid rgb(137, 173, 228);
 }    
 .lista-content{
     display: flex;
@@ -104,6 +109,7 @@
         transition: all .5s ease;
         transform: scale(.9);
         cursor: pointer;
+        background-color: white;
        }
 }
 /*
@@ -117,4 +123,11 @@ ESTILO DE LOS GRAFICOS ANUALES LICORES Y ABARROTES
 }
 .vencer{
     display: flex;
+    
 }
+.producto{
+    img{
+      width:240px;
+      height:280px;
+    }
+  }

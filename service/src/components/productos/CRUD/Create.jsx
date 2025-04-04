@@ -99,14 +99,9 @@ export default function Create() {
            
            <div className="input-group ">
                     <div class="w-50 p-3">
-                            <label for="" class="form-label">Unidad</label>                            
-                            <select onChange={handleText} class="form-control" name='unidad_medida' id="">
-                                <option value="" selected>Por favor seleccione la unidad de medida</option>
-                                <option value="G">(G) gramo</option>
-                                <option value="L">(L) Litro</option>
-                                <option value="K">(K) Kilo</option>
-                                <option value="P">(P) Pulgada</option>
-                                </select>                
+                            <label for="" class="form-label">Unidad de medida </label> 
+                            <input type="text" onChange={handleText} class="form-control" placeholder='ejemplo caja, botellas, sixpack' name='unidad_medida' />     
+                                        
                     </div>
                     <div class="w-50 p-3">
                             <label for="" class="form-label">Subcategoria ID</label>

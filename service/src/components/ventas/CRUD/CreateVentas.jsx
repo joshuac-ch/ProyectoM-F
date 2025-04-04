@@ -1,6 +1,8 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import FunctionUsuario from '../../hooks/Usuario'
+import FuncionClientes from '../../hooks/Clientes'
 
 export default function CreateVentas() {
    const navegar=useNavigate() 
@@ -23,7 +25,11 @@ export default function CreateVentas() {
    const handleText=(e)=>{
     setventaData({...ventaData,[e.target.name]:e.target.value})
    }
-   
+   const {usuario,FectUsuario}=FunctionUsuario()
+   const {cliente,FecthCliente}=FuncionClientes()
+   useEffect(()=>{
+    FectUsuario(),FecthCliente()
+   },[])
    return (
     <>
     <div className="container mt-4">
@@ -47,11 +53,26 @@ export default function CreateVentas() {
                 <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="">Cliente ID</label>
-                        <input type="number" className='form-control' onChange={handleText} name='cliente_id' placeholder='ingrese cliente ID' />  
+                        <select className='form-control' onChange={handleText} name='cliente_id' id="">
+                            <option value="" selected disabled>Seleccion el cliente ID</option>
+                            {cliente.map((c)=>{
+                              return(
+                                <option key={c.id} value={c.id}>ID: {c.id} || Nombre: {c.nombre} {c.apellido}</option>
+                              )
+                            })}
+                        </select>
                     </div>
                     <div className="w-50 p-3">
                         <label htmlFor="">Usuario ID</label>
-                        <input className='form-control' type='number' onChange={handleText} placeholder='ingrese usuario ID' name='usuario_id' />  
+                        
+                        <select className='form-control' onChange={handleText} name='usuario_id' id="">
+                            <option value="" selected disabled>Seleccion el empleado ID</option>
+                            {usuario.map((u)=>{
+                              return(
+                                <option key={u.id} value={u.id}>ID: {u.id} || Nombre: {u.nombre} {u.apellido}</option>
+                              )
+                            })}
+                        </select>
                     </div>
                 </div>
                 <div className="input-group">
