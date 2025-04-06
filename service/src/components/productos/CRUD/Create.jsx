@@ -89,11 +89,11 @@ export default function Create() {
             <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio ingreso</label>
-                        <input type="number" onChange={handleText} class="form-control" name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
+                        <input type="number"  step={0.01} onChange={handleText} class="form-control" name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
                     </div> 
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio Venta</label>
-                        <input type="number" onChange={handleText} class="form-control" name='precio_venta' placeholder='ingrese precio venta'/> 
+                        <input type="number" step={0.01} onChange={handleText} class="form-control" name='precio_venta' placeholder='ingrese precio venta'/> 
                     </div> 
             </div>    
            

@@ -98,11 +98,11 @@ export default function UpdateProductos() {
             <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio ingreso</label>
-                        <input type="number" onChange={handleText} class="form-control" value={productos.precio_ingreso} name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
+                        <input type="number"  step={0.01} onChange={handleText} class="form-control" value={productos.precio_ingreso} name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
                     </div> 
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio Venta</label>
-                        <input type="number" onChange={handleText} class="form-control" value={productos.precio_venta} name='precio_venta' placeholder='ingrese precio venta'/> 
+                        <input type="number"  step={0.01} onChange={handleText} class="form-control" value={productos.precio_venta} name='precio_venta' placeholder='ingrese precio venta'/> 
                     </div> 
             </div>    
            

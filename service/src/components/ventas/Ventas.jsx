@@ -75,6 +75,7 @@ export default function Ventas() {
                                 <label htmlFor="">Fecha: {v.fecha_venta? new Date(v.fecha_venta).toISOString().replace("T"," ").replace(/:\d{2}\.\d{3}Z/,"") :"" }</label> <br />
                                 <label htmlFor="">Cliente ID {v.cliente_id}</label><br />
                                 <label htmlFor="">Usuario ID {v.usuario_id}</label><br />
+                                <label htmlFor="">Almacen ID: {v.almacen_id}</label>
                             </div>   
                         </div>
                     )
@@ -97,7 +98,9 @@ export default function Ventas() {
                                 <label htmlFor="">Precio Unitario: {d.precio_unitario}</label><br />
                                 <label htmlFor="">Subtotal: {d.subtotal}</label><br />
                                 <label htmlFor="">Producto ID: {d.producto_id}</label><br />
-                                <label htmlFor="">Venta ID: {d.venta_id}</label>
+                                <label htmlFor="">Venta ID: {d.venta_id}</label><br />
+                              
+
                             </div>
                         </div>
                     )
