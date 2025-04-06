@@ -4,6 +4,9 @@ import "../CRUD/ESTILOS/detalle.css"
 import FunctionVentas from '../../hooks/Ventas'
 import FunctionProducto from '../../hooks/Producto'
 import axios from 'axios'
+import FuncionAlmacenes from '../../hooks/Almacenes'
+import FunctionUsuario from '../../hooks/Usuario'
+import FuncionClientes from '../../hooks/Clientes'
 export default function CreateDetalleVenta() {
     const navegar=useNavigate()
     const {FecthVenta,venta}=FunctionVentas()
@@ -12,22 +15,29 @@ export default function CreateDetalleVenta() {
         FecthVenta(),FectProdcutos()
     },[]) 
     const [dataDetalle, setdataDetalle] = useState({
-        cantidad:"",precio_unitario:"",subtotal:"",producto_id:0,venta_id:0
+        cantidad:"",precio_unitario:"",producto_id:0,almacen_id:0,usuario_id:0,cliente_id:0,total_venta:0
     })
+    const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
+    const {usuario,FectUsuario}=FunctionUsuario()
+    const {cliente,FecthCliente}=FuncionClientes()
+    useEffect(()=>{
+        FectAlmacen_id(),FectUsuario(),FecthCliente()
+    },[])
     const OnsumitDetalleCreate=async(e)=>{
         e.preventDefault()
-       
+        console.log(dataDetalle)     
         try{
-            await axios.post("http://localhost:4000/api/users/detalle/c",dataDetalle)
+            await axios.post("http://localhost:4000/api/users/detalle-venta-completo/",dataDetalle)
             alert("Se creo el detalle de venta")
             navegar("/ventas")
         }catch(err){
-            console.error("Hubo un error",err)
+            console.error("Hubo un error",err.response?.data || err.message)
         }
     }
     const handleText=(e)=>{
         setdataDetalle({...dataDetalle,[e.target.name]:e.target.value})
     }
+    //const valorSubtotal=dataDetalle.cantidad* dataDetalle.precio_unitario 
   return (
     <>
     <div className="container mt-4">
@@ -48,9 +58,25 @@ export default function CreateDetalleVenta() {
                     </div>
                 </div>
                 <div className='input-group p-3'>
-                    <div className="w-50 p-3">
+                    {<div className="w-50 p-3">
                         <label htmlFor="">Subtotal</label>
-                        <input type="text" className='form-control'  onChange={handleText} placeholder='subtotal' name='subtotal'/>
+                        <input type="text" className='form-control' value={dataDetalle.precio_unitario*dataDetalle.cantidad} onChange={handleText} placeholder='subtotal' name='subtotal'/>
+                    </div>}
+                      <div className="w-50 p-3">
+                        <label htmlFor="">Total de la venta</label>
+                        <input type="text" className='form-control' onChange={handleText} name='total_venta' placeholder='ingrese total de la venta' />  
+                    </div>
+                     <div className="w-50 p-3">
+                        <label htmlFor="">Cliente ID</label>
+                        <select name="cliente_id"  onChange={handleText} className='form-control' id="">
+                            <option value="" selected disabled>Seleccion del cliente ID</option>
+                            {cliente.map((c)=>{
+                                return(
+                                    <option value={c.id}>ID: {c.id} || Nombre: {c.nombre}</option>
+                                )
+                            })}
+                        </select>
+                       
                     </div>
                     <div className="w-50 p-3">
                         <label htmlFor="">Producto ID</label>
@@ -66,7 +92,8 @@ export default function CreateDetalleVenta() {
                     </div>
                 </div>
                 <div className="input-group p-3">
-                        <div className='w-100 p-3'>
+                        {/*
+                        <div className='w-50 p-3'>
                         <label htmlFor="">Venta ID</label>
                         <select name="venta_id"  onChange={handleText} className='form-control' id="">
                             <option value="" selected disabled>Seleccion la venta ID</option>
@@ -76,7 +103,33 @@ export default function CreateDetalleVenta() {
                                 )
                             })}
                         </select>
-                        </div>                       
+                        </div>
+                        */}
+                        <div className='w-50 p-3'>
+                        <label htmlFor="">Almacen ID</label>
+                        <select name="almacen_id"  onChange={handleText} className='form-control' id="">
+                            <option value="" selected disabled>Seleccion la tienda ID</option>
+                            {almacen_id.map((a)=>{
+                                return(
+                                    <option value={a.id}>ID: {a.id} || Nombre: {a.nombre} </option>
+                                )
+                            })}
+                        </select>
+                        </div>                          
+                    </div>
+                    <div className="input-group p-3">
+                    <div className='w-50 p-3'>
+                        <label htmlFor="">Usuario ID</label>
+                        <select name="usuario_id"  onChange={handleText} className='form-control' id="">
+                            <option value="" selected disabled>Seleccion del Empleado ID</option>
+                            {usuario.map((u)=>{
+                                return(
+                                    <option value={u.id}>ID: {u.id} || Nombre: {u.nombre} </option>
+                                )
+                            })}
+                        </select>
+                        </div>      
+
                     </div>
                     <div className="input-group p-3">
                         <div className="p-3">
