@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { Link,NavLink } from "react-router-dom";
+import { Link,NavLink, useNavigate } from "react-router-dom";
 import "../dash/hojanavbar.css"
 import { FaHome, FaUser, FaCog, FaBars, FaSignOutAlt, FaContao, FaFileContract, FaProductHunt, FaUserTag, FaTag, FaVectorSquare, FaUserFriends, FaInbox, FaBoxes, FaBox, FaBullseye } from "react-icons/fa";
 import Dashboard from './dashboard';
+import { FaBoltLightning } from 'react-icons/fa6';
 export default function Navbar() {
     const [isCollapsed, setIsCollapsed] = useState(false);
-   
+    const navegar=useNavigate()
+    const CerrarSession=()=>{
+      const mensaje=window.confirm("Estas seguro de cerrar session?")
+      if(mensaje){
+      localStorage.removeItem("usuario_autentificado")
+      navegar("/login")
+    }}
   return (
     <div className="d-flex principal">
     {/* Barra lateral */}
@@ -116,8 +123,16 @@ export default function Navbar() {
           </NavLink>
           
         </li>
-        <li className="nav-item ">
-          <Link to="/not-found" className="nav-link text-danger d-flex align-items-center">
+        <li className="nav-item">
+          <NavLink to="/invetario-producto" className={({isActive})=> 
+                      "nav-link text-white d-flex align-items-center" + (isActive ? " active-route ": "")}>
+                  <FaBoltLightning className="icon" />
+                  {!isCollapsed && <span className="ms-3">Inventario</span>}
+          </NavLink>
+          
+        </li>
+        <li className="nav-item " onClick={()=>CerrarSession()}>
+          <Link className="nav-link text-danger d-flex align-items-center">
             <FaSignOutAlt className="icon" />
             {!isCollapsed && <span className="ms-3">Cerrar Sesión</span>}
           </Link>

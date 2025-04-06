@@ -42,6 +42,10 @@ import HistorialCaja from './components/Caja/HistorialCaja.jsx';
 import CerrarCaja from './components/Caja/CerrarCaja.jsx';
 import RegistrarMovimiento from './components/Caja/CRUD/RegistrarMovimiento.jsx';
 import CreateDetalleVenta from './components/ventas/CRUD/CreateDetalleVenta.jsx';
+import Iproductos from './components/InventarioProductos/Iproductos.jsx';
+import CreateInventarrio from './components/InventarioProductos/CRUD/CreateInventarrio.jsx';
+import ActualizarInventario from './components/InventarioProductos/CRUD/ActualizarInventario.jsx';
+import Rutaprotegia from './components/login/Rutaprotegia.jsx';
 function App() {
     return (
     <>
@@ -49,13 +53,15 @@ function App() {
     <Routes>
       {/*RUTA DE LOGIN*/}
       <Route path='/login' element={<Log></Log>}></Route>
-      
+      <Route path='*' element={<Notfound></Notfound>}></Route>
       {/*RUTAS ANIDADES EN UN LAYOUT */}
+      <Route path='/' element={<Rutaprotegia></Rutaprotegia>}>
       <Route path='/' element={<Layout></Layout>}>
         <Route path="/not-found" element={<Notfound></Notfound>}/>        
         <Route index path='/dash' element={<Dashboard></Dashboard>}></Route>
         <Route path='/productos' element={<Productos></Productos>}></Route>
         <Route path='/user' element={<User></User>}></Route>
+        
         <Route path='/contact' element={<Contact></Contact>}></Route>
         <Route path='/cate' element={<Category></Category>}></Route>
         <Route path='/transacciones' element={<Transaciones></Transaciones>}></Route>
@@ -65,7 +71,9 @@ function App() {
         <Route path='/sub' element={<Subcate></Subcate>}></Route>
         {/*RUTAS DE CRUD */}
           <Route path='/crear-detalle-venta' element={<CreateDetalleVenta></CreateDetalleVenta>}></Route>
-
+        <Route path='/invetario-producto' element={<Iproductos></Iproductos>}></Route>
+        <Route path='/inventario-producto-create' element={<CreateInventarrio></CreateInventarrio>}></Route>
+        <Route path='/inventario-update' element={<ActualizarInventario></ActualizarInventario>}></Route>
         <Route path='/caja' element={<Caja></Caja>}></Route>
         <Route path='/movimiento-caja' element={<HistorialCaja></HistorialCaja>}></Route>
         <Route path='/cerrar-caja' element={<CerrarCaja></CerrarCaja>}></Route>
@@ -93,7 +101,7 @@ function App() {
         <Route path='/crear-cliente' element={<Createcliente></Createcliente>}></Route>
         </Route>
        
-       
+        </Route>
     </Routes>
     </BrowserRouter> 
       

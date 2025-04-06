@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../login/hojalog.css"
-const Log = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import FunctionUsuario from "../hooks/Usuario";
+const Log = () => {  
   const Navigate=useNavigate()
+  const [FormDataLogin, setFormDataLogin] = useState({
+    username:"",password:""
+  })
+  const handleText=(e)=>{
+      setFormDataLogin({...FormDataLogin,[e.target.name]:e.target.value})
+  }
+  const {usuario,FectUsuario}=FunctionUsuario()
+  useEffect(()=>{
+    FectUsuario()
+  },[])
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Correo:", email);
-    console.log("Contraseña:", password);
-    if(email==="admin@gmail.com" && password==="joshua"){
-        Navigate("/dash")
+    e.preventDefault();    
+    const consulta=usuario.find((u)=>u.username=FormDataLogin.username&& u.password==FormDataLogin.password)
+    if(consulta){
+        localStorage.setItem("usuario_autentificado","true")
+        //alert("Datos correctos")
+        Navigate("/dash")        
     }else{
         alert("correo o contraseña incorrecta")
     } 
+    
+    
 };
-
+  
   return (
     
     <div className="d-flex justify-content-center align-items-center vh-100" style={styles.background}>
@@ -30,22 +42,28 @@ const Log = () => {
           <div className="mb-3">
             <label className="form-label text-black">Correo Electrónico</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               placeholder="ejemplo@correo.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="username"
+              onChange={handleText}
+              //value={email}
+              //onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
+          
           <div className="mb-3">
             <label className="form-label text-black ">Contraseña</label>
+           
             <input
+            name="password"
               type="password"
               className="form-control"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleText}
+              //value={password}
+              //onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
