@@ -1,35 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import FunctionProducto from '../hooks/Producto';
+import FunctionInventarrio from '../hooks/Inventarrio';
+import axios from 'axios';
 
 export default function ProductosAgotarse() {
-    const productos = [
-        { id: 1, nombre: "Leche", stock: 3, total: 20 },
-        { id: 2, nombre: "Gaseosa Inca kola", stock: 2, total: 15 },
-        { id: 3, nombre: "Jamon", stock: 2, total: 10 },
-        { id: 4, nombre: "Queso crema", stock: 5, total: 20 },
-      ];
+    
+      //Traer Inventario
+      //const {producto,FectProdcutos}=FunctionProducto()
+      const {inventario,FectchInventario}=FunctionInventarrio()
+      const {producto,FectProdcutos}=FunctionProducto()
+      
+      const [mostratProductos, setmostratProductos] = useState([])
+      const idList=producto.map((p)=>p.id)
+      const MostartProductos=async()=>{
+          try{
+            
+            const response=await Promise.all(
+              idList.map((id)=>
+              axios.get(`http://localhost:4000/api/users/producto/s/${id}`) 
+            ))
+          const datos=response.map((res)=> res.data)
+          setmostratProductos(datos)
+          //console.log(mostratProductos)
+          }catch(err){
+            console.error("Hubo un error",err)
+          }
+        
+      }
+
+      useEffect(()=>{
+       FectchInventario(),FectProdcutos()
+      },[])
+      useEffect(()=>{
+        if(producto.length>0){
+          MostartProductos()
+        }
+      },[producto])
   return (
     <div className="container mt-4">
       <h2 className="text-center mb-4 text-danger">⚠️ Productos por Agotarse</h2>
 
       <div className="row">
-        {productos.map((producto) => {
-          const porcentaje=(producto.stock/producto.total)*100
+        {inventario.filter((producto)=>producto.cantidad_actual<20). //esto mostrara los de bajo stock
+        map((producto) => {
+          const porcentaje=(producto.cantidad_actual/producto.stock_maximo)*100
+          const mostarDatos=mostratProductos.find((m)=>m.id===producto.producto_id)
+          
           return (
             <div key={producto.id} className="col-md-6 mb-3">
               <div className="card tarjeta p-3 shadow-sm">
-                <h5 className="mb-2">{producto.nombre}</h5>
+                <h5 className="mb-2">{mostarDatos?mostarDatos.nombre:"No hay datos"}</h5>{/*Va el nombre */}
                 <div className="progress mb-2">
                   <div
                     className={`progress-bar ${porcentaje < 20 ? "bg-danger" : "bg-warning"} `}
                     role="progressbar"
                     style={{ width: `${porcentaje}%` }}
-                    aria-valuenow={producto.stock}
+                    aria-valuenow={producto.cantidad_actual}
                     aria-valuemin="0"
-                    aria-valuemax={producto.total}
+                    aria-valuemax={producto.stock_maximo}
                   ></div>
                 </div>
                 <p className="text-muted">
-                  Stock: <strong>{producto.stock}</strong> / {producto.total}
+                  Stock: <strong>{producto.cantidad_actual}</strong> / {producto.stock_maximo}
                 </p>
               </div>
             </div>

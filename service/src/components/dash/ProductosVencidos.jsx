@@ -14,7 +14,7 @@ export default function ProductosVencidos() {
     semana.setDate(hoy.getDate()+7)
     const filtartProducto=producto.filter((p)=>{
       const productoPorVencer=new Date(p.fecha_vencimiento)
-      console.log(productoPorVencer)
+      //console.log(productoPorVencer)
       return productoPorVencer>=hoy && productoPorVencer<=semana
     })
     setproductoPorVencer(filtartProducto)

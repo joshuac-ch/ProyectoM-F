@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
+import FunctionCategoria from "../hooks/Categoria";
+import FuncionSubcategoria from "../hooks/Subcategoria";
+import FunctionProducto from "../hooks/Producto";
+import FuncitonDetalle from "../hooks/Detalle";
+import FunctionVentas from "../hooks/Ventas";
 
 
 export default function VentasMensualLicores() {
@@ -18,12 +23,53 @@ export default function VentasMensualLicores() {
       { mes: "Nov", ventas: 230 },
       { mes: "Dic", ventas: 530 },
     ];
-  
+    const {FecthCategoria,categoria}=FunctionCategoria()
+    const {FechtSubcategoria,Subcategoria_id}=FuncionSubcategoria()
+    const {FectProdcutos,producto}=FunctionProducto()
+    const {FuncitonDetalleectDetalle,detalle}=FuncitonDetalle()
+    const {FecthVenta,venta}=FunctionVentas()
+    useEffect(()=>{
+      FechtSubcategoria(),FectProdcutos(),
+      FecthCategoria(),FecthVenta(),
+      FuncitonDetalleectDetalle()
+    },[])
+    const categoriaLicores=categoria.find((c)=>c.nombre==="licores")
+    const subcategorialicores=categoriaLicores?
+    Subcategoria_id.filter((s)=>{
+    return s.categoria_id===categoriaLicores.id
+}):[]
+  const productosLicores=producto.filter((p)=>{
+    return subcategorialicores.some((s)=>s.id==p.subcategoria_id)
+  })
+  const idsprodcutoslicores=productosLicores.map((p)=>p.id)
+     // 5. Detalles de venta que incluyan esos productos
+const detallesFiltrados = detalle.filter((d) =>
+  idsprodcutoslicores.includes(d.producto_id)
+);
+  // 6. Combinar con la venta para obtener la fecha y agrupar por mes
+const ventasPorMes = {};
+detallesFiltrados.forEach((detalle) => {
+  const ventaRelacionada = venta.find((v) => v.id === detalle.venta_id);
+  if (ventaRelacionada) {
+    const fecha = new Date(ventaRelacionada.fecha_venta); // Asegúrate de tener este campo
+    const mes = fecha.toLocaleString("default", { month: "short", year: "numeric" });
+
+    if (!ventasPorMes[mes]) ventasPorMes[mes] = 0;
+
+    ventasPorMes[mes] += detalle.subtotal || detalle.cantidad * detalle.precio_unitario; // según tus campos
+  }
+});
+   
+// 7. Preparar data para el gráfico
+const data2 = Object.entries(ventasPorMes).map(([mes, ventas]) => ({
+  mes,
+  ventas,
+}));  
     return (
       <div style={styles.container}>
       <h3 style={styles.title}>Ventas Mensuales de licores</h3>
       <ResponsiveContainer width="100%" height={350}>
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <BarChart data={data2} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
             <XAxis dataKey="mes" tick={{ fill: "#333" }} />
             <YAxis tick={{ fill: "#333" }} />
             <Tooltip contentStyle={styles.tooltip} />
