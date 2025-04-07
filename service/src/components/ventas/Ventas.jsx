@@ -44,6 +44,9 @@ export default function Ventas() {
     useEffect(()=>{
         FechtDetalle()
     },[])
+    const redirigirDetalle=(id)=>{
+        navegar(`/detalle-especifico/${id}`)
+    }
   return (
     <>
     <div className="container mt-4">
@@ -62,12 +65,13 @@ export default function Ventas() {
             <div className="contenedor-venta">
                 {ventas.map((v)=>{
                     return(
-                        <div className="venta">
+                        <div className="venta container mt-4">
                             <div className="header-venta">
                                 <label htmlFor="">Venta Numero:{v.id}</label> 
                                 <div className="btn-icon">
                                     <button type="button" onClick={()=>onUpdate(v.id)}><i class='bx bx-edit-alt'></i></button>
                                     <button type="button" onClick={()=>onDelete(v.id)}><i class='bx bx-trash' ></i></button>
+                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}>show detalle</button>
                                 </div>
                             </div>
                             <div className="body-venta">
