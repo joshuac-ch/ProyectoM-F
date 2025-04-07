@@ -46,6 +46,7 @@ import Iproductos from './components/InventarioProductos/Iproductos.jsx';
 import CreateInventarrio from './components/InventarioProductos/CRUD/CreateInventarrio.jsx';
 import ActualizarInventario from './components/InventarioProductos/CRUD/ActualizarInventario.jsx';
 import Rutaprotegia from './components/login/Rutaprotegia.jsx';
+import DetalleEspecifico from './components/ventas/CRUD/DetalleEspecifico.jsx';
 function App() {
     return (
     <>
@@ -70,7 +71,9 @@ function App() {
         <Route path='/inventario' element={<Inventario></Inventario>}></Route>
         <Route path='/sub' element={<Subcate></Subcate>}></Route>
         {/*RUTAS DE CRUD */}
+          <Route path='/detalle-especifico/:id' element={<DetalleEspecifico></DetalleEspecifico>}></Route>
           <Route path='/crear-detalle-venta' element={<CreateDetalleVenta></CreateDetalleVenta>}></Route>
+
         <Route path='/invetario-producto' element={<Iproductos></Iproductos>}></Route>
         <Route path='/inventario-producto-create' element={<CreateInventarrio></CreateInventarrio>}></Route>
         <Route path='/inventario-update' element={<ActualizarInventario></ActualizarInventario>}></Route>
