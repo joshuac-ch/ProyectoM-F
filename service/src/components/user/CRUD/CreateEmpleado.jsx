@@ -24,6 +24,7 @@ export default function CreateEmpleado() {
     }
     const handleSubmit=async(e)=>{
         e.preventDefault()
+        console.log(formData)
         try{
             await axios.post("http://localhost:4000/api/users/usuario/c",formData)
             alert("Se creo el usuario")
