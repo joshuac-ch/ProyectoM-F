@@ -3,6 +3,7 @@ import "../productos/hojaproduct.css"
 import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import FuncionDelimitar from '../hooks/Delimitar';
 export default function Productos() {
   const formato=new Date()
     const productos=[
@@ -18,8 +19,10 @@ export default function Productos() {
 
 
 ]
-const data=productos.reduce((p,i)=>p+ parseFloat(i.precio),0)
-console.log(data)
+//total de productos
+//const data=productos.reduce((p,i)=>p+ parseFloat(i.precio),0)
+//console.log(data)
+
 const [categoriaSeleccionada, setcategoriaSeleccionada] = useState("todos")
 const productosSeleccionado=categoriaSeleccionada==="todos"
 ?productos
@@ -62,6 +65,7 @@ const onUpdate=(id)=>{
   redirigir(`/update-producto/${id}`)
 }
 const onDelete=async(id)=>{
+  if(FuncionDelimitar("eliminar")){
   const mensaje=window.confirm("Estas seguro querer eliminar este producto?")
   if(mensaje){
     try{
@@ -71,6 +75,9 @@ const onDelete=async(id)=>{
     }catch(e){
       alert("Hubo un error la eliminar este producto",e)
     }
+  }}
+  else{
+    alert("Solo personal autorizado")
   }
 } 
 return (  
@@ -120,7 +127,7 @@ return (
                 <div className="des-card">
                   <div className='precio'>
                     <label htmlFor="">Precio:</label>
-                    <label htmlFor="">${p.precio_venta}.00</label>                   
+                    <label htmlFor="">S/{p.precio_venta}</label>                   
                   </div>
                   <div className='categoria'>
                     <label htmlFor="">Subcategoria:</label>
@@ -129,7 +136,7 @@ return (
                   </div>
                   <div className='fecha-ven'>
                     <label htmlFor="">Vence:</label>
-                    <label htmlFor="">{p.fecha_vencimiento.split("T")[0]}</label> 
+                    <label htmlFor="">{p.fecha_vencimiento?p.fecha_vencimiento.split("T")[0] :"-"}</label> 
                   </div>
                   
                  
