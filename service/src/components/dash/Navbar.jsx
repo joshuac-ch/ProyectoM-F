@@ -11,6 +11,9 @@ export default function Navbar() {
       const mensaje=window.confirm("Estas seguro de cerrar session?")
       if(mensaje){
       localStorage.removeItem("usuario_autentificado")
+      localStorage.removeItem("rol_usuario")
+      localStorage.removeItem("id_usuario")
+      
       navegar("/login")
     }}
   return (

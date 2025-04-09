@@ -76,7 +76,7 @@ const Dashboard = () => {
       <div className="datos">
         <h1>Bienvenido al Dashboard</h1>
             <div className="lista-content">
-            <div className="content" id="venta" onClick={()=>navegar("/create-ventas")}>
+            <div className="content" id="venta" onClick={()=>navegar("/ventas")}>
                 <img src="https://i.pinimg.com/236x/b4/2f/47/b42f479d8d444ef42b9bd10eae2f0139.jpg" alt="no se encontro la imagen" />
                 <h2>Nueva venta</h2>
               </div>

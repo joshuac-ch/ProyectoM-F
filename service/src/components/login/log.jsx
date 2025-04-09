@@ -16,10 +16,14 @@ const Log = () => {
   },[])
   const handleSubmit = (e) => {
     e.preventDefault();    
-    const consulta=usuario.find((u)=>u.username=FormDataLogin.username&& u.password==FormDataLogin.password)
+    const consulta=usuario.find((u)=>u.username==FormDataLogin.username&& u.password==FormDataLogin.password)
+   
     if(consulta){
         localStorage.setItem("usuario_autentificado","true")
-        //alert("Datos correctos")
+        localStorage.setItem("rol_usuario",consulta.rol)
+        localStorage.setItem("id_usuario",consulta.id)
+        // solo para pruebas console.log(consulta)       
+        alert("Datos correctos")
         Navigate("/dash")        
     }else{
         alert("correo o contraseña incorrecta")
