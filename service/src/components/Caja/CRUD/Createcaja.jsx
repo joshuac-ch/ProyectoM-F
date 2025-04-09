@@ -48,7 +48,7 @@ export default function Createcaja() {
             <form onSubmit={FormCrearCaja}>
                 <div className="input-group">
                     <div className="w-50 p-3">
-                        <label htmlFor="" className='form-label'>Saldo Inicial</label>
+                        <label htmlFor="" className='form-label'>Saldo Inicial Campo Requerido*</label>
                         <input type="number" step={0.01} className='form-control' onChange={handleText} name='saldo_inicial' placeholder='ingrese el saldo incial'/>
                     </div>
                     <div className="w-50 p-3" >
@@ -78,7 +78,7 @@ export default function Createcaja() {
                     </div>
                 </div>
                 <div className="w-100 p-3">
-                        <label htmlFor=""  className='form-label'>Usuario ID</label>
+                        <label htmlFor=""  className='form-label'>Usuario ID Campo Requerido*</label>
                         <select  className='form-control' onChange={handleText} name='usuario_id' id="">
                             <option value="" disabled selected>Elija un usuaio ID</option>
                             {usuario.map((u)=>{
@@ -89,7 +89,7 @@ export default function Createcaja() {
                         </select>
                 </div>
                 <div className="w-100 p-3">
-                        <label htmlFor=""  className='form-label'>Tienda ID</label>
+                        <label htmlFor=""  className='form-label'>Tienda ID Campo Requerido*</label>
                         
                         <select className='form-control' onChange={handleText} name='tienda_id' id="">
                             <option value="" disabled selected>Elija una Tienda</option>

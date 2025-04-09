@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../Caja/hojacaja.css"
 import axios from 'axios'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Caja() {
     const [Cajas, setCajas] = useState([])
     const FecthCaja=async()=>{
@@ -17,10 +18,16 @@ export default function Caja() {
     },[])
     
     const navegar=useNavigate()
+   
     const onUpdate=(id)=>{
+        if(FuncionDelimitar("editar")){
         navegar(`/update-caja/${id}`)   
-    }
+        }else{
+            alert("Solo personal autorizado")
+        }
+}
     const onDelete=async(id)=>{
+        if(FuncionDelimitar("eliminar")){
         const mensaje=window.confirm("Estas seguro de eliminar esta caja?")
         if(mensaje){
             try{
@@ -30,7 +37,9 @@ export default function Caja() {
             }catch(err){
                 alert("Hubo un error no se puede eliminar esta caja",err)
             }
-        }       
+        }}else{
+            alert("Solo personal autorizado")
+        }      
     }
     const CerrarCaja=async(id)=>{
         const mesaje=window.confirm("Estas seguro de cerrar esta caja?")
