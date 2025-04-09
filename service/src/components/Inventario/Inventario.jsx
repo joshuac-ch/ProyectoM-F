@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../Inventario/hojainven.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import FuncionDelimitar from '../hooks/Delimitar';
 export default function Inventario() {
   const inventario=[
 {imagen:"https://i.pinimg.com/236x/36/af/33/36af3325c88b9711b6285a4d408faa77.jpg",id:1,cantidad:10,nombre:"Vino tinto",code:"VIN001",condicion:"Buena",Ubicacion:"Tienda 1",precio:"32.00",modificado:"25/03/2025"},
@@ -25,10 +26,15 @@ export default function Inventario() {
     FecthAlmacen()
   },[])
   const onUpdate=(id)=>{
+    if(FuncionDelimitar("editar")){
     navegar(`/update-almacen/${id}`)
-  } 
+    }else{
+      alert("Solo personal autorizado")
+    }
+}
   const onDelete=async(id)=>{
-    const mensaje=window.confirm("Estas seguro de eliminar este inventario?")
+    if(FuncionDelimitar("eliminar")){
+      const mensaje=window.confirm("Estas seguro de eliminar este inventario?")
     if(mensaje){
       try{
         await axios.delete(`http://localhost:4000/api/users/almacen/d/${id}`)
@@ -37,6 +43,9 @@ export default function Inventario() {
       }catch(e){  
         alert("hubo un error al eliminar el almacen",e.message)
       }
+    }
+    }else{
+      alert("Solo personal autorizado")
     }
   } 
   return (

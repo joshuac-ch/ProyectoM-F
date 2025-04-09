@@ -18,7 +18,7 @@ export default function CreateAlmacen() {
         alert("Se creo el almacen")
         navegar("/inventario")
     }catch(e){
-        alert("Hubo un error al crear el almacen",e)
+        alert("Rellenar todos los campos",e)
     }
   }
     return (

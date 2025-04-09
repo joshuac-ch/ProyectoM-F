@@ -4,6 +4,7 @@ import "../InventarioProductos/hojain.css"
 import FunctionInventarrio from '../hooks/Inventarrio'
 import FunctionProducto from '../hooks/Producto'
 import axios from 'axios'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Iproductos() {
     const navegar=useNavigate()
     const {inventario,FectchInventario}=FunctionInventarrio()
@@ -36,14 +37,20 @@ export default function Iproductos() {
         dataShowProductos()
       }
     },[producto])
-   
+    const PermitirIngreso=(ruta)=>{
+      if(FuncionDelimitar("crear")){
+        navegar(`${ruta}`)
+      }else{
+        alert("No tiene permiso para el inventario de productos")
+      }
+    }
     return (
    <>
    <div className="container mt-4">
         <div className="header-inventario">
             <h1>Inventario de productos</h1>
             <button type="button" onClick={()=>navegar("/inventario-producto-create")}>Gestionar Inventario</button>
-            <button type='button' onClick={()=>navegar("/inventario-update")}>Actualizar inventario</button>
+            <button type='button' onClick={()=>PermitirIngreso("/inventario-update")}>Actualizar inventario</button>
         </div>
         <div className="body-inventario">
         <table className="table table-inventario">
