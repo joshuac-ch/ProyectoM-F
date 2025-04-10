@@ -82,7 +82,7 @@ export default function Inventario() {
                         </div>
                         <div className="contenido">
                         <label htmlFor="">Descripcion:</label>
-                        <p>{c.descripcion}</p>
+                        <p>{c.descripcion.length>20?c.descripcion.slice(0,20)+"...":c.descripcion}</p>
                         </div>                      
                       </div>
                     </div>

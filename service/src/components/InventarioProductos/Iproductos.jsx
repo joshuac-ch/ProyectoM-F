@@ -37,20 +37,29 @@ export default function Iproductos() {
         dataShowProductos()
       }
     },[producto])
-    const PermitirIngreso=(ruta)=>{
-      if(FuncionDelimitar("crear")){
-        navegar(`${ruta}`)
+    const PermitirIngreso=()=>{
+      if(FuncionDelimitar("editar")){
+        navegar("/inventario-producto-create")
       }else{
         alert("No tiene permiso para el inventario de productos")
       }
     }
+    const OnUpdate=(id)=>{
+      if(FuncionDelimitar("editar")){
+      navegar(`/inventario-update/${id}`)
+    }else{
+      alert("No tiene permiso para editar el inventario de productos")
+
+    }
+  }
+  
     return (
    <>
    <div className="container mt-4">
         <div className="header-inventario">
             <h1>Inventario de productos</h1>
-            <button type="button" onClick={()=>navegar("/inventario-producto-create")}>Gestionar Inventario</button>
-            <button type='button' onClick={()=>PermitirIngreso("/inventario-update")}>Actualizar inventario</button>
+            <button type="button" onClick={()=>PermitirIngreso()}>Gestionar Inventario</button>
+            {/*<button type='button' onClick={()=>PermitirIngreso("/inventario-update/:id")}>Actualizar inventario</button> */}
         </div>
         <div className="body-inventario">
         <table className="table table-inventario">
@@ -63,6 +72,7 @@ export default function Iproductos() {
       {/*<th scope="col">Stock Minimo</th>*/}
       <th scope="col">Stock Maximo</th>
       <th scope="col">Ultimo Movimiento</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -90,6 +100,9 @@ export default function Iproductos() {
                              {/*<td>{i.stock_minimo}</td>NO MOSTRAR HASTA HACER LA FUNCION DE STOCK MINIMO MUESTRE ALERTAS CUANDO HAYA ESCAZES*/}
                               <td>{i.stock_maximo}</td>
                               <td>{i.ultimo_movimiento.split(".")[0].replace("T"," ")}</td>
+                              <td className='agregar'>
+                                <button onClick={()=>OnUpdate(i.id)} type="button"><i class='bx bx-plus-circle'></i></button>
+                              </td>
                             </tr>
                        
                     )

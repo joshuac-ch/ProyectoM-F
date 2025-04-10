@@ -28,3 +28,18 @@
         border-radius: 10px;
     }
 }
+.agregar{
+    button{
+        border: 0;
+        
+        background-color: transparent;
+        border-radius: 10px;
+        i{
+            font-size: 30px;
+        }
+    }
+    button:hover{
+        transform: scale(1.1);
+        transition: .3s;
+    }
+}
