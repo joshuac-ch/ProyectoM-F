@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../ventas/hojaventas.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
@@ -17,9 +18,14 @@ export default function Ventas() {
     },[])
     const navegar=useNavigate()
     const onUpdate=(id)=>{
-        navegar(`/update-ventas/${id}`)
+        if(FuncionDelimitar("editar")){
+            navegar(`/update-ventas/${id}`)
+        }else{
+            alert("Solo personal autorizado")
+        }        
        }
     const onDelete=async(id)=>{
+        if(FuncionDelimitar("eliminar")){
         const mensaje=window.confirm("Esta seguro de eliminar esta venta?")
         if(mensaje){
             try{
@@ -30,6 +36,10 @@ export default function Ventas() {
                 alert("Hubo un error al eliminar esta venta",err)
             }
         }
+        }else{
+            alert("Solo personal autorizado")
+        }
+        
     }
     //Funcion de Detalle Venta
     const [detallv, setdetallv] = useState([])
@@ -47,17 +57,20 @@ export default function Ventas() {
     const redirigirDetalle=(id)=>{
         navegar(`/detalle-especifico/${id}`)
     }
+    const ProximoAVANCE=()=>{
+        alert("Sigue en desarrollo")
+    }
   return (
     <>
     <div className="container mt-4">
         <div className="header-ventas">
             <h2>Ventas</h2>
             <div className="header-btn">
-            <button type="button" onClick={()=>navegar("/create-ventas")}>Crear venta</button>
+            
             <button type="button" onClick={()=>navegar("/crear-detalle-venta")}>Crear Detalle de Venta</button>
-            <button type="button" onClick={()=>navegar("/create-ventas")}>Generar Nota</button>
-            <button type="button" onClick={()=>navegar("/create-ventas")}>Generar Boleta</button>
-            <button type="button" onClick={()=>navegar("/create-ventas")}>Generar Factura</button>
+           
+            <button type="button" onClick={ProximoAVANCE}>Generar Boleta</button>
+            <button type="button" onClick={ProximoAVANCE}>Generar Factura</button>
         </div>
         </div>
         <hr />
@@ -71,7 +84,7 @@ export default function Ventas() {
                                 <div className="btn-icon">
                                     <button type="button" onClick={()=>onUpdate(v.id)}><i class='bx bx-edit-alt'></i></button>
                                     <button type="button" onClick={()=>onDelete(v.id)}><i class='bx bx-trash' ></i></button>
-                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}>show detalle</button>
+                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}>nota de pedido</button>
                                 </div>
                             </div>
                             <div className="body-venta">
@@ -88,6 +101,7 @@ export default function Ventas() {
         
         </div>
         <hr />
+        {/*
         <h2>Detalle de Venta</h2>
         <div className="contenedor">
             <div className="detalles">
@@ -111,6 +125,7 @@ export default function Ventas() {
                 })}
             </div>
         </div>
+        */}
     </div>
     </>
   )

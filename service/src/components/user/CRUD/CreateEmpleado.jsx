@@ -100,7 +100,9 @@ export default function CreateEmpleado() {
                      
            <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Almacen ID</label>
+                        
                         <select  onChange={handleChange} name='almacen_id' class="form-control"  id="">
+                        <option value="" selected disabled>Seleccionar un Almacen</option>
                             {almacen_id.map((a)=>{
                                 return(
                                     <option value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>

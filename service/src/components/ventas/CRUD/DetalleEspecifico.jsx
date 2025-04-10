@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import FunctionProducto from '../../hooks/Producto'
 import FunctionVentas from '../../hooks/Ventas'
 import "../hojaventas.css"
+import FuncionCajas from '../../hooks/Cajas'
+
 export default function DetalleEspecifico() {
     
     const navegar=useNavigate()
@@ -24,9 +26,11 @@ export default function DetalleEspecifico() {
    const TotalCalculadoSubtotal =detalle.reduce((acc,d)=>{
     return acc+parseFloat(d.subtotal)
    },0) 
-    useEffect(()=>{
+   
+   useEffect(()=>{
         FectProdcutos(),FecthVenta()
     },[])
+   
     useEffect(()=>{
         const MostrarDetalleEspecifico=async()=>{
             try{

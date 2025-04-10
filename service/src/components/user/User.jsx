@@ -3,6 +3,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import "../user/hojauser.css"
 import { Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import FuncionDelimitar from '../hooks/Delimitar'
+
 
 export default function User() {
  // const navigae=Navigate()
@@ -18,21 +20,39 @@ export default function User() {
   useEffect(()=>{
     FectchUsers()
   },[])
+  //Revisar estos cambios
   const redirigir=useNavigate()
   const CreateEmpleado=()=>{
+    if(FuncionDelimitar("editar")){
     redirigir("/crear-empleado")
+  } else{
+    alert("Solo personal autorizado")
   }
+}
   //SHOW
+  
   const handleViewUser = (id) => {
-    redirigir(`/user/${id}`); // Redirige a la página de detalles del usuario
-  };
+    if(FuncionDelimitar("editar")){
+      //redirigir(`/user/${id}`); // Redirige a la página de detalles del usuario
+      redirigir(`/user/${id}`);
+    }else{
+      alert("No puede ingresar solo personal autorizado")       
+      
+    }
+    
+  
+ 
+};
   
   //const [Empleados, setEmpleado] = useState("todos")
   //const EmpleadosFiltar=Empleados==="todos"?
   //usuarios: usuarios.filter((e)=>e.rol===Empleados)
   
+ 
   //DELETE
+  
   const handleDeleteUser = async (id) => {
+    if(FuncionDelimitar("eliminar")){
     const confirmar = window.confirm("¿Estás seguro de eliminar este usuario?");
     if (confirmar) {
       try {
@@ -45,6 +65,9 @@ export default function User() {
         alert("No se pudo eliminar el usuario");
       }
     }
+  }else{
+    alert("Solo personal autorizado")
+  }
   };  
   
  
@@ -116,9 +139,11 @@ export default function User() {
                         <td className="align-middle text-start">{user.rol}</td>
                         <td className="align-middle text-start">{user.almacen_id}</td>                       
                         <td className="align-middle text-start botones">
+                      
                           <button onClick={()=>handleViewUser(user.id)} className="btn btn-warning btn-sm me">
                           <i className='bx bxs-edit-alt' ></i>
                           </button>
+                           
                           <button onClick={()=>handleDeleteUser(user.id)} className="btn btn-danger btn-sm">
                           <i className='bx bxs-trash' ></i>
                           </button>
