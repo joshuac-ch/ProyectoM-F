@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import "../category/CRUD/ESTILOS/hoacate.css"
 import { useNavigate } from 'react-router-dom'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Category() {
   const [categoria, setcategoria] = useState([])
   const GetCategoria=async()=>{
@@ -17,9 +18,14 @@ export default function Category() {
   },[]) 
   const navegar=useNavigate() 
   const RedirigirUpdate=(id)=>{
+    if(FuncionDelimitar("editar")){
      navegar(`/update-cate/${id}`) 
-  }
-  const OndeleteCategoria=async(id)=>{        
+    }else{
+      alert("Solo personal autorizado")
+    }
+}
+  const OndeleteCategoria=async(id)=>{
+    if(FuncionDelimitar("eliminar")){        
     const mensaje=window.confirm("Estas seguro que quieres eliminar esta categoria")
     if(mensaje){
       try{
@@ -30,6 +36,9 @@ export default function Category() {
       }catch(e){  
         alert("Hubo un error al eliminar esta categoria",e)
       }
+    }
+    }else{
+      alert("Solo personal autorizado")
     }
   }
   
@@ -55,7 +64,7 @@ export default function Category() {
                         </div>
                         <div className="contenido">
                         <label htmlFor="">Descripcion:</label>
-                        <p>{c.descripcion}</p>
+                        <p>{c.descripcion.length>20?c.descripcion.slice(0,20)+'....':c.descripcion}</p>
                         </div>                      
                       </div>
                     </div>

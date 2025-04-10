@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     border: 2px solid black;
-    min-width: 600px;
+    max-width:400px;
     padding: 5px 20px;
     margin-top: 40px;
     border-radius: 10px;

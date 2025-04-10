@@ -18,8 +18,8 @@ export default function CreateCategoria() {
             alert("Se creo correctamente la categoria")
             navegar("/cate")
         }catch(e){
-            alert("No se pudo crear la categoria",e)
-            console.log(e.error)
+            alert("LLenar todos los campos",e)
+            //console.error(e.error?.message)
         }
     }
     
