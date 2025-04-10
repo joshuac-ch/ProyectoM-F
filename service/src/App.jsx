@@ -76,7 +76,7 @@ function App() {
 
         <Route path='/invetario-producto' element={<Iproductos></Iproductos>}></Route>
         <Route path='/inventario-producto-create' element={<CreateInventarrio></CreateInventarrio>}></Route>
-        <Route path='/inventario-update' element={<ActualizarInventario></ActualizarInventario>}></Route>
+        <Route path='/inventario-update/:id' element={<ActualizarInventario></ActualizarInventario>}></Route>
         <Route path='/caja' element={<Caja></Caja>}></Route>
         <Route path='/movimiento-caja' element={<HistorialCaja></HistorialCaja>}></Route>
         <Route path='/cerrar-caja' element={<CerrarCaja></CerrarCaja>}></Route>
