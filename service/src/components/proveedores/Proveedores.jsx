@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../proveedores/hojaprove.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Proveedores() {
   /*  const proveedores=[
 {id:1,user_name:"JG",nombre:"joshua gustavo",correo:"joshua@gmail.com",dirrecion:"Av. pirua",telefono:"996230942"},
@@ -30,9 +31,14 @@ export default function Proveedores() {
         FectchProveedores()
     },[])
     const onUpdate=(id)=>{
+        if(FuncionDelimitar("editar")){
         navegar(`/update-proveedor/${id}`)
-    }
+        }else{
+            alert("Solo personal autorizado")
+        }
+}
     const onDelete=async(id)=>{
+        if(FuncionDelimitar("eliminar")){
         const message=window.confirm("Estas seguro de queres eliminar este proveedor?")
         if(message){
             try{
@@ -42,6 +48,9 @@ export default function Proveedores() {
             }catch(err){
                 alert("Hubo un error al eliminar este pro veedor",err)
             }
+        }
+        }else{
+            alert("Solo persona autorizado")
         }
     }
   return (

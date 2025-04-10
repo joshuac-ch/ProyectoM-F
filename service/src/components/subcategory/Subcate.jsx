@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../subcategory/hojasub.css" 
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Subcate() {
     const [subcategoria, setsubcategoria] = useState([])
     const [categorias, setCategorias] = useState({}); // Guardará { idCategoria: nombreCategoria }
@@ -44,9 +45,14 @@ export default function Subcate() {
 
     const crear=useNavigate()
     const onUpdate=(id)=>{
+      if(FuncionDelimitar("editar")){
         crear(`/update-subcate/${id}`)
+    }else{
+      alert("Solo personal autorizado")
     }
+  }
     const onDelete=async(id)=>{
+      if(FuncionDelimitar("eliminar")){
         const message=window.confirm("Esta seguro de eliminar esta subcategoria?")
         if(message){
             try{
@@ -56,6 +62,9 @@ export default function Subcate() {
             }catch(e){  
                 alert("hubo un error al eliminar esta subcategoria",e)
             }
+        }}
+        else{
+          alert("Solo personal autorizado")
         }
     }
     
@@ -88,7 +97,7 @@ export default function Subcate() {
                         </div>
                         <div className="contenido">
                         <label htmlFor="">Descripcion:</label>
-                        <p>{c.descripcion}</p>
+                        <p>{c.descripcion.length>20?c.descripcion.slice(0,20)+'...' :c.descripcion}</p>
                         </div>                      
                       </div>
                     </div>

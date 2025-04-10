@@ -20,7 +20,7 @@ export default function CreateSubCategoria() {
       alert("Se creo correctamente la subcategoria")
       back("/sub")
     }catch(e){
-      alert("Hubo un error al crear la subcategoria",e)
+      alert("Llenar todas las columnas",e)
     }
   }
   const {categoria,FecthCategoria}=FunctionCategoria()
