@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../movimientos/hojamo.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Movimientos() {
   
   const navegar=useNavigate()
@@ -18,9 +19,23 @@ export default function Movimientos() {
     FectchMovimientos()
   },[])
   const onUpdate=(id)=>{
+    if(FuncionDelimitar("editar")){
     navegar(`/update-movimiento/${id}`)
+    }else{
+      alert("Solo personal autorizado")
+    }
+} 
+const onCreate=()=>{
+  if(FuncionDelimitar("editar")){
+    navegar("/create-movimiento")
+  }else{
+    alert("Solo personal autorizado")
   }
-  const onDelete=async(id)=>{
+  
+}
+
+const onDelete=async(id)=>{
+    if(FuncionDelimitar("eliminar")){
     const mensaje=window.confirm("Esta seguro de querer eliminar este movimiento de producto?")
     if(mensaje){
       try{
@@ -30,6 +45,9 @@ export default function Movimientos() {
       }catch(err){
         alert("Hubo un error al eliminar este movimiento de producto",err)
       }
+    }}
+    else{
+      alert("Solo personal autorizado")
     }
   }
   return (
@@ -37,7 +55,7 @@ export default function Movimientos() {
     <div className="movi container mt-4">
       <div className="header-movimiento">
       <h1>Movimientos del productos</h1>
-      <button type="button" onClick={()=>navegar("/create-movimiento")} >Crear Movimiento</button> 
+      <button type="button" onClick={onCreate} >Crear Movimiento</button> 
       </div>
     
     <div className="historial">

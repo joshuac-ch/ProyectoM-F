@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../contact/hojacontact.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import FuncionDelimitar from '../hooks/Delimitar'
 export default function Contact() {
   
   const [clientes, setclientes] = useState([])
@@ -19,12 +20,21 @@ export default function Contact() {
   
   const navegar=useNavigate()
   const redirigirCliente=()=>{
+    if(FuncionDelimitar("crear")){
        navegar("/crear-cliente")
-  }
+    }else{
+      alert("Solo personal autorizado")
+    }
+}
   const UpdateCliente=(id)=>{
+    if(FuncionDelimitar("editar")){
     navegar(`/cliente/${id}`)
+    }else{
+      alert("Solo personal autorizado")
+    }
 }
   const DeleteCliente=async(id)=>{
+    if(FuncionDelimitar("eliminar")){
     const mensaje=window.confirm("Estas seguro de eliminar este contacto")
     if(mensaje){
       try{
@@ -35,6 +45,9 @@ export default function Contact() {
         alert("No se pudo eliminar el cliente",e)
       }
     }
+  }else{
+    alert("Solo personal autorizado")
+  }
   }  
   
   return (

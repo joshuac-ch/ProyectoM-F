@@ -11,9 +11,9 @@ export default function Create() {
         regresar("/productos")
     }
     const [formdata, setformdata] = useState({
-            image:"",
-            cantidad_disponible:"",
-            fecha_vencimiento:"",
+            image:"https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_1280.png",
+            //cantidad_disponible:"",
+            fecha_vencimiento:new Date(),
             precio_ingreso:"",
             precio_venta:"",
             descripcion:"",
@@ -59,7 +59,7 @@ export default function Create() {
         <div className="content-productos-create">
             <form onSubmit={SubmitCreate}>
                 <div className="w-100 p-3">
-                <label for="" class="form-label">Imagen</label>
+                <label for="" class="form-label">Imagen Opcional*</label>
                 <input type="text" class="form-control" onChange={handleText} name='image' placeholder='ingrese imagen'/>       
                 </div>
             <div class="input-group ">
@@ -73,17 +73,19 @@ export default function Create() {
                     <input type="text" class="form-control" onChange={handleText} name='nombre' placeholder='ingrese nombre'/>                
                 </div>  
             <div className="w-100 p-3">
-                <label for="" class="form-label">Descripcion</label>
+                <label for="" class="form-label">Descripcion Opcional*</label>
                 <textarea  class="form-control" onChange={handleText} name='descripcion' rows={2} id=""></textarea>      
                 </div>
             <div className="input-group">
-                    <div className="w-50 p-3">
+                    {/*
+                        <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Cantidad</label>
                         <input type="number" onChange={handleText} class="form-control" name='cantidad_disponible' placeholder='ingrese cantidad'/> 
                     </div>
+                    */}
                     <div className="w-50 p-3">
-                        <label htmlFor="" className='form-label'>Fecha Vencimiento</label>
-                        <input type="datetime-local" onChange={handleText} class="form-control" name='fecha_vencimiento' placeholder='ingrese cantidad'/> 
+                        <label htmlFor="" className='form-label'>Fecha Vencimiento Opcional*</label>
+                        <input type="datetime-local" onChange={handleText} class="form-control" name='fecha_vencimiento' /> 
                     </div>  
             </div>
             <div className="input-group">

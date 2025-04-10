@@ -4,13 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FuncionSubcategoria from '../../hooks/Subcategoria'
 import { FuncionProveedoresId } from '../../hooks/Proveedores'
+import FuncionDelimitar from '../../hooks/Delimitar'
 
 export default function UpdateProductos() {
   const navigate=useNavigate()
   const {id}=useParams()
   const [productos, setproductos] = useState({
             image:"",
-            cantidad_disponible:"",
+            //cantidad_disponible:"",
             fecha_vencimiento:"",
             precio_ingreso:"",
             precio_venta:"",
@@ -38,7 +39,9 @@ export default function UpdateProductos() {
     fechtProductos()
   },[id])
   const UpdateForm=async(e)=>{
+    
     e.preventDefault()
+    if(FuncionDelimitar("editar")){
     try{
       await axios.put(`http://localhost:4000/api/users/producto/u/${id}`,productos)
       alert("Se actualizaron los datos")
@@ -46,7 +49,10 @@ export default function UpdateProductos() {
     }catch(e){
       alert("Hubo un error",e)
     }
+  }else{
+    alert("Solo personal autorizado puede editar los productos")
   }
+}
   const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
   const {Subcategoria_id,FechtSubcategoria}=FuncionSubcategoria()
   const {proveedores_id,FectchProveedoresID}=FuncionProveedoresId()
@@ -86,10 +92,12 @@ export default function UpdateProductos() {
                 <textarea  class="form-control" onChange={handleText} value={productos.descripcion} name='descripcion' rows={2} id=""></textarea>      
                 </div>
             <div className="input-group">
+                   {/*
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Cantidad</label>
                         <input type="number" onChange={handleText} class="form-control" value={productos.cantidad_disponible} name='cantidad_disponible' placeholder='ingrese cantidad'/> 
                     </div>
+                   */}
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Fecha Vencimiento:</label>
                         <input type="datetime-local" onChange={handleText} className='form-control'  value={productos.fecha_vencimiento.split("Z")[0]} name='fecha_vencimiento' placeholder='ingrese cantidad'/> 
@@ -156,7 +164,7 @@ export default function UpdateProductos() {
              
             <div className="d-flex justify-content-center">  
                 
-                <button type="submit" class="btn btn-primary w-25 p-10">Submit</button> 
+                <button type="submit" class="btn btn-primary w-25 p-10">Actualizar Producto</button> 
                 
             
             </div>        
