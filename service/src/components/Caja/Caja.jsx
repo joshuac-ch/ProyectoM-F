@@ -3,19 +3,29 @@ import { useNavigate } from 'react-router-dom'
 import "../Caja/hojacaja.css"
 import axios from 'axios'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FuncionEmpleados from '../hooks/Empleados'
+
 export default function Caja() {
     const [Cajas, setCajas] = useState([])
-    const FecthCaja=async()=>{
-        try{
-            const {data}=await axios.get("http://localhost:4000/api/users/caja/g")
-            setCajas(data)
-        }catch(e){
-            console.log("Hubo un error",e.message)
-        }
-    }
+    const {empleado,FectUsuarios}=FuncionEmpleados()
     useEffect(()=>{
-        FecthCaja()
+        FectUsuarios()
     },[])
+    
+   
+    useEffect(()=>{
+        const FecthCaja=async()=>{
+            try{
+                //const {data}=await axios.get("http://localhost:4000/api/users/caja/g")
+                const {data}=await axios.get(`http://localhost:4000/api/users/caja/especifica/${empleado.almacen_id}`)
+                setCajas(data)
+                
+            }catch(e){
+                console.log("Hubo un error",e.message)
+            }
+        }
+        FecthCaja()
+    },[empleado])
     
     const navegar=useNavigate()
    
@@ -49,8 +59,8 @@ export default function Caja() {
                 alert("Se cerro la caja exitosamente")                
                              
             }catch (err) {
-                console.error("Error al cerrar la caja:", err);
-                alert("Hubo un error al cerrar la caja.");
+                
+                alert(err.response?.data?.message);
             }
         }
     }
@@ -62,7 +72,7 @@ export default function Caja() {
         <div className="header-caja">
             <h1>Caja</h1>
             <div className="header-btn">
-                <button type="button" onClick={()=>navegar("/create-caja")}>Crear Caja</button>
+                <button type="button" onClick={()=>navegar("/create-caja")}>Abrir Caja</button>
                 <button type="button" onClick={()=>navegar("/registrar-caja")}>Registrar movimiento</button>
                 <button type="button" onClick={()=>navegar("/movimiento-caja")}>Ver Movimientos</button>
             </div>
