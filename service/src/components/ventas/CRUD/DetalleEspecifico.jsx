@@ -46,6 +46,11 @@ export default function DetalleEspecifico() {
     const TotalCalculadoVenta=venta.reduce((acc,v)=>{
         return acc + parseFloat(v.total_venta)
     },0)
+    const FechaVenta = (() => {
+        if (detalle.length === 0) return null;
+        const ventaEncontrada = venta.find(v => v.id === detalle[0].venta_id);
+        return ventaEncontrada ? ventaEncontrada.fecha_venta.replace("T", " ").replace(/.\d{3}Z/, "") : null;
+      })();
   return (
    <>
    <div className="container mt-4">
@@ -98,15 +103,17 @@ export default function DetalleEspecifico() {
                                 <img src="https://img.freepik.com/psd-gratis/ilustracion-codigo-barras-aislado_23-2150584086.jpg" alt="" />
                             </div>
                             <div className="fecha-fin">
-                                {detalle.map((d)=>{
-                                    const fecha=venta.find((f)=>f.id===d.venta_id)
-                                    return(
-                                        <>
-                                         <p>{fecha.fecha_venta}</p>
-                                        
-                                        </>    
-                                    )
-                                })}
+                                {FechaVenta&&
+                                            (
+                                               <div className='fecha-emitida'>
+                                                <p>Fecha de emision: </p>
+                                                <p><strong>{FechaVenta}</strong></p>
+                                               </div>
+
+                                            )                                   
+                                }                            
+                                
+                       
                                
                             </div>
                         </div>                        

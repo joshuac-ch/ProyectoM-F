@@ -41,6 +41,7 @@ export default function CreateDetalleVenta() {
         if (empleado && empleado.id) {
             setdataDetalle((p) => ({
                 ...p,
+                cliente_id:empleado.id,
                 usuario_id: empleado.id,
                 almacen_id: empleado.almacen_id,
             }));
@@ -187,7 +188,7 @@ export default function CreateDetalleVenta() {
                 alert("Se creó el detalle de venta");
                 navegar("/ventas");
             } catch (err) {
-                console.error("Hubo un error", err.response?.data || err.message);
+               alert(err.response?.data?.message || err.message);
             }
         };
     
@@ -240,13 +241,24 @@ export default function CreateDetalleVenta() {
                         <label htmlFor="">Cliente ID</label>
                         <select name="cliente_id"  onChange={handleText} className='form-control' id="">
                             <option value="" selected disabled>Seleccion del cliente ID</option>
+                            <option value={empleado.id} selected>Persona anonima</option>
                             {cliente.map((c)=>{
+                                
                                 return(
+                                    
                                     <option value={c.id}>ID: {c.id} || Nombre: {c.nombre}</option>
                                 )
                             })}
-                        </select>                       
+                        </select>  
+                                            
                     </div>
+                   {/**
+                     <div className="w-50 p-3">
+                        <label htmlFor="">Nombre del cliente</label>
+                        <input type="text" className='form-control' placeholder='ingrese nombre del cliente' />
+                    </div>
+                     
+                    */}
             </div>
             <div className="w-100 p-3">        
             <div>
