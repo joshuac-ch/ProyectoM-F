@@ -4,6 +4,13 @@ import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FuncionDelimitar from '../hooks/Delimitar';
+import FunctionCategoria from '../hooks/Categoria';
+import FuncionSubcategoria from '../hooks/Subcategoria';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+import * as XLSX from "xlsx"
+import { saveAs } from 'file-saver';
 export default function Productos() {
   const formato=new Date()
     const productos=[
@@ -23,10 +30,7 @@ export default function Productos() {
 //const data=productos.reduce((p,i)=>p+ parseFloat(i.precio),0)
 //console.log(data)
 
-const [categoriaSeleccionada, setcategoriaSeleccionada] = useState("todos")
-const productosSeleccionado=categoriaSeleccionada==="todos"
-?productos
-:productos.filter(p=>(p.categoria===categoriaSeleccionada))
+
 const redirigir=useNavigate()
 const CrearProducto=()=>{
     redirigir("/crear-producto")
@@ -41,6 +45,7 @@ const GetProductos=async()=>{
   }
 }
 const [subcategoria, setsubcategoria] = useState({})
+
 useEffect(()=>{
   const FectSubcate=async()=>{
    try{
@@ -80,36 +85,120 @@ const onDelete=async(id)=>{
     alert("Solo personal autorizado")
   }
 } 
-return (  
+const {FecthCategoria,categoria}=FunctionCategoria()
+const {FechtSubcategoria,Subcategoria_id}=FuncionSubcategoria()
+useEffect(()=>{
+  FecthCategoria(),FechtSubcategoria()
+},[])
+
+
+const ExportPDF=()=>{
+  const doc=new jsPDF()
+
+  const Encabezado=[
+   ["#","Nombre","Cantidad_Disponible","Fecha_vencimiento","Precio_Ingreso",
+    "Precio_Venta","Descripcion","Codigo_Producto","Unidad_Medida","Almacen_ID","Subcategoria_ID"]
+  ]
+  const datos=myproduct.map((p,i)=>[
+    i+1,
+    p.nombre,
+    p.cantidad_disponible,
+    p.fecha_vencimiento,
+    `S/.${p.precio_ingreso}`,
+    `S/.${p.precio_venta}`,
+    p.descripcion,
+    p.codigo_producto,
+    p.unidad_medida,
+    p.almacen_id,
+    p.subcategoria_id
+  ]);
+  autoTable(doc,{
+    head:Encabezado,
+    body:datos,
+    startY:20,
+    styles:{fontSize:8},
+    headStyles:{fillColor:[22,160,133]},
+  })
+  doc.save("productos.pdf")
+}
+const ExportExecl=()=>{
+    const dataexcel=myproduct.map((p,i)=>({
+      "#":i+1,
+      "Nombre":p.nombre,
+      "Cantidad_Disponible":p.cantidad_disponible,
+      "Fecha_vencimiento":p.fecha_vencimiento,
+      "Precio_Ingreso": `S/.${p.precio_ingreso}`,
+    "Precio_Venta":`S/.${p.precio_ingreso}`,
+    "Descripcion":p.descripcion,
+    "Codigo_Producto":p.codigo_producto,
+    "Unidad_Medida":p.unidad_medida,
+    "Almacen_ID":p.almacen_id,
+    "Subcategoria_ID":p.subcategoria_id
+    }))
+    //crear hoja de caculo
+    const workshee=XLSX.utils.json_to_sheet(dataexcel)
+    //crear libro de excel
+    const workbook=XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook,workshee,"Productos")
+
+    //generar libro de execl
+    const exelBuffer=XLSX.write(workbook,{bookType:'xlsx',type:'array'})
+    const data=new Blob([exelBuffer],{type:"application/octet-stream"})
+    saveAs(data,"producos.xlsx")
+  }
+
+const [categoriaSelec, setcategoriaSelec] = useState(0)
+const [productofilter, setproductofilter] = useState("")
+const datosFiltrado=myproduct.filter((producto)=>{
+    if(categoriaSelec==0) return producto;
+    const subcat=Subcategoria_id.find((s)=>s.id===producto.subcategoria_id)
+    return subcat && subcat.categoria_id==parseInt(categoriaSelec)
+  })
+  .filter((p)=>p.nombre.toLowerCase().includes(productofilter.toLowerCase()))
+  
+  
+  const onHandleProdcutoFilter=(e)=>{
+    setproductofilter(e.target.value)
+  }
+  
+
+  return (
     <div className="container mt-4">
       <div className="header-productos">
         <div className="header">
+         
+          <div className="header-produc">
           <div className="box" ><h2>Productos</h2></div>
-          <div className="herra">
-          <div className="box">
+          <div className="caja-productos">
           <button className='addp' type='button' onClick={CrearProducto}>Agregar producto</button>
+          <button className='addp' type='button' onClick={ExportPDF}>Exportar a PDF</button>
+          <button className='addp' type='button' onClick={ExportExecl}>Exportar a Excel</button>
           </div>
-          
-          <div className="box">
-            <select className="form-select" onChange={(e)=>setcategoriaSeleccionada(e.target.value)}  name="" id="">
-              <option value="todos" selected>todos</option>
-              <option value="licores">licores</option>
-              <option value="abarrotes" >abarrotes</option>
-            </select>
-          </div>
-          <div className="box">
+          </div>         
+          <div className="caja-filter">
+            <select className="form-select" onChange={(e)=>setcategoriaSelec(e.target.value)} name="" id="">
+              <option value={0} selected>todos</option>
+              {categoria.map((c)=>{               
+                return(
+                  <>
+                       <option key={c.id} value={c.id}>{c.nombre}</option>                      
+                  </>
+                )
+              })}
+             
+            </select>        
             <div className='filter'>
-            <input type="text" className='form-control' name="" placeholder='filtrar' id="" />
+            <input type="text" className='form-control' value={productofilter} onChange={onHandleProdcutoFilter} placeholder='filtrar' id="" />
             <i className='bx bx-search '></i>
             </div>
           </div>
-          </div>
+          
         </div>
       </div>
       <hr />
       <div className="tarjetas">
         <div className="lista-tarjetas">
-          {myproduct.map((p)=>{
+          {datosFiltrado.map((p)=>{
             return(
               <div className="tarjeta">
                 <div className="header-card">

@@ -13,19 +13,32 @@
 .herra{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
 }
-.box{
-    font-size: 18px
+.caja-productos{
+    
+    display: flex;
+   
+}
+.header-produc{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.caja-filter{
+   
+    
 }
 .addp{
-    
+    margin: 0px 2px;
     text-decoration: none;
     color: black;
-    padding: 5px;
+    padding: 5px 10px;
     background-color:rgb(137, 173, 228);
     border: 2px solid black;
     font-weight: bold;
+    
     border-radius: 10px;
 
 }
