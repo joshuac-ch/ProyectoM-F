@@ -150,3 +150,8 @@
         align-items: center;
     }
 }
+.fecha-emitida{
+    display: flex;
+    gap: 5rem;
+    justify-content: space-between;
+}

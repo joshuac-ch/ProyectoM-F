@@ -76,7 +76,8 @@ export default function Ventas() {
         <hr />
         <div className="body-ventas p-3">
             <div className="contenedor-venta">
-                {ventas.map((v)=>{
+                {ventas.sort((a,b)=>b.id-a.id)
+                .map((v)=>{
                     return(
                         <div className="venta container mt-4">
                             <div className="header-venta">
@@ -84,7 +85,7 @@ export default function Ventas() {
                                 <div className="btn-icon">
                                     <button type="button" onClick={()=>onUpdate(v.id)}><i class='bx bx-edit-alt'></i></button>
                                     <button type="button" onClick={()=>onDelete(v.id)}><i class='bx bx-trash' ></i></button>
-                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}>nota de pedido</button>
+                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}><i class='bx bx-notepad'></i></button>
                                 </div>
                             </div>
                             <div className="body-venta">
