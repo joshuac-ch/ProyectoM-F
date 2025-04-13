@@ -60,6 +60,9 @@ export default function Ventas() {
     const ProximoAVANCE=()=>{
         alert("Sigue en desarrollo")
     }
+    const Reportes=()=>{
+        navegar("/reporte-mensual")
+    }
   return (
     <>
     <div className="container mt-4">
@@ -68,9 +71,10 @@ export default function Ventas() {
             <div className="header-btn">
             
             <button type="button" onClick={()=>navegar("/crear-detalle-venta")}>Crear Detalle de Venta</button>
-           
+            <button type='button' onClick={Reportes}>Reportes</button>
             <button type="button" onClick={ProximoAVANCE}>Generar Boleta</button>
             <button type="button" onClick={ProximoAVANCE}>Generar Factura</button>
+            
         </div>
         </div>
         <hr />

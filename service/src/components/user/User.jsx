@@ -4,6 +4,7 @@ import "../user/hojauser.css"
 import { Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FunctionUsuario from '../hooks/Usuario'
 
 
 export default function User() {
@@ -69,8 +70,16 @@ export default function User() {
     alert("Solo personal autorizado")
   }
   };  
-  
- 
+ const {FectUsuario,usuario}=FunctionUsuario()
+ useEffect(()=>{
+  FectUsuario()
+ },[]) 
+ const [empleadofilter, setempleadofilter] = useState("")
+ const datosFiltrados=usuario.filter((u)=>u.nombre.toLowerCase().includes(empleadofilter.toLowerCase())  
+) 
+ const handleChangeEmpleados=(e)=>{
+  setempleadofilter(e.target.value)
+ }
 
   return (
     <>
@@ -83,17 +92,10 @@ export default function User() {
           <div className="box">
           <button type='button' className='addp' onClick={CreateEmpleado} >Agregar empleado</button>
           </div>
-          <div className="box">
-            <select className="form-select" onChange={""}  name="" id="">
-              <option value="todos" selected>todos</option>
-              <option value="vendedor">vendedor</option>
-              <option value="administrador">administrador</option>
-              
-            </select>
-          </div>
+        
           <div className="box">
             <div className='filter'>
-            <input type="text" className='form-control' name="" placeholder='filtrar' id="" />
+            <input type="text" className='form-control' value={empleadofilter} onChange={handleChangeEmpleados}  placeholder='buscar...' id="" />
             <i className='bx bx-search '></i>
             </div>
           </div>
@@ -120,7 +122,7 @@ export default function User() {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
+                    {datosFiltrados.map((user) => (
                         
                       <tr key={user.id}>
                        

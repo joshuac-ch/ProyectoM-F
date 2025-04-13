@@ -53,6 +53,11 @@ export default function Proveedores() {
             alert("Solo persona autorizado")
         }
     }
+    const [proveedorFilter, setproveedorFilter] = useState("")
+    const handleProveedorFilter=(e)=>{
+        setproveedorFilter(e.target.value)
+    }
+    const dataFiltradaProveedor=proveedor.filter((p)=>p.nombre.toLowerCase().includes(proveedorFilter.toLowerCase()))
   return (
     <>
     
@@ -68,7 +73,7 @@ export default function Proveedores() {
           
           <div className="box">
             <div className='filter'>
-            <input type="text" className='form-control' name="" placeholder='filtrar' id="" />
+            <input type="text" className='form-control' onChange={handleProveedorFilter} value={proveedorFilter} name="" placeholder='filtrar' id="" />
             <i className='bx bx-search '></i>
             </div>
           </div>
@@ -90,7 +95,7 @@ export default function Proveedores() {
             </tr>
         </thead>
   <tbody >
-    {proveedor.map((p)=>{
+    {dataFiltradaProveedor.map((p)=>{
         return(
             
             <tr>
