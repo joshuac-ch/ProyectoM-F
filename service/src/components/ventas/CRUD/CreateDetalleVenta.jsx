@@ -17,7 +17,7 @@ export default function CreateDetalleVenta() {
     
     const [almacenvalor, setalmacenvalor] = useState([])
     const [dataDetalle, setdataDetalle] = useState({
-        producto_id:0,almacen_id:0,usuario_id:0,cliente_id:0,total_venta:0
+        producto_id:0,almacen_id:0,usuario_id:0,cliente_id:0,total_venta:0,selec_pago:""
     })
     const [productos, setproductos] = useState([
         {producto_id:"",cantidad:"",precio_unitario:""}
@@ -242,23 +242,34 @@ export default function CreateDetalleVenta() {
                         <select name="cliente_id"  onChange={handleText} className='form-control' id="">
                             <option value="" selected disabled>Seleccion del cliente ID</option>
                             <option value={empleado.id} selected>Persona anonima</option>
-                            {cliente.map((c)=>{
-                                
-                                return(
-                                    
+                            {cliente.map((c)=>{                                
+                                return(                                    
                                     <option value={c.id}>ID: {c.id} || Nombre: {c.nombre}</option>
                                 )
                             })}
                         </select>  
                                             
                     </div>
-                   {/**
+                  
                      <div className="w-50 p-3">
-                        <label htmlFor="">Nombre del cliente</label>
-                        <input type="text" className='form-control' placeholder='ingrese nombre del cliente' />
+                        <label htmlFor="">Metodo de pago</label>
+                        <select name="selec_pago" onChange={handleText} className='form-control' id="">
+                            <option value="" selected disabled>Seleccione metodo de pago</option>
+                            <option value="targeta">Tarjeta</option>
+                            <option value="efectivo">Efectivo</option>
+                            <option value="yape">Yape</option>
+                            <option value="pago_combinado">Pago Combinado</option>
+                        </select>
                     </div>
-                     
-                    */}
+                    {dataDetalle.selec_pago=="pago_combinado"?
+                    (
+                        <div className='w-100 p-3'>
+                            <label htmlFor="">Descripcion del pago *</label>
+                            <textarea name="" className='form-control' id=""></textarea>                            
+                        </div>
+                    )
+                    :null} 
+                    
             </div>
             <div className="w-100 p-3">        
             <div>

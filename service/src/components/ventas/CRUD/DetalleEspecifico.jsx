@@ -9,15 +9,7 @@ import FuncionCajas from '../../hooks/Cajas'
 export default function DetalleEspecifico() {
     
     const navegar=useNavigate()
-    const [FormDataDetalle, setFormDataDetalle] = useState({        
-            id:"",
-            cantidad:"",
-            precio_unitario:"",
-            subtotal:"",
-            producto_id:"",
-            venta_id:""
-       
-    })
+    
     const {id}=useParams()
     const [detalle, setdetalle] = useState([])
     const {producto,FectProdcutos} =FunctionProducto()
@@ -33,8 +25,7 @@ export default function DetalleEspecifico() {
    
     useEffect(()=>{
         const MostrarDetalleEspecifico=async()=>{
-            try{
-                
+            try{                
                 const {data} =await axios.get(`http://localhost:4000/api/users/detalle-especifico/${id}`)
                 setdetalle(data)
             }catch(err){
@@ -61,7 +52,9 @@ export default function DetalleEspecifico() {
     </div>
     <div className="body-detalle-venta1">
             <div className="detalles-venta">     
-                        <h2>Nota de pedido</h2>
+                        <h3>Nota de pedido</h3>
+                        <label htmlFor="">Tienda de licores santa anita</label> <br />
+                        <label htmlFor=""> RUC: 123456789-9</label>
                         <hr />
 
                         {detalle.map((de)=>{
@@ -72,7 +65,7 @@ export default function DetalleEspecifico() {
                                 <div className="body-detalle-venta">
                                     <div className="nombre-producto">
                                     <p >{data_producto.nombre}</p> 
-                                    <p> ${parseFloat(de.precio_unitario)}.00</p>
+                                    <p> S/.{parseFloat(de.precio_unitario)}.00</p>
                                     </div>                                    
                                     <p>Cantidad: {de.cantidad}</p>
                                     <hr />                          
@@ -81,26 +74,35 @@ export default function DetalleEspecifico() {
 
                             )
                         })}                        
+                        <div className="mt-4 text-start">
+                            <label htmlFor="">Metodo de pago: Efectivo</label>
+                            <p>Descripcion: <label htmlFor="">...</label></p>
+                            
+                        </div>
+                        <hr />
                         <div className="mt-4 text-end">
                             {(() => {
                             const subtotal = detalle.reduce((acc, item) => acc + parseFloat(item.subtotal), 0);
-                            const igv = subtotal * 0.18;
-                            const total = subtotal + igv;
+                            //const igv = subtotal * 0.18;
+                            const igvactual=0
+                            const total = subtotal + igvactual;
 
                             return (
                                 <>
-                                <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
-                                <p>IGV (18%): <strong>${igv.toFixed(2)}</strong></p>
-                                <p>Total a pagar: <strong>${total.toFixed(2)}</strong></p>
+                                <p>Subtotal: <strong>S/.{subtotal.toFixed(2)}</strong></p>
+                                <p>IGV (18%): <strong>S/.{igvactual.toFixed(2)}</strong></p>
+                                <p>Total a pagar: <strong>S/.{total.toFixed(2)}</strong></p>
                                 </>
                             );
                             })()}
                         </div>
+                        
                         <div className="foot-detalle">
                             <img src="https://media.istockphoto.com/id/828088276/es/vector/c%C3%B3digo-qr-ilustraci%C3%B3n.jpg?s=612x612&w=0&k=20&c=WaiK400NIuEZRzYHXXSy5_nIoYMCKUr-rc38_qnEYys=" alt="" />
                             <label htmlFor="">Representacion impresa de nota de pedido electronica revisarla en www.tiendasmer.com.pe</label>
                             <div className="codigo-barras">
-                                <img src="https://img.freepik.com/psd-gratis/ilustracion-codigo-barras-aislado_23-2150584086.jpg" alt="" />
+                              
+                               <hr />
                             </div>
                             <div className="fecha-fin">
                                 {FechaVenta&&
