@@ -1,0 +1,22 @@
+.reporte-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    select{
+        width: 200px;
+    }
+}
+.grafico{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.tarjeta-prodcuto{
+    display: flex;
+    flex-direction: column;
+    div{
+        margin-top: 10px;
+    }
+}
