@@ -6,6 +6,8 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
     
     .add-warehouse,.add-product{
         button{
@@ -29,6 +31,9 @@
         }
         input{
         padding: 5px;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border: 2px solid #fff;
         }
 }
 }
@@ -53,4 +58,22 @@
 }
 .content-inventario table{
     border-radius: 20px;
+}
+.almacen{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    box-shadow: 0px 0px 8px 1px black;
+    width:400px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+}
+.tarjeta-almacen{
+    margin-top: 40px;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }

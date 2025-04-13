@@ -38,7 +38,7 @@ export default function CreateInventarrio() {
     <>
     <div className="container mt-4">
     <div className="header-inventario">
-        <h1>Crear Inventario</h1>
+        <h1>Agregar Productos al inventario</h1>
         <button type="button" onClick={()=>navegar("/invetario-producto")}>Regresar</button>
     </div>
     <div className="body-inventario">

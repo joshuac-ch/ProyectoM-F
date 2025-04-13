@@ -3,6 +3,7 @@ import "../Inventario/hojainven.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FuncionDelimitar from '../hooks/Delimitar';
+import FuncionAlmacenes from '../hooks/Almacenes';
 export default function Inventario() {
   const inventario=[
 {imagen:"https://i.pinimg.com/236x/36/af/33/36af3325c88b9711b6285a4d408faa77.jpg",id:1,cantidad:10,nombre:"Vino tinto",code:"VIN001",condicion:"Buena",Ubicacion:"Tienda 1",precio:"32.00",modificado:"25/03/2025"},
@@ -48,6 +49,14 @@ export default function Inventario() {
       alert("Solo personal autorizado")
     }
   } 
+  const [almacenFilter, setalmacenFilter] = useState("") 
+  const datosFilterAlmacen=almacen.filter((a)=>{
+    return(
+    a.nombre.toLowerCase().includes(almacenFilter.toLowerCase())
+  )})
+  const onChangeAlmacenFilter=(e)=>{
+    setalmacenFilter(e.target.value)
+  }
   return (
     <>
     <div className="container mt-4">
@@ -62,17 +71,17 @@ export default function Inventario() {
             <button type="button" onClick={()=>navegar("/crear-producto")}>Agregar producto</button>
           </div>
           <div className="search ">
-            <input type="text" placeholder='buscar...'/>
-            <button type="button"><i className='bx bx-search-alt-2'></i></button>
+            <input type="text" onChange={onChangeAlmacenFilter} value={almacenFilter} placeholder='buscar...'/>
+            <button type="button" ><i className='bx bx-search-alt-2'></i></button>
           </div>
         </div>
       </div>
       <hr />
       <div className="body-categorias">
-             <div className="tarjeta-cate">
-              {almacen.map((c)=>{
+             <div className="tarjeta-almacen">
+              {datosFilterAlmacen.map((c)=>{
                 return(
-                  <div key={c.id} className="categoria1">
+                  <div key={c.id} className="almacen">
                     <div className="first-cate">
                    <h4 className='identificador'>{c.id}</h4>
                       <div className="cont">

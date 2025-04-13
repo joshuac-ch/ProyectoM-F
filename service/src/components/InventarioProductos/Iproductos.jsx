@@ -87,8 +87,15 @@ export default function Iproductos() {
                                   <div className="conteiner-producto">
                                     <div className="conteainer">
                                       <div className="productoi">
+                                      <div className="detalle-producto">
                                         <img src={relacionprodcuto.image} alt="" />
-                                        <label>{relacionprodcuto.nombre}</label>
+                                       
+                                        </div>
+                                     <div className="productoi-header">
+                                     <label>Nombre: {relacionprodcuto.nombre}</label>
+                                     <p>Vence: <strong>{relacionprodcuto.fecha_vencimiento.split("T")[0]}</strong> </p>
+                                     </div>                                        
+                                        
                                       </div>
                                     </div>
                                   </div>
