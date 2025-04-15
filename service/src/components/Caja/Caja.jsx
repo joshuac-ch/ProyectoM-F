@@ -80,7 +80,7 @@ export default function Caja() {
         <hr />
         
         <div className="body-caja mt-4">
-        <table class="table">
+        <table className="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -97,46 +97,56 @@ export default function Caja() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Cajas.map((c)=>{
-                        return(
-                            <tr>
-                                <th scope="row">{c.id}</th>
-                                <td>{c.saldo_inicial}</td>
-                                <td>{c.saldo_final}</td>
-                                <td>{c.total_ingresos}</td>
-                                <td>{c.total_egresos}</td>
-                                <td>
-                                {c.fecha_apertura
-                                    ? new Date(c.fecha_apertura)
-                                        .toISOString()
-                                        .replace(/T/, " ") // Reemplaza la "T" por un espacio
-                                        .replace(/:\d{2}\.\d{3}Z/, "") // Elimina ":00.000Z"
-                                    : ""}
-                                   
-                                </td>
-                                <td>
-                                {c.fecha_cierre
-                                    ? new Date(c.fecha_cierre)
-                                        .toISOString()
-                                        .replace(/T/, " ") // Reemplaza la "T" por un espacio
-                                        .replace(/:\d{2}\.\d{3}Z/, "") // Elimina ":00.000Z"
-                                    : ""}
-                                   
-                                </td>
-                                <td>{c.usuario_id}</td>
-                                <td>{c.tienda_id}</td>
-                                <td>
-                                    <div className="btn-icons">
-                                        <button type="button" onClick={()=>onUpdate(c.id)} className='form-control'><i class='bx bx-edit-alt'></i></button>
-                                        <button type="button" onClick={()=>onDelete(c.id)} className='form-control'><i class='bx bx-trash' ></i></button>
-                                    </div>
-                                </td>
-                                <th>
-                                    <button type="button" className='btn btn-danger cerrar_caja' onClick={()=>CerrarCaja(c.tienda_id)}>Cerrar caja</button>
-                                </th>
-                            </tr>    
-                        )
-                    })}
+                    {
+                        Cajas.length===0?(
+                           
+                            <tr id='Not-Fount-caja'>
+                                <td> No se encontro una caja abierta</td>
+                            </tr>                         
+                                                  
+                            
+                        ):
+                        Cajas.map((c)=>{
+                            return(
+                                <tr>
+                                    <th scope="row">{c.id}</th>
+                                    <td>{c.saldo_inicial.toFixed(2)}</td>
+                                    <td>{c.saldo_final.toFixed(2)}</td>
+                                    <td>{c.total_ingresos.toFixed(2)}</td>
+                                    <td>{c.total_egresos.toFixed(2)}</td>
+                                    <td>
+                                    {c.fecha_apertura
+                                        ? new Date(c.fecha_apertura)
+                                            .toISOString()
+                                            .replace(/T/, " ") // Reemplaza la "T" por un espacio
+                                            .replace(/:\d{2}\.\d{3}Z/, "") // Elimina ":00.000Z"
+                                        : ""}
+                                       
+                                    </td>
+                                    <td>
+                                    {c.fecha_cierre
+                                        ? new Date(c.fecha_cierre)
+                                            .toISOString()
+                                            .replace(/T/, " ") // Reemplaza la "T" por un espacio
+                                            .replace(/:\d{2}\.\d{3}Z/, "") // Elimina ":00.000Z"
+                                        : ""}
+                                       
+                                    </td>
+                                    <td>{c.usuario_id}</td>
+                                    <td>{c.tienda_id}</td>
+                                    <td>
+                                        <div className="btn-icons">
+                                            <button type="button" onClick={()=>onUpdate(c.id)} className='form-control'><i className='bx bx-edit-alt'></i></button>
+                                            <button type="button" onClick={()=>onDelete(c.id)} className='form-control'><i className='bx bx-trash' ></i></button>
+                                        </div>
+                                    </td>
+                                    <th>
+                                        <button type="button" className='btn btn-danger cerrar_caja' onClick={()=>CerrarCaja(c.tienda_id)}>Cerrar caja</button>
+                                    </th>
+                                </tr>    
+                            )
+                        })
+                    }
                                         
                 </tbody>
 </table>

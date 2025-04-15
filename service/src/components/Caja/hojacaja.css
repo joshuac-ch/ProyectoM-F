@@ -9,6 +9,15 @@
         border-radius: 10px;
     }
 }
+#Not-Fount-caja{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+   
+    td{
+        background-color: transparent;
+    }
+}
 .header-btn{
     display: flex;
     gap: .5rem;
