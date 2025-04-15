@@ -7,7 +7,7 @@ import axios from 'axios'
 import FuncionDelimitar from '../hooks/Delimitar'
 export default function Iproductos() {
     const navegar=useNavigate()
-    const {inventario,FectchInventario}=FunctionInventarrio()
+    const {inventario,setinventario,FectchInventario}=FunctionInventarrio()
     const {FectProdcutos,producto}=FunctionProducto()
     useEffect(()=>{
         FectchInventario(),FectProdcutos()
@@ -27,7 +27,7 @@ export default function Iproductos() {
     
         const productosData = responses.map((res) => res.data);
         setmostarProductos(productosData);
-        console.log(productosData);
+        //console.log(productosData);
       } catch (err) {
         console.error("Hubo un error", err);
       }
@@ -50,6 +50,19 @@ export default function Iproductos() {
     }else{
       alert("No tiene permiso para editar el inventario de productos")
 
+    }
+  }
+  const OnDelete=async(id)=>{
+    const mensage=window.confirm("Estas seguro de querer este producto del inventario")
+    if(mensage){
+      try{
+        await axios.delete(`http://localhost:4000/api/users/inven/d/${id}`)
+        alert("Se elimino el producto exitosamente")
+        setinventario(inventario.filter((i)=>i.id!==id))
+      
+      }catch(err){
+        alert(err?.response?.data?.message)
+      }
     }
   }
   
@@ -76,45 +89,50 @@ export default function Iproductos() {
     </tr>
   </thead>
   <tbody>
-  {inventario.map((i)=>{
-     const relacionprodcuto=mostarProductos.find((r)=>r.id===i.producto_id)  
-                    return(                      
-                             <tr key={i.id}>
-                              <th scope="row">{i.id}</th>
-                              <td>{i.cantidad_actual}</td>
-                              <td>                               
-                                  {relacionprodcuto ? (
-                                  <div className="conteiner-producto">
-                                    <div className="conteainer">
-                                      <div className="productoi">
-                                      <div className="detalle-producto">
-                                        <img src={relacionprodcuto.image} alt="" />
+  {inventario.length===0?(
+    <tr id="not-found-inventario">
+      <td>No se agregado ningun producto a inventario</td>
+    </tr>
+  ):inventario.map((i)=>{
+    const relacionprodcuto=mostarProductos.find((r)=>r.id===i.producto_id)  
+                   return(                      
+                            <tr key={i.id}>
+                             <th scope="row">{i.id}</th>
+                             <td>{i.cantidad_actual}</td>
+                             <td>                               
+                                 {relacionprodcuto ? (
+                                 <div className="conteiner-producto">
+                                   <div className="conteainer">
+                                     <div className="productoi">
+                                     <div className="detalle-producto">
+                                       <img src={relacionprodcuto.image} alt="" />
+                                      
+                                       </div>
+                                    <div className="productoi-header">
+                                    <label>Nombre: {relacionprodcuto.nombre}</label>
+                                    <p>Vence: <strong>{relacionprodcuto.fecha_vencimiento.split("T")[0]}</strong> </p>
+                                    </div>                                        
                                        
-                                        </div>
-                                     <div className="productoi-header">
-                                     <label>Nombre: {relacionprodcuto.nombre}</label>
-                                     <p>Vence: <strong>{relacionprodcuto.fecha_vencimiento.split("T")[0]}</strong> </p>
-                                     </div>                                        
-                                        
-                                      </div>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <span>Sin producto</span>
-                                )}                          
-                              </td>
-                              <td>{i.almacen_id}</td>
-                             {/*<td>{i.stock_minimo}</td>NO MOSTRAR HASTA HACER LA FUNCION DE STOCK MINIMO MUESTRE ALERTAS CUANDO HAYA ESCAZES*/}
-                              <td>{i.stock_maximo}</td>
-                              <td>{i.ultimo_movimiento.split(".")[0].replace("T"," ")}</td>
-                              <td className='agregar'>
-                                <button onClick={()=>OnUpdate(i.id)} type="button"><i class='bx bx-plus-circle'></i></button>
-                              </td>
-                            </tr>
-                       
-                    )
-                })}
- 
+                                     </div>
+                                   </div>
+                                 </div>
+                               ) : (
+                                 <span>Sin producto</span>
+                               )}                          
+                             </td>
+                             <td>{i.almacen_id}</td>
+                            {/*<td>{i.stock_minimo}</td>NO MOSTRAR HASTA HACER LA FUNCION DE STOCK MINIMO MUESTRE ALERTAS CUANDO HAYA ESCAZES*/}
+                             <td>{i.stock_maximo}</td>
+                             <td>{i.ultimo_movimiento.split(".")[0].replace("T"," ")}</td>
+                             <td className='agregar'>
+                               <button onClick={()=>OnUpdate(i.id)} type="button"><i className='bx bx-plus-circle'></i></button>
+                               <button onClick={()=>OnDelete(i.id)} type='button'><i className='bx bx-trash'></i></button>
+                             </td>
+                           </tr>
+                      
+                   )
+               })}
+
   
   </tbody>
 </table>               
