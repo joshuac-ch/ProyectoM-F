@@ -52,7 +52,12 @@ export default function Category() {
       <hr />
       <div className="body-categorias">
              <div className="tarjeta-cate">
-              {categoria.map((c)=>{
+              {categoria.length===0?(
+                <div className='not-found-categoria'>
+                  <p>No se encontro ninguna categoria</p>
+                </div>
+              ):
+              categoria.map((c)=>{
                 return(
                   <div id='c.id' className="categoria1">
                     <div className="first-cate">
@@ -80,7 +85,8 @@ export default function Category() {
                   </div>
                   
                 )
-              })}
+              })
+              }
              </div>
       </div>
     </div>
