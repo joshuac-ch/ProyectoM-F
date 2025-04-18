@@ -38,6 +38,20 @@ export default function UpdateCaja() {
         }catch(err){
             alert("Los campos no deben ser vacios en 0",err)
         }
+    }
+    const FuncionFecha=(fecha)=>{
+        const fecha_Formateada=new Date(fecha).toLocaleString("es-PE",{
+            timeZone:"America/Lima",
+            hour12:true,
+            year:'numeric',
+            month:'2-digit',
+            day:'2-digit',
+            hour:'2-digit',
+            minute:'2-digit',
+            second:'2-digit'
+
+        })
+        return fecha_Formateada 
     }    
   return (
     <>
@@ -71,13 +85,13 @@ export default function UpdateCaja() {
                 </div>
                 <div className="input-group">
                     <div className="w-50 p-3">
-                        <label htmlFor="" className='form-label'>Fecha de Apertura </label>
-                        <input type="datetime-local" required className='form-control' onChange={handleText} value={caja.fecha_apertura?caja.fecha_apertura.split("Z")[0]:""}  name='fecha_apertura' placeholder='ingrese la fecha de apertura'/>
+                        <label htmlFor="" className='form-label'>Fecha de Apertura Actual: {FuncionFecha(caja.fecha_apertura)} </label>
+                        <input type="datetime-local" required className='form-control' onChange={handleText} name='fecha_apertura' placeholder='ingrese la fecha de apertura'/>
                     </div>
                     
                     <div className="w-50 p-3" >
-                        <label htmlFor=""  className='form-label'>Fecha de Cierre </label>
-                        <input type="datetime-local" required className='form-control' onChange={handleText} value={caja.fecha_cierre? caja.fecha_cierre.split("Z")[0]:""} name='fecha_cierre' placeholder='ingrese la fecha de cierre'/>
+                        <label htmlFor=""  className='form-label'>Fecha de Cierre Actual: {FuncionFecha(caja.fecha_cierre)}</label>
+                        <input type="datetime-local" required className='form-control' onChange={handleText} name='fecha_cierre' placeholder='ingrese la fecha de cierre'/>
                     </div>
                 </div>
                 

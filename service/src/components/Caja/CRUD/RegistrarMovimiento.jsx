@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionUsuario from '../../hooks/Usuario'
 import axios from 'axios'
+import FuncionEmpleados from '../../hooks/Empleados'
 
 export default function RegistrarMovimiento() {
     const navegar=useNavigate()
@@ -17,24 +18,35 @@ export default function RegistrarMovimiento() {
         setDataRegistrarMovimiento({...DataRegistrarMovimiento,[e.target.name]:e.target.value})
     }
     const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
-    const {usuario,FectUsuario}=FunctionUsuario()
-    useEffect(()=>{
-        FectAlmacen_id(),FectUsuario()
-    },[])
+    
+   
     const onSumibtMovimiento=async(e)=>{
         e.preventDefault()
-        console.log("Datos a enviar:", DataRegistrarMovimiento); // Agregar esto para depuración
+        //console.log("Datos a enviar:", DataRegistrarMovimiento); // Agregar esto para depuración
         try{
             await axios.post("http://localhost:4000/api/users/caja/movimiento",DataRegistrarMovimiento)
             alert("Se registro el movimiento")
             navegar("/caja")
         }catch(err){
-            alert(`No hay una caja abierta en esta tienda ID: ${DataRegistrarMovimiento.tienda_id}`)
-            console.error("Hubo un error",err)
+            alert(err.response?.data?.message)
+           
         }
         
     }
-  return (
+    const {empleado,FectUsuarios}=FuncionEmpleados()
+    useEffect(()=>{
+        if(empleado){
+            setDataRegistrarMovimiento((e)=>({
+                ...e,
+                usuario_id:empleado.id,
+                tienda_id:empleado.almacen_id
+            }))
+        }
+    },[empleado])
+    useEffect(()=>{
+        FectAlmacen_id(),FectUsuarios()
+    },[])
+    return (
    <>
    <div className="container mt-4">
     <div className="header-movimiento">
@@ -47,25 +59,17 @@ export default function RegistrarMovimiento() {
         <div className="p-3">
             <div className="datos">
                 <label htmlFor="">Tienda ID</label>
-                <select name="tienda_id" onChange={handleText} className='form-control' id="">
-                    <option value=""  selected disabled>escoja la tienda id</option>
-                    {almacen_id.map((a)=>{
-                        return(
-                            <option value={a.id} >ID: {a.id} || Nombre: {a.nombre}</option>
-                        )
-                    })}
-                </select>
+                {(()=>{
+                    const dataAlmacen=almacen_id.find((a)=>a.id===empleado.almacen_id)
+                    return dataAlmacen&&(
+                        <input type="text" onChange={handleText} className='form-control' readOnly value={dataAlmacen.nombre} />
+                    )
+                })()}               
             </div>
             <div className="datos">
                 <label htmlFor="">Usuario ID</label>
-                <select name="usuario_id" onChange={handleText} className='form-control' id="">
-                    <option value="" selected disabled>escoja el usuario id</option>
-                    {usuario.map((u)=>{
-                        return(
-                            <option value={u.id}>ID: {u.id} || Nombre: {u.nombre}</option>
-                        )
-                    })}
-                </select>
+                <input type="text" value={empleado.nombre} onChange={handleText} className='form-control' readOnly />
+               
             </div>
             <div className="datos">
                 <label htmlFor="">Monto</label>
