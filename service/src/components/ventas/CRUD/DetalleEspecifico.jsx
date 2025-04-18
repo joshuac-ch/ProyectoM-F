@@ -5,7 +5,8 @@ import FunctionProducto from '../../hooks/Producto'
 import FunctionVentas from '../../hooks/Ventas'
 import "../hojaventas.css"
 import FuncionCajas from '../../hooks/Cajas'
-
+import { QRCodeCanvas } from 'qrcode.react';
+import FuncionFecha from '../../hooks/FuncionFecha'
 export default function DetalleEspecifico() {
     
     const navegar=useNavigate()
@@ -14,7 +15,8 @@ export default function DetalleEspecifico() {
     const [detalle, setdetalle] = useState([])
     const {producto,FectProdcutos} =FunctionProducto()
     const {venta,FecthVenta}=FunctionVentas()
-    
+    const [numeroVenta, setnumeroVenta] = useState(123456)
+    const {FechaFormateada}=FuncionFecha()
    const TotalCalculadoSubtotal =detalle.reduce((acc,d)=>{
     return acc+parseFloat(d.subtotal)
    },0) 
@@ -40,17 +42,23 @@ export default function DetalleEspecifico() {
     const FechaVenta = (() => {
         if (detalle.length === 0) return null;
         const ventaEncontrada = venta.find(v => v.id === detalle[0].venta_id);
-        return ventaEncontrada ? ventaEncontrada.fecha_venta.replace("T", " ").replace(/.\d{3}Z/, "") : null;
+        return ventaEncontrada ? ventaEncontrada.fecha_venta : null;
       })();
+    const Metodo_Pago=(()=>{
+        if(detalle.length===0) return null
+        const dataMetodoPago=venta.find((v)=>v.id===detalle[0].venta_id)
+        return dataMetodoPago 
+    })()  
   return (
    <>
    <div className="container mt-4">
     <div className="header-detalle">
-        <h2>Imprimir</h2>
+        <button type="button" onClick={()=>window.print()}>🖨️ Inprimir boleta</button>
         <button type="button" onClick={()=>navegar("/ventas")}>Regresar</button>
         
     </div>
-    <div className="body-detalle-venta1">
+   <div id="imprimir-boleta">
+   <div className="body-detalle-venta1">
             <div className="detalles-venta">     
                         <h3>Nota de pedido</h3>
                         <label htmlFor="">Tienda de licores santa anita</label> <br />
@@ -64,21 +72,34 @@ export default function DetalleEspecifico() {
                                 <div key={de.id} className="detalle-venta">                               
                                 <div className="body-detalle-venta">
                                     <div className="nombre-producto">
-                                    <p >{data_producto.nombre}</p> 
-                                    <p> S/.{parseFloat(de.precio_unitario)}.00</p>
+                                    <label >{data_producto.nombre}</label> 
+                                    <p> S/. {parseFloat(de.precio_unitario).toFixed(2)}</p>
                                     </div>                                    
-                                    <p>Cantidad: {de.cantidad}</p>
+                                    <div className='cantidad-producto'>
+                                        <label htmlFor="">Cantidad:</label>
+                                        <p> {de.cantidad}</p>
+                                    </div>
                                     <hr />                          
                                 </div>
+                                
                             </div>
 
                             )
-                        })}                        
-                        <div className="mt-4 text-start">
-                            <label htmlFor="">Metodo de pago: Efectivo</label>
-                            <p>Descripcion: <label htmlFor="">...</label></p>
-                            
-                        </div>
+                        })}                     
+                       
+                          
+                           
+                           {Metodo_Pago && (
+                                <div className="mt-4 text-start metodo">
+                                   <div className='tipo_pago'>
+                                    <label>Metodo de pago: </label><p>{Metodo_Pago.metodo_pago}</p>
+                                   </div>
+                                   <div>
+                                    <label htmlFor="">Descripcion: </label>
+                                    <p>{Metodo_Pago.descripcion_pago?Metodo_Pago.descripcion_pago:"..."}</p>              
+                                    </div>            
+                                </div>)}                                           
+                        
                         <hr />
                         <div className="mt-4 text-end">
                             {(() => {
@@ -98,8 +119,9 @@ export default function DetalleEspecifico() {
                         </div>
                         
                         <div className="foot-detalle">
-                            <img src="https://media.istockphoto.com/id/828088276/es/vector/c%C3%B3digo-qr-ilustraci%C3%B3n.jpg?s=612x612&w=0&k=20&c=WaiK400NIuEZRzYHXXSy5_nIoYMCKUr-rc38_qnEYys=" alt="" />
-                            <label htmlFor="">Representacion impresa de nota de pedido electronica revisarla en www.tiendasmer.com.pe</label>
+                            <QRCodeCanvas value={`Venta N° ${FechaVenta}:V${id}`} size={128} />
+                            <br />
+                            <label htmlFor="">Representacion impresa de nota de pedido electronica de NK</label>
                             <div className="codigo-barras">
                               
                                <hr />
@@ -108,8 +130,8 @@ export default function DetalleEspecifico() {
                                 {FechaVenta&&
                                             (
                                                <div className='fecha-emitida'>
-                                                <p>Fecha de emision: </p>
-                                                <p><strong>{FechaVenta}</strong></p>
+                                                <p><strong>Fecha emision:</strong> </p>
+                                                <p><strong>{FechaFormateada(FechaVenta)}</strong></p>
                                                </div>
 
                                             )                                   
@@ -125,6 +147,7 @@ export default function DetalleEspecifico() {
                     
             </div>
     </div>
+   </div>
    </div>
    </>
   )

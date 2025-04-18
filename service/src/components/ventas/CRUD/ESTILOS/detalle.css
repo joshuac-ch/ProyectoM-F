@@ -13,3 +13,42 @@
         transition: .5s ease;
     }
 }
+.sugerencia{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+}
+.sug-producto{
+    img{
+        margin: 10px 0px;
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+    }
+}
+.precio-editar{
+    display: flex;
+    align-items: center;
+    
+    button{
+        
+        width: 40px;
+        margin: 2px;
+    }
+}
+.search2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button{
+        width: 480px;
+        margin: 10px 0px;
+    }
+}
+#manual{
+    display: none;
+}
+#codigo_barras{
+    display: block;
+}
