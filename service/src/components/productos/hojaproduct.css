@@ -128,3 +128,34 @@
     }
    }
 }
+.grupo{
+    margin-left: 10px;
+    max-width:1000px;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.detalles-grupo{
+    width:700px;
+    div{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+   
+}
+
+.imagen-grupo{
+    margin-top: 25px;
+    padding: 40px;
+    img{
+        width: 200px;
+        height: 200px;
+    }
+}
+.not-found-productos{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

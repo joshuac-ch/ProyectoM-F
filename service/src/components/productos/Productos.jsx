@@ -198,9 +198,13 @@ const datosFiltrado=myproduct.filter((producto)=>{
       <hr />
       <div className="tarjetas">
         <div className="lista-tarjetas">
-          {datosFiltrado.map((p)=>{
+          {datosFiltrado.length===0?(
+            <div className="not-found-productos">
+              <p>No se encontraron productos</p>
+            </div>
+          ):datosFiltrado.map((p)=>{
             return(
-              <div className="tarjeta">
+              <div className="tarjeta" key={p.id}>
                 <div className="header-card">
                 <label htmlFor="">{p.nombre}</label>
                 <div className="btn-producto">
@@ -216,7 +220,7 @@ const datosFiltrado=myproduct.filter((producto)=>{
                 <div className="des-card">
                   <div className='precio'>
                     <label htmlFor="">Precio:</label>
-                    <label htmlFor="">S/{p.precio_venta}</label>                   
+                    <label htmlFor="">S/{p.precio_venta.toFixed(2)}</label>                   
                   </div>
                   <div className='categoria'>
                     <label htmlFor="">Subcategoria:</label>
