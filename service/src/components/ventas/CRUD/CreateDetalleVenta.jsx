@@ -220,7 +220,7 @@ export default function CreateDetalleVenta() {
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
         //----------------------------------------------------------------------
-        const [btnEditarprecio, setbtnEditarprecio] = useState("")
+       // const [btnEditarprecio, setbtnEditarprecio] = useState("")
         const [mensaje, setmensaje] = useState("")
         const [showMensaje, setshowMensaje] = useState(false)
         const {FechtSubcategoria,Subcategoria_id}=FuncionSubcategoria()
