@@ -3,6 +3,7 @@ import "../ventas/hojaventas.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FuncionFecha from '../hooks/FuncionFecha'
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
@@ -61,8 +62,14 @@ export default function Ventas() {
         alert("Sigue en desarrollo")
     }
     const Reportes=()=>{
-        navegar("/reporte-mensual")
+        if(ventas.length==0){
+            alert("No hay suficientes datos para mostrar el reporte")
+        }else{
+            navegar("/reporte-mensual")
+        }
+       
     }
+    const {FechaFormateada}=FuncionFecha()   
   return (
     <>
     <div className="container mt-4">
@@ -80,21 +87,25 @@ export default function Ventas() {
         <hr />
         <div className="body-ventas p-3">
             <div className="contenedor-venta">
-                {ventas.sort((a,b)=>b.id-a.id)
+                {ventas.length===0?(
+                    <div className="not-found-ventas">
+                        <p >No se encontro ninguna venta</p>
+                    </div>
+                ):ventas.sort((a,b)=>b.id-a.id)
                 .map((v)=>{
                     return(
                         <div className="venta container mt-4">
                             <div className="header-venta">
                                 <label htmlFor="">Venta Numero:{v.id}</label> 
                                 <div className="btn-icon">
-                                    <button type="button" onClick={()=>onUpdate(v.id)}><i class='bx bx-edit-alt'></i></button>
-                                    <button type="button" onClick={()=>onDelete(v.id)}><i class='bx bx-trash' ></i></button>
-                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}><i class='bx bx-notepad'></i></button>
+                                    <button type="button" onClick={()=>onUpdate(v.id)}><i className='bx bx-edit-alt'></i></button>
+                                    <button type="button" onClick={()=>onDelete(v.id)}><i className='bx bx-trash' ></i></button>
+                                    <button type="button" onClick={()=>redirigirDetalle(v.id)}><i className='bx bx-notepad'></i></button>
                                 </div>
                             </div>
                             <div className="body-venta">
-                                <label htmlFor="">Total de ventas: {v.total_venta}</label> <br />
-                                <label htmlFor="">Fecha: {v.fecha_venta? new Date(v.fecha_venta).toISOString().replace("T"," ").replace(/:\d{2}\.\d{3}Z/,"") :"" }</label> <br />
+                                <label htmlFor="">Total de ventas: S/.{v.total_venta.toFixed(2)}</label> <br />
+                                <label htmlFor="">Fecha: {FechaFormateada(v.fecha_venta)}</label> <br />
                                 <label htmlFor="">Cliente ID {v.cliente_id}</label><br />
                                 <label htmlFor="">Usuario ID {v.usuario_id}</label><br />
                                 <label htmlFor="">Almacen ID: {v.almacen_id}</label>

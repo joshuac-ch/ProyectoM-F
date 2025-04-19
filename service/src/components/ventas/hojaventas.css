@@ -42,7 +42,7 @@
     padding: 10px 15px;
     background-color: white;
     max-width:400px;
-    h2{
+    h3{
         text-align: center;
     }
 }
@@ -150,8 +150,22 @@
         align-items: center;
     }
 }
+.cantidad-producto{
+    display: flex;
+    gap: 1rem;
+}
 .fecha-emitida{
     display: flex;
     gap: 5rem;
     justify-content: space-between;
+}
+.metodo .tipo_pago{
+    display: flex;
+    justify-content: space-between;
+}
+.not-found-ventas{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-decoration: underline;
 }
