@@ -81,7 +81,12 @@ export default function Subcate() {
     <div className="body-subcategoria">
     <div className="body-categorias">
              <div className="tarjeta-cate">
-              {subcategoria.map((c)=>{
+              {subcategoria.length===0?(
+                <div className="not-found-sucategoria">
+                  <p>No se encontro una subcategoria</p>
+                </div>
+              ):
+              subcategoria.map((c)=>{
                 return(
                   <div id='c.id' key={c.id} className="sub-cate">
                     <div className="first-cate">
@@ -113,7 +118,8 @@ export default function Subcate() {
                   </div>
                   
                 )
-              })}
+              })
+              }
              </div>
       </div>
     </div>
