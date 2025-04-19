@@ -19,3 +19,20 @@
 .header-table {
     background-color: rebeccapurple;
 }
+#not-found-proveedor{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    td{
+        background-color: transparent;
+    }
+}
+.tabla-proveedores{
+    display: flex;
+    justify-content: center;
+    
+}
+.proveedores{
+    width: 1400px;
+    min-width: 700px;
+}

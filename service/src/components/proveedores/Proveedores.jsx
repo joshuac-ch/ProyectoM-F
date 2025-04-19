@@ -80,8 +80,9 @@ export default function Proveedores() {
           </div>
         </div>
         <hr />
-    <div className="table-responsive">
-    <table class="table table-hover shadow-sm rounded res">
+    <div className="tabla-proveedores">
+    <div className="table-responsive proveedores">
+    <table className="table table-hover shadow-sm rounded res">
         <thead className='table-header text-start'>
             <tr  className='header-table'>
                 <th scope="col">Id</th>
@@ -95,29 +96,34 @@ export default function Proveedores() {
             </tr>
         </thead>
   <tbody >
-    {dataFiltradaProveedor.map((p)=>{
+    {dataFiltradaProveedor.length===0?(
+        <tr id="not-found-proveedor">
+            <td>No se encontraron proveedores</td>
+        </tr>
+    ):
+    dataFiltradaProveedor.map((p)=>{
         return(
             
-            <tr>
+            <tr key={p.id}>
                 <th scope="row" className='align-middle text-start'>{p.id}</th>
                 <td >
                     <div className='nombre'>
                         <button type='button' className='form-control'> {p.nombre.charAt(0).toUpperCase()}</button>
-                        <label >{p.nombre} {p.apellido}</label>
+                        <label >{p.nombre} </label>
                     </div>
                 </td>
-                <td className='align-middle text-start' >{p.correo}</td>
-                <td className='align-middle text-start'>{p.direccion}</td>
+                <td className='align-middle text-start' >{p.correo.length>10?p.correo.slice(0,3)+"..."+p.correo.slice(10,20):p.correo}</td>
+                <td className='align-middle text-start'>{p.direccion.length>=15?p.direccion.slice(20)+"...":p.direccion}</td>
                 <td className='align-middle text-start'>{p.telefono}</td>
                 <td className='align-middle text-start'>{p.empresa}</td>
                 <td className='align-middle text-start'>{p.ruc}</td>
                 <td className='align-middle text-start'>
                     <div className="btn-icons">
                         <button onClick={()=>onUpdate(p.id)} type='button' className='form-control'>
-                        <i class='bx bx-edit-alt'></i>
+                        <i className='bx bx-edit-alt'></i>
                         </button>
                         <button onClick={()=>onDelete(p.id)} type='button' className='form-control'>
-                        <i class='bx bxs-trash' ></i>
+                        <i className='bx bxs-trash' ></i>
                         </button>
                     </div>
                 </td>
@@ -125,10 +131,12 @@ export default function Proveedores() {
             
         )
     })}
+    
        
   </tbody>
 </table>
 </div>
+    </div>
     </div>
     
     </>
