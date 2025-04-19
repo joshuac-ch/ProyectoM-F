@@ -50,6 +50,19 @@ const onDelete=async(id)=>{
       alert("Solo personal autorizado")
     }
   }
+  const FechaFormateada=(fecha)=>{
+    const FechaFormateada=new Date(fecha).toLocaleString('es-PE',{
+      timeZone:'America/Lima',
+      hour12:true,
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit',
+      second:'2-digit'
+    })
+    return FechaFormateada
+  }
   return (
     <>
     <div className="movi container mt-4">
@@ -70,42 +83,50 @@ const onDelete=async(id)=>{
           <hr />
         </div>
         <div className="box"> 
-          {movimiento.map((m)=>{
-            return(
-            <div className="content" >
-              <div className="content-1">
-                <div className="accion">
-                  <div className="ac">
-                    <h4>{m.id}</h4>
+          {movimiento.length===0?(
+            <div id="not-found-movimientos">
+              <p>No se encontraron movimientos de productos</p>
+            </div>
+          ):movimiento.sort((a,b)=>b.id-a.id)
+            .map((m)=>{
+              return(
+              <div className="content" >
+                
+                <div className="content-1">
+                  <div className="accion">
+                    <div className="ac">
+                      <h4>{m.id}</h4>
+                    </div>
+                                 
+                  <div className="datos">
+                    <label htmlFor="">Usuario ID:{m.usuario_id} || Producto ID: {m.producto_id} || Almacen ID: {m.almacen_id}</label><br />
+                    
+                    <label>Razon:</label>
+                    <p>{m.razon}</p>
+                    <p>Tipo Movimiento: {m.tipo_movimiento}</p>
+                  </div> 
                   </div>
-                               
-                <div className="datos">
-                  <label htmlFor="">Usuario ID:{m.usuario_id} || Producto ID: {m.producto_id} || Almacen ID: {m.almacen_id}</label><br />
-                  <label>Razon:</label>
-                  <p>{m.razon}</p>
-                  <p>Tipo Movimiento: {m.tipo_movimiento}</p>
-                </div> 
+                 </div>
+                  <div className="fecha">
+                    <div className="cantidad">
+                    <label htmlFor="">Cantidad: {m.cantidad}</label>
+                    <div className="btn">
+                    <button type="button" onClick={()=>onUpdate(m.id)} ><i class='bx bxs-show'></i></button>
+                    <button type="button" onClick={()=>onDelete(m.id)} ><i class='bx bx-trash' ></i></button>
+                    </div>
+                    </div>
+                    
+                    <div className="bus">
+                        <label htmlFor="">Fecha Movimiento:</label>
+                        <label htmlFor=""> {FechaFormateada(m.fecha_movimiento)}</label>
+                    
+                    </div>
+                    
+                  </div>
                 </div>
-               </div>
-                <div className="fecha">
-                  <div className="cantidad">
-                  <label htmlFor="">Cantidad: {m.cantidad}</label>
-                  <div className="btn">
-                  <button type="button" onClick={()=>onUpdate(m.id)} ><i class='bx bxs-show'></i></button>
-                  <button type="button" onClick={()=>onDelete(m.id)} ><i class='bx bx-trash' ></i></button>
-                  </div>
-                  </div>
-                  
-                  <div className="bus">
-                      <label htmlFor="">Fecha Movimiento:</label>
-                      <label htmlFor=""> {m.fecha_movimiento?new Date(m.fecha_movimiento).toISOString().replace(/T/," ").replace(/:\d{2}\.\d{3}Z/," "):""}</label>
-                  
-                  </div>
-                  
-                </div>
-              </div>
-            )
-          })}         
+                
+              )
+            })}         
               
               
           

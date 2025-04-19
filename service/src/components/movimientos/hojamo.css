@@ -27,6 +27,8 @@
     padding: 18px 10px;
    
 }
+
+
 .content:hover{
     background-color: transparent;
     transition: all .5s ease;
@@ -61,18 +63,21 @@
     color: black;
 }
 .bus{
-    padding: 10px;
+   
     display: flex;
     flex-direction: column;
    
 }
 .fecha{
+    display: flex;
+    flex-direction: column;
+   
     
-    width: 250px;   
+    
     border-radius: 10px;    
     margin: 10px;
     i{
-        font-size: 25px;
+        font-size: 20px;
         font-weight: bold;
     }
     i:hover{
@@ -85,7 +90,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px;
+   
     button{
         
         margin: 0px 3px;
@@ -113,4 +118,9 @@
 
         }
     }
+}
+#not-found-movimientos{
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
