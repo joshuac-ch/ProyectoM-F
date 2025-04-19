@@ -78,7 +78,7 @@
 }
 #venta{
     box-shadow: 0px 0px 18px 1px  rgb(137, 173, 228);
-    border: 2px solid rgb(137, 173, 228);
+    border: 0px;
 }    
 .lista-content{
     display: flex;
@@ -131,3 +131,19 @@ ESTILO DE LOS GRAFICOS ANUALES LICORES Y ABARROTES
       height:280px;
     }
   }
+@media print {
+    body *{
+        visibility: hidden;
+        
+    }
+    #imprimir-boleta *{
+        visibility: visible;
+        
+    }
+    #imprimir-boleta{
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+    }
+}
