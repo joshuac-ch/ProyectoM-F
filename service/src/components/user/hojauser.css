@@ -24,3 +24,18 @@
         margin: 2px;
     }
 }
+.tabla-emp{
+    display: flex;
+    justify-content: center;
+    
+}
+.tabla-empleados{
+
+    width: 1300px;
+    min-width: 800px;
+    
+    
+}
+.cabecera-user thead tr th{   
+    text-align: center;
+}

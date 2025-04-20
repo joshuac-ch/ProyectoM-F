@@ -102,13 +102,12 @@ export default function User() {
           </div>
      </div>
     </div>
-    <div className="p-3 ">
-        <div className="table-responsive">
-                <table className="table table-hover custom-table">
-                  <thead>
+    <div className="p-3 tabla-emp ">
+        <div className="table-responsive tabla-empleados">
+                <table className="table table-hover custom-table cabecera-user">
+                  <thead >
                     <tr>
-                    <th>Id</th>  
-                    
+                    <th>Id</th>                    
                                           
                       <th>Contacto</th>
                       <th>Username</th>
@@ -132,12 +131,12 @@ export default function User() {
                           
                           <button type='button'>{user.nombre.charAt(0).toLocaleUpperCase()}{user.apellido.charAt(0).toLocaleUpperCase()}  </button>
                           
-                          {user.nombre} {user.apellido}</td>               
+                          {user.nombre} </td>               
                         <td className="align-middle">{user.username}</td>               
                         
-                        <td className="align-middle text-start">{user.correo}</td>
-                        <td className="align-middle text-start">{user.telefono}</td>
-                        <td className="align-middle text-start">{user.direccion}</td>
+                        <td className="align-middle text-start">{user.correo.slice(0,3)+"..."+user.correo.slice(17,35)}</td>
+                        <td className="align-middle text-start">{user.telefono.slice(0,3)+"..."+user.telefono.slice(6,9)}</td>
+                        <td className="align-middle text-start">{user.direccion.length>=20?user.direccion.slice(0,10)+"...":user.direccion}</td>
                         <td className="align-middle text-start">{user.rol}</td>
                         <td className="align-middle text-start">{user.almacen_id}</td>                       
                         <td className="align-middle text-start botones">
