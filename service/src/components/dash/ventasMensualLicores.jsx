@@ -5,6 +5,7 @@ import FuncionSubcategoria from "../hooks/Subcategoria";
 import FunctionProducto from "../hooks/Producto";
 import FuncitonDetalle from "../hooks/Detalle";
 import FunctionVentas from "../hooks/Ventas";
+import FuncionEmpleados from "../hooks/Empleados";
 
 
 export default function VentasMensualLicores() {
@@ -28,10 +29,11 @@ export default function VentasMensualLicores() {
     const {FectProdcutos,producto}=FunctionProducto()
     const {FuncitonDetalleectDetalle,detalle}=FuncitonDetalle()
     const {FecthVenta,venta}=FunctionVentas()
+    const {FectUsuarios,empleado}=FuncionEmpleados()
     useEffect(()=>{
       FechtSubcategoria(),FectProdcutos(),
       FecthCategoria(),FecthVenta(),
-      FuncitonDetalleectDetalle()
+      FuncitonDetalleectDetalle(),FectUsuarios()
     },[])
     const categoriaLicores=categoria.find((c)=>c.nombre==="licores")
     const subcategorialicores=categoriaLicores?
@@ -39,7 +41,7 @@ export default function VentasMensualLicores() {
     return s.categoria_id===categoriaLicores.id
 }):[]
   const productosLicores=producto.filter((p)=>{
-    return subcategorialicores.some((s)=>s.id==p.subcategoria_id)
+    return p.almacen_id===empleado.almacen_id && subcategorialicores.some((s)=>s.id==p.subcategoria_id)
   })
   const idsprodcutoslicores=productosLicores.map((p)=>p.id)
      // 5. Detalles de venta que incluyan esos productos
