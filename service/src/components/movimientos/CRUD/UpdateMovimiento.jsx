@@ -49,6 +49,20 @@ export default function UpdateMovimiento() {
         FectProdcutos(),
         FectUsuario()
     },[])
+    const FechaFormateada=(fecha)=>{
+        const FechaFormateada=new Date(fecha).toLocaleString('es-PE',{
+          timeZone:'America/Lima',
+          hour12:true,
+          year:'numeric',
+          month:'2-digit',
+          day:'2-digit',
+          hour:'2-digit',
+          minute:'2-digit',
+          second:'2-digit'
+          
+        })
+        return FechaFormateada
+    }
   return (
     <>
     <div className="container mt-4">
@@ -65,8 +79,8 @@ export default function UpdateMovimiento() {
                 <input type="text" className='form-control' value={movimiento.cantidad} onChange={handleText} placeholder='Ingrese cantidad' name='cantidad'/>
             </div>
             <div className="w-50 p-3">
-                <label htmlFor="">Fecha Movimiento</label>
-                <input type="datetime-local" className='form-control' value={movimiento.fecha_movimiento? movimiento.fecha_movimiento.split("Z")[0]:""} onChange={handleText}  name='fecha_movimiento'/>
+                <label htmlFor="">Fecha Movimiento Actual: {FechaFormateada(movimiento.fecha_movimiento)}</label>
+                <input type="datetime-local" className='form-control'  onChange={handleText}  name='fecha_movimiento'/>
             </div>
             </div>
             <div className="input-group ">

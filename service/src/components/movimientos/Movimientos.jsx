@@ -3,6 +3,7 @@ import "../movimientos/hojamo.css"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FuncionEmpleados from '../hooks/Empleados'
 export default function Movimientos() {
   
   const navegar=useNavigate()
@@ -63,6 +64,10 @@ const onDelete=async(id)=>{
     })
     return FechaFormateada
   }
+  const {FectUsuarios,empleado}=FuncionEmpleados()
+  useEffect(()=>{
+    FectUsuarios()  
+  },[])
   return (
     <>
     <div className="movi container mt-4">
@@ -87,46 +92,53 @@ const onDelete=async(id)=>{
             <div id="not-found-movimientos">
               <p>No se encontraron movimientos de productos</p>
             </div>
-          ):movimiento.sort((a,b)=>b.id-a.id)
-            .map((m)=>{
-              return(
-              <div className="content" >
+          ):           
+              (
+                movimiento.sort((a,b)=>b.id-a.id).filter((m)=> m.almacen_id===empleado.almacen_id).map((mo)=>{
+                  
+                    return (
+                      <div className="content" >
+                      
+                      <div className="content-1">
+                        <div className="accion">
+                          <div className="ac">
+                            <h4>{mo.id}</h4>
+                          </div>
+                                       
+                        <div className="datos">
+                          <label htmlFor="">Usuario ID:{mo.usuario_id} || Producto ID: {mo.producto_id} || Almacen ID: {mo.almacen_id}</label><br />
+                          
+                          <label>Razon:</label>
+                          <p>{mo.razon}</p>
+                          <p>Tipo Movimiento: {mo.tipo_movimiento}</p>
+                        </div> 
+                        </div>
+                       </div>
+                        <div className="fecha">
+                          <div className="cantidad">
+                          <label htmlFor="">Cantidad: {mo.cantidad}</label>
+                          <div className="btn">
+                          <button type="button" onClick={()=>onUpdate(mo.id)} ><i class='bx bxs-show'></i></button>
+                          <button type="button" onClick={()=>onDelete(mo.id)} ><i class='bx bx-trash' ></i></button>
+                          </div>
+                          </div>
+                          
+                          <div className="bus">
+                              <label htmlFor="">Fecha Movimiento:</label>
+                              <label htmlFor=""> {FechaFormateada(mo.fecha_movimiento)}</label>
+                          
+                          </div>
+                          
+                        </div>
+                      </div>
+                    )
+                      
+                   
+                })
                 
-                <div className="content-1">
-                  <div className="accion">
-                    <div className="ac">
-                      <h4>{m.id}</h4>
-                    </div>
-                                 
-                  <div className="datos">
-                    <label htmlFor="">Usuario ID:{m.usuario_id} || Producto ID: {m.producto_id} || Almacen ID: {m.almacen_id}</label><br />
-                    
-                    <label>Razon:</label>
-                    <p>{m.razon}</p>
-                    <p>Tipo Movimiento: {m.tipo_movimiento}</p>
-                  </div> 
-                  </div>
-                 </div>
-                  <div className="fecha">
-                    <div className="cantidad">
-                    <label htmlFor="">Cantidad: {m.cantidad}</label>
-                    <div className="btn">
-                    <button type="button" onClick={()=>onUpdate(m.id)} ><i class='bx bxs-show'></i></button>
-                    <button type="button" onClick={()=>onDelete(m.id)} ><i class='bx bx-trash' ></i></button>
-                    </div>
-                    </div>
-                    
-                    <div className="bus">
-                        <label htmlFor="">Fecha Movimiento:</label>
-                        <label htmlFor=""> {FechaFormateada(m.fecha_movimiento)}</label>
-                    
-                    </div>
-                    
-                  </div>
-                </div>
-                
-              )
-            })}         
+                )
+              
+          }         
               
               
           
