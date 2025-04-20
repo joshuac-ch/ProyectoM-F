@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionFecha from '../hooks/FuncionFecha'
+import FuncionAlmacenes from '../hooks/Almacenes'
+import FuncionEmpleados from '../hooks/Empleados'
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
@@ -70,7 +72,25 @@ export default function Ventas() {
        
     }
     const {FechaFormateada}=FuncionFecha()   
-  return (
+    const {FectAlmacen_id,almacen_id}=FuncionAlmacenes()
+   
+    const {FectUsuarios,empleado}=FuncionEmpleados()
+    const [TiendaSelecionada, setTiendaSelecionada] = useState(0)
+   
+    useEffect(()=>{
+        FectAlmacen_id(),
+        FectUsuarios()
+    },[])
+    const dataTienda=TiendaSelecionada==0?
+    ventas:ventas.filter((v)=>v.almacen_id===parseInt(TiendaSelecionada))
+   
+   
+   
+    const handleTextSelect=(e)=>{
+        setTiendaSelecionada(e)
+    }
+    
+    return (
     <>
     <div className="container mt-4">
         <div className="header-ventas">
@@ -84,6 +104,20 @@ export default function Ventas() {
             
         </div>
         </div>
+        <br />
+        <div className="btn-seleccionar">
+            <h4 >Buscar venta por Almacen </h4>
+            <select name="selecionar_tienda" onChange={(e)=>handleTextSelect(e.target.value)} className='form-control' id="">
+                <option value={0}>Todos</option>               
+                {almacen_id.map((a)=>(
+                    <>                     
+                      <option value={a.id}>{a.nombre}</option>
+                    </>
+                )                                 
+                  
+                )}
+            </select>
+        </div>
         <hr />
         <div className="body-ventas p-3">
             <div className="contenedor-venta">
@@ -91,7 +125,7 @@ export default function Ventas() {
                     <div className="not-found-ventas">
                         <p >No se encontro ninguna venta</p>
                     </div>
-                ):ventas.sort((a,b)=>b.id-a.id)
+                ):dataTienda.sort((a,b)=>b.id-a.id)
                 .map((v)=>{
                     return(
                         <div className="venta container mt-4">
