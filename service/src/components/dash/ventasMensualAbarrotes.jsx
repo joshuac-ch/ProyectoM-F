@@ -5,6 +5,7 @@ import FunctionProducto from "../hooks/Producto";
 import FunctionVentas from "../hooks/Ventas";
 import FuncitonDetalle from "../hooks/Detalle";
 import FuncionSubcategoria from "../hooks/Subcategoria";
+import FuncionEmpleados from "../hooks/Empleados";
 
 
 export default function VentasMensualAbarrotes() {
@@ -28,20 +29,23 @@ export default function VentasMensualAbarrotes() {
     const {FecthVenta,venta}=FunctionVentas()
     const {FechtSubcategoria,Subcategoria_id}=FuncionSubcategoria()
     const {FuncitonDetalleectDetalle,detalle}=FuncitonDetalle()
+    const {FectUsuarios,empleado}=FuncionEmpleados()
     useEffect(()=>{
       FecthCategoria(),FuncitonDetalleectDetalle()
-      FechtSubcategoria(),FecthVenta(),FectProdcutos()
+      FechtSubcategoria(),FecthVenta(),FectProdcutos(),FectUsuarios()
     },[])
     //buscar abarrotes
-    const categoriaAbarrotes=categoria.find((c)=>c.nombre=="Abarrotes")
+    const categoriaAbarrotes=categoria.find((c)=>c.nombre=="abarrotes")
     //buscar subcategoria ligada a abarrotes
+   
     const subcategoriaAbarrotes=categoriaAbarrotes?
     Subcategoria_id.filter((sub)=>sub.categoria_id===categoriaAbarrotes.id):[]
-        
+    
     //productos dnetro de esas subbcategorias
-    const productosAbarrotes=producto.filter((p)=>{
-      return subcategoriaAbarrotes.some((s)=>s.id==p.subcategoria_id) //Usar return para que te retorne el valor SIEMPRE Y CUANDO USES LLAVES
+    const productosAbarrotes=producto.filter((p)=>{ 
+      return p.almacen_id===empleado.almacen_id && subcategoriaAbarrotes.some((s)=>s.id==p.subcategoria_id) //Usar return para que te retorne el valor SIEMPRE Y CUANDO USES LLAVES
     })
+    
     // 4. IDs de productos
     
     const idsProductosAbarrotes = productosAbarrotes.map((p) => p.id);
@@ -61,6 +65,7 @@ detallesFiltrados.forEach((detalle) => {
     if (!ventasPorMes[mes]) ventasPorMes[mes] = 0;
 
     ventasPorMes[mes] += detalle.subtotal || detalle.cantidad * detalle.precio_unitario; // según tus campos
+    //console.log( ventasPorMes[mes])
   }
 });
    
