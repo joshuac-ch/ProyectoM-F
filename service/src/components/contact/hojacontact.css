@@ -37,6 +37,14 @@
         transition: .3s;
     }
 }
+#not-found-cliente{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    td{
+        background-color: transparent;
+    }
+}
 .busqueda{
     display: flex;
     justify-content: space-between;

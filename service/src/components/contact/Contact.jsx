@@ -3,6 +3,7 @@ import "../contact/hojacontact.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FuncionClientes from '../hooks/Clientes'
 export default function Contact() {
   
   const [clientes, setclientes] = useState([])
@@ -48,8 +49,18 @@ export default function Contact() {
   }else{
     alert("Solo personal autorizado")
   }
-  }  
+  }
+  const {FecthCliente,cliente}=FuncionClientes()
+  useEffect(()=>{
+    FecthCliente()
+  },[])
+  const [clienteFilter, setclienteFilter] = useState("")
+  const dataCliente=clienteFilter===""
+  ?cliente: cliente.filter((c)=>c.nombre.toLowerCase().includes(clienteFilter.toLowerCase())) 
   
+  const onchangeFilterCliente=(e)=>{
+    setclienteFilter(e.target.value)   
+  }
   return (
     <>
     <div className="contactos container mt-4">
@@ -60,7 +71,7 @@ export default function Contact() {
           <button type="button" className='form-control' onClick={redirigirCliente}>Agregar Contacto</button>  
         </div>
         <div className="buscar-cliente">
-          <input type="text" className="form-control" placeholder="Buscar..." />
+          <input type="text" className="form-control" onChange={onchangeFilterCliente} value={clienteFilter} placeholder="Buscar..." />
           <button className="btn-search"><i className="bx bx-search-alt-2"></i></button>
         </div>
         </div>
@@ -80,7 +91,12 @@ export default function Contact() {
             </tr>
           </thead>
           <tbody>
-            {clientes.map((c, index) => (
+            {dataCliente.length===0?(
+              <tr id="not-found-cliente">
+                 <td>No se encontro ningun cliente</td> 
+              </tr>
+            ):
+            dataCliente.map((c, index) => (
               <tr key={index} className="align-middle ">
                 <td>{c.id}</td>
                 <td className="icon-user">
