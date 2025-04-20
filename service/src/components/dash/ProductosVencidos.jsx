@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import FunctionProducto from '../hooks/Producto';
+import FuncionEmpleados from '../hooks/Empleados';
 
 export default function ProductosVencidos() {
   const {producto,FectProdcutos}=FunctionProducto()
   const [productoPorVencer, setproductoPorVencer] = useState([])
+  const {FectUsuarios,empleado}=FuncionEmpleados()
   useEffect(()=>{ 
-    FectProdcutos()
+    FectProdcutos(),FectUsuarios()
   },[])
   useEffect(()=>{
     if(producto.length>0){
+    const condicionAlmacen=producto.filter((p)=>p.almacen_id===empleado.almacen_id) //Lo ultimo agregado
     const hoy=new Date()
     const semana=new Date()
     semana.setDate(hoy.getDate()+7)
-    const filtartProducto=producto.filter((p)=>{
+    const filtartProducto=condicionAlmacen.filter((p)=>{
       const productoPorVencer=new Date(p.fecha_vencimiento)
       //console.log(productoPorVencer)
       return productoPorVencer>=hoy && productoPorVencer<=semana
@@ -29,7 +32,7 @@ export default function ProductosVencidos() {
           <h2 className="text-center mb-4">📅 Productos Próximos a Vencer (7 dias)</h2>
     
           <div className="productosporvencer">
-        {productoPorVencer.length === 0 ? (
+        {productoPorVencer.length ==0 ? (
           <p className="text-center">✅ No hay productos próximos a vencer esta semana.</p>
         ) : (
           productoPorVencer.map((producto, index) => (

@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 import FunctionVentas from "../hooks/Ventas";
+import FuncionEmpleados from "../hooks/Empleados";
 
 const VentasMensuales = () => {
   const {venta,FecthVenta}=FunctionVentas()
+  const {FectUsuarios,empleado}=FuncionEmpleados()
   useEffect(()=>{
-    FecthVenta()
+    FecthVenta(),FectUsuarios()
   },[])
   // Datos de ventas por mes
   
   const [ventasAgrupadas, setVentasAgrupadas] = useState([]);
+ 
   useEffect(() => {
     if (venta.length > 0) {
       // Agrupar ventas por mes y sumar total_venta
-      const ventasPorMes = venta.reduce((acc, v) => {
+      const condicion=venta.filter((v)=>v.almacen_id===empleado.almacen_id)//Lo ultimo agregado
+     
+      const ventasPorMes = condicion.reduce((acc, v) => {
         const mesAnio = new Date(v.fecha_venta).toLocaleString("es-ES", { month: "long", year: "numeric" });
 
         if (!acc[mesAnio]) {
