@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import FunctionProducto from '../hooks/Producto';
 import FunctionInventarrio from '../hooks/Inventarrio';
 import axios from 'axios';
+import FuncionEmpleados from '../hooks/Empleados';
 
 export default function ProductosAgotarse() {
     
@@ -9,7 +10,10 @@ export default function ProductosAgotarse() {
       //const {producto,FectProdcutos}=FunctionProducto()
       const {inventario,FectchInventario}=FunctionInventarrio()
       const {producto,FectProdcutos}=FunctionProducto()
-      
+      const {FectUsuarios,empleado}=FuncionEmpleados()
+      useEffect(()=>{
+        FectUsuarios()
+      },[])
       const [mostratProductos, setmostratProductos] = useState([])
       const idList=producto.map((p)=>p.id)
       const MostartProductos=async()=>{
@@ -19,9 +23,9 @@ export default function ProductosAgotarse() {
               idList.map((id)=>
               axios.get(`http://localhost:4000/api/users/producto/s/${id}`) 
             ))
-          const datos=response.map((res)=> res.data)
+          const datos=response.map((res)=> res.data)          
           setmostratProductos(datos)
-          //console.log(mostratProductos)
+          
           }catch(err){
             console.error("Hubo un error",err)
           }
@@ -41,32 +45,41 @@ export default function ProductosAgotarse() {
       <h2 className="text-center mb-4 text-danger">⚠️ Productos por Agotarse</h2>
 
       <div className="row">
-        {inventario.filter((producto)=>producto.cantidad_actual<20). //esto mostrara los de bajo stock
-        map((producto) => {
-          const porcentaje=(producto.cantidad_actual/producto.stock_maximo)*100
-          const mostarDatos=mostratProductos.find((m)=>m.id===producto.producto_id)
-          
-          return (
-            <div key={producto.id} className="col-md-6 mb-3">
-              <div className="card tarjeta p-3 shadow-sm">
-                <h5 className="mb-2">{mostarDatos?mostarDatos.nombre:"No hay datos"}</h5>{/*Va el nombre */}
-                <div className="progress mb-2">
-                  <div
-                    className={`progress-bar ${porcentaje < 20 ? "bg-danger" : "bg-warning"} `}
-                    role="progressbar"
-                    style={{ width: `${porcentaje}%` }}
-                    aria-valuenow={producto.cantidad_actual}
-                    aria-valuemin="0"
-                    aria-valuemax={producto.stock_maximo}
-                  ></div>
+        {inventario.length===0?
+        (
+          <p className='text-center'>✅ No hay productos próximos a agotarse.</p>
+        ):
+        //esto ultimo se agrego-----------------------------------hasta aqui
+        inventario.filter(i=>i.almacen_id===empleado.almacen_id && i.cantidad_actual<20). //esto mostrara los de bajo stock
+        
+          map((producto) => {
+            
+            const porcentaje=(producto.cantidad_actual/producto.stock_maximo)*100
+            const mostarDatos=mostratProductos.find((m)=>m.id===producto.producto_id)
+            
+            return (
+              <div key={producto.id} className="col-md-6 mb-3">
+                <div className="card tarjeta p-3 shadow-sm">
+                  <h5 className="mb-2">{mostarDatos?mostarDatos.nombre:"No hay datos"}</h5>{/*Va el nombre */}
+                  <div className="progress mb-2">
+                    <div
+                      className={`progress-bar ${porcentaje < 20 ? "bg-danger" : "bg-warning"} `}
+                      role="progressbar"
+                      style={{ width: `${porcentaje}%` }}
+                      aria-valuenow={producto.cantidad_actual}
+                      aria-valuemin="0"
+                      aria-valuemax={producto.stock_maximo}
+                    ></div>
+                  </div>
+                  <p className="text-muted">
+                    Stock: <strong>{producto.cantidad_actual}</strong> / {producto.stock_maximo}
+                  </p>
                 </div>
-                <p className="text-muted">
-                  Stock: <strong>{producto.cantidad_actual}</strong> / {producto.stock_maximo}
-                </p>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        }
+        
       </div>
 
       <style>

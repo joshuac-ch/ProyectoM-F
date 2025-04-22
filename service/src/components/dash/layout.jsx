@@ -1,8 +1,11 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
 import Navbar from './Navbar';
+import FuncionEmpleados from '../hooks/Empleados';
+
 
 export default function Layout() {
+  
   return (
     <div className="d-flex vh-100">
     {/* Sidebar */}

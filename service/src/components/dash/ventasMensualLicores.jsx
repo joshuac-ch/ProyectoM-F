@@ -10,20 +10,7 @@ import FuncionEmpleados from "../hooks/Empleados";
 
 export default function VentasMensualLicores() {
   // Datos de ventas por mes
-    const data = [
-      { mes: "Ene", ventas: 410 },
-      { mes: "Feb", ventas: 630 },
-      { mes: "Mar", ventas: 730 },
-      { mes: "Abr", ventas: 830 },
-      { mes: "May", ventas: 330 },
-      { mes: "Jun", ventas: 530 },
-      { mes: "Jul", ventas: 630 },
-      { mes: "Ago", ventas: 530 },
-      { mes: "Sep", ventas: 230 },
-      { mes: "Oct", ventas: 130 },
-      { mes: "Nov", ventas: 230 },
-      { mes: "Dic", ventas: 530 },
-    ];
+    
     const {FecthCategoria,categoria}=FunctionCategoria()
     const {FechtSubcategoria,Subcategoria_id}=FuncionSubcategoria()
     const {FectProdcutos,producto}=FunctionProducto()

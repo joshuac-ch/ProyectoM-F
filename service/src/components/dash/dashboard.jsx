@@ -18,19 +18,19 @@ const Dashboard = () => {
   const colores=["#4A90E2","#4A90E2","#34D399","#34D399","#FF8C42","#4A90E2","#34D399"]
   const navegar=useNavigate()
   const CrearProducto=()=>{
-      navegar("/crear-producto")
+      navegar("/productos/crear-producto")
   }
   const CrearCliente=()=>{
-    navegar("/crear-cliente")
+    navegar("/contact/crear-cliente")
   }
   const VerHistorial=()=>{
     navegar("/movimientos")
   } 
   const NuevoEmpleado=()=>{
-    navegar("/crear-empleado")
+    navegar("/user/crear-empleado")
   }
   const NuevoProveedor=()=>{
-    navegar("/crear-proveedor")
+    navegar("/proveedores/crear-proveedor")
   }
   const RevisarInventario=()=>{
     navegar("/inventario")
@@ -76,7 +76,7 @@ const Dashboard = () => {
       <div className="datos">
         <h1>Dashboard</h1>
             <div className="lista-content">
-            <div className="content" id="venta" onClick={()=>navegar("/crear-detalle-venta")}>
+            <div className="content" id="venta" onClick={()=>navegar("/ventas/crear-detalle-venta")}>
                 <img src="https://i.pinimg.com/236x/b4/2f/47/b42f479d8d444ef42b9bd10eae2f0139.jpg" alt="no se encontro la imagen" />
                 <h2>Nueva venta</h2>
               </div>
@@ -92,11 +92,11 @@ const Dashboard = () => {
                 <img src="https://i.pinimg.com/736x/c3/33/f6/c333f61501438720426ce649a7db3585.jpg" alt="no se encontro la imagen" />
                 <h2>Nuevo producto</h2>
               </div>
-              <div className="content" onClick={()=>navegar("/create-cate")}>
+              <div className="content" onClick={()=>navegar("/cate/create-cate")}>
                 <img src="https://i.pinimg.com/736x/18/9e/84/189e84d3d2d79c7274a99996ef7daf36.jpg" alt="no se encontro la imagen" />
                 <h2>Nueva categoria</h2>
               </div>
-              <div className="content" onClick={()=>navegar("/crear-Subcate")}>
+              <div className="content" onClick={()=>navegar("/sub/crear-Subcate")}>
                 <img src="https://i.pinimg.com/736x/ce/45/b8/ce45b814459f8daeab4246337a7af1b1.jpg" alt="no se encontro la imagen" />
                 <h2>Nueva Subcategoria</h2>
               </div>
@@ -126,7 +126,7 @@ const Dashboard = () => {
              
               
              
-              <div className="content" onClick={()=>navegar("/movimiento-caja")}>
+              <div className="content" onClick={()=>navegar("/caja/movimiento-caja")}>
                 <img src="https://i.pinimg.com/736x/9f/43/38/9f4338dd591f5f53e75be70cef3211d0.jpg" alt="no se encontro la imagen" />
                 <h2>Movimiento de caja</h2>
               </div>
@@ -146,7 +146,9 @@ const Dashboard = () => {
               <VentasMensuales></VentasMensuales>
               </div>
               <div>
-              <h2>Productos a punto de vencer</h2>   
+              <hr />
+              {/*<h2>Productos a punto de vencer </h2>    */}
+             
               <ProductosVencidos></ProductosVencidos>   
               </div>
               <hr />
