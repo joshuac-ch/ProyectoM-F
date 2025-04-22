@@ -80,11 +80,12 @@ export default function Navbar() {
          
         </li>
         <li className="nav-item">
-          <Link to="/sub" className="nav-link text-white d-flex align-items-center">
+          <NavLink to="/sub" className={({isActive})=>
+                    "nav-link text-white d-flex align-items-center" + (isActive ? " active-route ":"")}>
           
             <FaUserTag className="icon" />
             {!isCollapsed && <span className="ms-3">Subcategorias</span>}
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
           <NavLink to="/productos" className={({isActive})=>
