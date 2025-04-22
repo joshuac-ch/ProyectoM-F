@@ -193,7 +193,7 @@ export default function CreateDetalleVenta() {
                 //navegar("/ventas");
                const ventaID=response.data.id
                 
-                navegar(`/detalle-especifico/${ventaID}`)
+                navegar(`/ventas/detalle-especifico/${ventaID}`)
             } catch (err) {
                alert(err.response?.data?.message || err.message);
             }
@@ -468,7 +468,7 @@ export default function CreateDetalleVenta() {
                 <hr />
                 <div className='lista-sugerencias'>
                   {productoSeleccionadoBarra.map((producto) => (
-                    <div className="sub-p">
+                    <div key={producto.producto_id} className="sub-p">
                         <div className='sugerencia' key={producto.producto_id}>
                         <div className="sug-producto">
                         <label><strong>Producto:</strong> </label>
@@ -594,7 +594,7 @@ export default function CreateDetalleVenta() {
                     )}
                       <div className='lista-sugerencias'>
                         {productoSeleccionado.map((producto) => (
-                          <div className="sub-p">
+                          <div key={producto.producto_id} className="sub-p">
                               <div className='sugerencia' key={producto.producto_id}>
                               <div className="sug-producto">
                               <label><strong>Producto:</strong> </label>

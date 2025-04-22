@@ -15,7 +15,7 @@ export default function DetalleEspecifico() {
     const [detalle, setdetalle] = useState([])
     const {producto,FectProdcutos} =FunctionProducto()
     const {venta,FecthVenta}=FunctionVentas()
-    const [numeroVenta, setnumeroVenta] = useState(123456)
+    //const [numeroVenta, setnumeroVenta] = useState(123456)
     const {FechaFormateada}=FuncionFecha()
    const TotalCalculadoSubtotal =detalle.reduce((acc,d)=>{
     return acc+parseFloat(d.subtotal)
