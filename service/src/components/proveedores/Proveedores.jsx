@@ -16,7 +16,7 @@ export default function Proveedores() {
    
     const navegar=useNavigate()
     const redirigirCrearProveedor=()=>{
-        navegar("/crear-proveedor")
+        navegar("/proveedores/crear-proveedor")
     }
     const [proveedor, setproveedor] = useState([])
     const FectchProveedores=async()=>{
@@ -32,7 +32,7 @@ export default function Proveedores() {
     },[])
     const onUpdate=(id)=>{
         if(FuncionDelimitar("editar")){
-        navegar(`/update-proveedor/${id}`)
+        navegar(`/proveedores/update-proveedor/${id}`)
         }else{
             alert("Solo personal autorizado")
         }

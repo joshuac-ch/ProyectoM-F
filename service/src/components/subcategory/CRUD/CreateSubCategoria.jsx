@@ -54,7 +54,7 @@ export default function CreateSubCategoria() {
                 <option value="" disabled selected>Seleecionar una categoria</option>
                 {categoria.map((c)=>{
                   return(
-                    <option value={c.id}>ID: {c.id} || Nombre: {c.nombre}</option>
+                    <option key={c.id} value={c.id}>ID: {c.id} || Nombre: {c.nombre}</option>
                   )
                 })}
               </select>
@@ -63,7 +63,7 @@ export default function CreateSubCategoria() {
             <div className="input-group p-3">
               <button
                 type="submit"
-                class="btn btn-primary" >
+                className="btn btn-primary" >
                 Crear Subcategoria
               </button>
               

@@ -46,7 +46,7 @@ export default function Subcate() {
     const crear=useNavigate()
     const onUpdate=(id)=>{
       if(FuncionDelimitar("editar")){
-        crear(`/update-subcate/${id}`)
+        crear(`/sub/update-subcate/${id}`)
     }else{
       alert("Solo personal autorizado")
     }
@@ -74,7 +74,7 @@ export default function Subcate() {
     <div className="header-subcategoria">
     <h2>Subcategorias</h2>
     <div className="tools-sub">
-       <button type="button" onClick={()=>crear("/crear-Subcate")} >Crear Subcategoria</button>
+       <button type="button" onClick={()=>crear("/sub/crear-Subcate")} >Crear Subcategoria</button>
     </div>
     </div>
     <hr />
@@ -109,10 +109,10 @@ export default function Subcate() {
                     
                       <div className="tools">
                       <button onClick={()=>onUpdate(c.id)} className="btn btn-warning btn-sm me-2">
-                        <i class='bx bxs-edit-alt' ></i>
+                        <i className='bx bxs-edit-alt' ></i>
                       </button>
                      <button onClick={()=>onDelete(c.id)} className="btn btn-danger btn-sm me">
-                        <i class='bx bxs-trash' ></i>
+                        <i className='bx bxs-trash' ></i>
                       </button>
                       </div>
                   </div>

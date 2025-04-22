@@ -42,41 +42,41 @@ export default function CreateProveedor() {
     <div className="second">
     <form onSubmit={SubmitProveedor}>
         <div className="input-group">
-        <div class="w-50 p-3">
-            <label  class="form-label">Nombre</label>
-            <input type="text" name='nombre' onChange={handleText} class="form-control" />    
+        <div className="w-50 p-3">
+            <label  className="form-label">Nombre</label>
+            <input type="text" name='nombre' placeholder='ingrese nombre' onChange={handleText} className="form-control" />    
         </div> 
-        <div class="w-50 p-3">
-            <label  class="form-label">Apellido</label>
-            <input type="text" name='apellido' onChange={handleText} class="form-control" />    
-        </div> 
-        </div>
-        <div className="input-group">
-        <div class="w-50 p-3">
-            <label  class="form-label">Correo</label>
-            <input type="email" name='correo' onChange={handleText} class="form-control" />    
-        </div> 
-        <div class="w-50 p-3">
-            <label  class="form-label">Direccion</label>
-            <input type="text" name='direccion' onChange={handleText} class="form-control" />    
+        <div className="w-50 p-3">
+            <label  className="form-label">Apellido</label>
+            <input type="text" name='apellido' placeholder='ingrese apellido' onChange={handleText} className="form-control" />    
         </div> 
         </div>
         <div className="input-group">
-        <div class="w-50 p-3">
-            <label  class="form-label">Compañia</label>
-            <input type="text" name='empresa' onChange={handleText} class="form-control" />    
+        <div className="w-50 p-3">
+            <label  className="form-label">Correo</label>
+            <input type="email" name='correo' placeholder='ingrese correo electronico' onChange={handleText} className="form-control" />    
         </div> 
-        <div class="w-50 p-3">
-            <label  class="form-label">Telefono</label>
-            <input type="number" name='telefono' onChange={handleText} class="form-control" />    
+        <div className="w-50 p-3">
+            <label  className="form-label">Direccion</label>
+            <input type="text" name='direccion' placeholder='ingrese direccion' onChange={handleText} className="form-control" />    
+        </div> 
+        </div>
+        <div className="input-group">
+        <div className="w-50 p-3">
+            <label  className="form-label">Compañia</label>
+            <input type="text" name='empresa' placeholder='ingrese nombre de empresa' onChange={handleText} className="form-control" />    
+        </div> 
+        <div className="w-50 p-3">
+            <label  className="form-label">Telefono</label>
+            <input type="number" name='telefono' placeholder='ingrese telefono' onChange={handleText} className="form-control" />    
         </div> 
         </div>
         <div className="p-3">
-            <label  class="form-label">RUC</label>
-            <input type="text" name='ruc' onChange={handleText} class="form-control" />    
+            <label  className="form-label">RUC</label>
+            <input type="text" name='ruc' placeholder='ingrese ruc' onChange={handleText} className="form-control" />    
         </div>
         <div className="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary w-25 p-10">Crear proveedor</button>
+            <button type="submit" className="btn btn-primary w-25 p-10">Crear proveedor</button>
         </div>
         
     </form>
