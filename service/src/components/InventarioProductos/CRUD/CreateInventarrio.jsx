@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FunctionProducto from '../../hooks/Producto'
 import FuncionAlmacenes from '../../hooks/Almacenes'
+import FuncionEmpleados from '../../hooks/Empleados'
 
 export default function CreateInventarrio() {
   const navegar=useNavigate()
@@ -21,12 +22,12 @@ export default function CreateInventarrio() {
   const onSumbitInventarioCreate=async(e)=>{
     console.log(FormDataInventario)
     e.preventDefault()
-    try{
+    try{        
         await axios.post("http://localhost:4000/api/users/inven/c",FormDataInventario)
         alert("Se registro en el inventario")
         navegar("/invetario-producto")
     }catch(err){
-        console.error("Hubo un error",err)
+        alert(err.response?.data?.message)
     }
   }
   const {producto,FectProdcutos}=FunctionProducto()
@@ -34,6 +35,24 @@ export default function CreateInventarrio() {
   useEffect(()=>{
     FectProdcutos(),FectAlmacen_id()
   },[])  
+  const {empleado,FectUsuarios}=FuncionEmpleados() 
+  useEffect(()=>{
+    FectUsuarios()
+  },[])
+  
+  useEffect(()=>{
+    if(empleado){
+        setFormDataInventario((f)=>({
+            ...f,
+            almacen_id:empleado.almacen_id
+        })
+       
+    )
+    }
+  },[empleado])
+ //dejar una advertencia de siempre cerrar caja al cerrar session al parecer no lo cierra
+  
+
   return (
     <>
     <div className="container mt-4">
@@ -51,24 +70,46 @@ export default function CreateInventarrio() {
                 <label htmlFor="">Producto ID</label>
                 <select name="producto_id" onChange={handleText} className='form-control' id="">
                     <option value="" selected disabled>Seleccion el producto ID</option>
+                  
+                    {producto.filter((p)=>p.almacen_id===empleado.almacen_id).map((p)=>{                      
+                        return(
+                            <option key={p.id} value={p.id}> ID: {p.id} || Nombre: {p.nombre}</option>
+                        )
+                    })}
+                    {/*
                     {producto.map((p)=>{
+                         //const productosPermitidosEmpleado=producto.filter((p)=>p.almacen_id===empleado.id)
                         return(
                             <option value={p.id}> ID: {p.id} || Nombre: {p.nombre}</option>
                         )
                     })}
+                        Funcion antigua para mostrar a todos los productos si era de cualquier tiena                    
+                    */}
+                    
                 </select>
                
             </div>
             <div className="p-3">
                 <label htmlFor="">Almacen ID</label>
+                {(()=>{
+                        const almacenRecomendado=almacen_id.find((a)=>a.id===empleado.almacen_id)                       
+                        return almacenRecomendado&&(
+                            <input className='form-control' readOnly type="text" value={almacenRecomendado.nombre} />
+                        )
+                    })()}
+              {/*
+              Funcion Anterios para poder ver a todos los almacenes
                 <select name="almacen_id" onChange={handleText} className='form-control' id="">
                     <option value="" selected disabled>Seleccion el Alamcen ID</option>
-                    {almacen_id.map((a)=>{
+                    {almacen_id.map((a)=>{                    
                         return(
                             <option value={a.id}> ID: {a.id} || Nombre: {a.nombre}</option>
                         )
                     })}
+                    
                 </select>
+              
+              */}
                
             </div>
             {/*<div className="p-3">
