@@ -33,7 +33,7 @@ export default function Productos() {
 
 const redirigir=useNavigate()
 const CrearProducto=()=>{
-    redirigir("/crear-producto")
+    redirigir("/productos/crear-producto")
 }
 const [myproduct, setmyproduct] = useState([])
 const GetProductos=async()=>{
@@ -67,7 +67,7 @@ useEffect(()=>{
   GetProductos()
 },[])
 const onUpdate=(id)=>{
-  redirigir(`/update-producto/${id}`)
+  redirigir(`/productos/update-producto/${id}`)
 }
 const onDelete=async(id)=>{
   if(FuncionDelimitar("eliminar")){
@@ -78,7 +78,7 @@ const onDelete=async(id)=>{
       alert("Se elimino correctamente el producto")
       setmyproduct(myproduct.filter((m)=>m.id!==id))
     }catch(e){
-      alert("Hubo un error la eliminar este producto",e)
+      alert("No puede eliminar un producto que ya esta relacionado a una venta",e) //Verificar esto siempre
     }
   }}
   else{
@@ -176,19 +176,17 @@ const datosFiltrado=myproduct.filter((producto)=>{
           </div>
           </div>         
           <div className="caja-filter">
-            <select className="form-select" onChange={(e)=>setcategoriaSelec(e.target.value)} name="" id="">
-              <option value={0} selected>todos</option>
-              {categoria.map((c)=>{               
-                return(
-                  <>
-                       <option key={c.id} value={c.id}>{c.nombre}</option>                      
-                  </>
+            <select className="form-select" onChange={(e)=>setcategoriaSelec(e.target.value)} name="" >
+              <option value={0} >todos</option>
+              {categoria.map((c,index)=>{                          
+                return(                 
+                       <option key={index} value={c.id}>{c.nombre}</option>               
                 )
               })}
              
             </select>        
             <div className='filter'>
-            <input type="text" className='form-control' value={productofilter} onChange={onHandleProdcutoFilter} placeholder='filtrar' id="" />
+            <input type="text" className='form-control' value={productofilter} onChange={onHandleProdcutoFilter} placeholder='filtrar'  />
             <i className='bx bx-search '></i>
             </div>
           </div>
@@ -204,12 +202,12 @@ const datosFiltrado=myproduct.filter((producto)=>{
             </div>
           ):datosFiltrado.map((p)=>{
             return(
-              <div className="tarjeta" key={p.id}>
+              <div key={p.id} className="tarjeta" >
                 <div className="header-card">
                 <label htmlFor="">{p.nombre}</label>
                 <div className="btn-producto">
-                  <button type="button" onClick={()=>onUpdate(p.id)} className='form-control'><i class='bx bx-show-alt' ></i></button>
-                  <button type="button" onClick={()=>onDelete(p.id)} className='form-control'><i class='bx bxs-trash'></i></button>
+                  <button type="button" onClick={()=>onUpdate(p.id)} className='form-control'><i className='bx bx-show-alt' ></i></button>
+                  <button type="button" onClick={()=>onDelete(p.id)} className='form-control'><i className='bx bxs-trash'></i></button>
                 </div>
                 </div>
                 <div className="body-card">

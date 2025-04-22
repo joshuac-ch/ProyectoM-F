@@ -61,6 +61,7 @@ export default function UpdateProductos() {
     FechtSubcategoria(),
     FectchProveedoresID()
   },[])
+ 
   return (
     <>
     <div className="container mt-4">
@@ -71,25 +72,30 @@ export default function UpdateProductos() {
         <hr />
      <div className="body-productos">
      <form onSubmit={UpdateForm} >
-                <div className="img-product w-100 p-3">
-                <label for="" class="form-label">Imagen</label>
-                <img src={productos.image} style={{width:"150px",height:"150px"}} className='form-control' alt="" /> <br />
-                <input type="text" class="form-control" value={productos.image} onChange={handleText} name='image' placeholder='ingrese imagen'/>       
+              <div className="grupo">
+              <div className="detalles-grupo">
+                <div className=''>
+                    <label htmlFor="" className="form-label">Imagen</label>
+                    <input type="text" className="form-control" value={productos.image} onChange={handleText} name='image' placeholder='ingrese imagen'/>       
                 </div>
-            <div class="input-group ">
-                <div class="w-50 p-3">
-                    <label for="" class="form-label">Codigo</label>
-                    <input type="text" class="form-control" value={productos.codigo_producto} onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
+                <div className=" ">                
+                    <label htmlFor="" className="form-label">Codigo</label>
+                    <input type="text" className="form-control" value={productos.codigo_producto} onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
                 </div>
-                
-            </div>
-            <div class="w-50 p-3">
-                    <label for="" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" value={productos.nombre} onChange={handleText} name='nombre' placeholder='ingrese nombre'/>                
+                <div >
+                    <label htmlFor="" className="form-label">Nombre</label>
+                    <input type="text" className="form-control" value={productos.nombre} onChange={handleText} name='nombre' placeholder='ingrese nombre'/>                
                 </div>  
+              </div>
+               
+             <div className="imagen-grupo">
+             <img src={productos.image||null}  className='form-control' alt="no encontrado" />
+             </div>
+             </div>
+             
             <div className="w-100 p-3">
-                <label for="" class="form-label">Descripcion</label>
-                <textarea  class="form-control" onChange={handleText} value={productos.descripcion} name='descripcion' rows={2} id=""></textarea>      
+                <label htmlFor="" className="form-label">Descripcion</label>
+                <textarea  className="form-control" onChange={handleText} value={productos.descripcion} name='descripcion' rows={2} id=""></textarea>      
                 </div>
             <div className="input-group">
                    {/*
@@ -106,56 +112,56 @@ export default function UpdateProductos() {
             <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio ingreso</label>
-                        <input type="number"  step={0.01} onChange={handleText} class="form-control" value={productos.precio_ingreso} name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
+                        <input type="number"  step={0.01} onChange={handleText} className="form-control" value={productos.precio_ingreso} name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
                     </div> 
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio Venta</label>
-                        <input type="number"  step={0.01} onChange={handleText} class="form-control" value={productos.precio_venta} name='precio_venta' placeholder='ingrese precio venta'/> 
+                        <input type="number"  step={0.01} onChange={handleText} className="form-control" value={productos.precio_venta} name='precio_venta' placeholder='ingrese precio venta'/> 
                     </div> 
             </div>    
            
            <div className="input-group ">
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Unidad</label>
-                            <input type="text" onChange={handleText} class="form-control" value={productos.unidad_medida} name='unidad_medida' />     
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Unidad</label>
+                            <input type="text" onChange={handleText} className="form-control" value={productos.unidad_medida} name='unidad_medida' />     
                                                      
                     </div>
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Subcategoria ID</label>
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Subcategoria ID</label>
                                            
-                            <select  onChange={handleText} class="form-control" name='subcategoria_id' id="">
+                            <select  onChange={handleText} className="form-control" name='subcategoria_id' id="">
 
                                 <option value={productos.subcategoria_id} selected>ID: {productos.subcategoria_id}</option>
                                 <option value="" disabled>Cambiar de subcategoria</option>
                                 {Subcategoria_id.map((s)=>{
                                     return(
-                                        <option value={s.id}>ID: {s.id} || Nombre: {s.nombre}</option>                                        
+                                        <option key={s.id} value={s.id}>ID: {s.id} || Nombre: {s.nombre}</option>                                        
                                     )
                                 })}
                             </select>
                       </div>
             </div>
             <div className="input-group ">
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Almacen id</label>
-                           <select  onChange={handleText} class="form-control" name='almacen_id' id="">
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Almacen id</label>
+                           <select  onChange={handleText} className="form-control" name='almacen_id' id="">
                                     <option value={productos.almacen_id}>ID: {productos.almacen_id}</option>
                                     <option value="" disabled>Cambiar de almacen</option>
                                     {almacen_id.map((a)=>{
                                         return(
-                                            <option value={a.id}>ID:{a.id} || Almacen: {a.nombre}</option>
+                                            <option key={a.id} value={a.id}>ID:{a.id} || Almacen: {a.nombre}</option>
                                         )
                                     })}
                                 </select>  
                     </div>
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Proveedor ID</label>                              
-                            <select name='proveedor_id' onChange={handleText} class="form-control" id="">
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Proveedor ID</label>                              
+                            <select name='proveedor_id'  value={productos.proveedor_id} onChange={handleText} className="form-control"  id="proveedorSelect">
                                     <option value={productos.proveedor_id} >ID: {productos.proveedor_id}</option>
                                 <option value="" disabled>Cambiar de proveedor</option>
                                 {proveedores_id.map((p)=>{
                                     return(
-                                        <option value={p.id}>ID: {p.id} || Nombre: {p.nombre} {p.apellido} || Empresa: {p.empresa}</option>
+                                        <option key={p.id} value={p.id}>ID: {p.id} || Nombre: {p.nombre} {p.apellido} || Empresa: {p.empresa}</option>
                                     )
                                 })}
                             </select>
@@ -164,7 +170,7 @@ export default function UpdateProductos() {
              
             <div className="d-flex justify-content-center">  
                 
-                <button type="submit" class="btn btn-primary w-25 p-10">Actualizar Producto</button> 
+                <button type="submit" className="btn btn-primary w-25 p-10">Actualizar Producto</button> 
                 
             
             </div>        

@@ -73,7 +73,7 @@ export default function CreateMovimiento() {
                     <option value="" selected disabled>Selecione un Almacen</option>
                     {almacen_id.map((a)=>{
                         return(
-                            <option value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
+                            <option key={a.id} value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
                         )
                     })}
                 </select>
@@ -84,7 +84,7 @@ export default function CreateMovimiento() {
                     <option value="" selected disabled>Selecione un Producto</option>
                     {producto.map((p)=>{
                         return(
-                            <option value={p.id}>ID: {p.id} || Nombre: {p.nombre}</option>
+                            <option key={p.id} value={p.id}>ID: {p.id} || Nombre: {p.nombre}</option>
                         )
                     })}
                 </select>
@@ -97,7 +97,7 @@ export default function CreateMovimiento() {
                     <option value="" selected disabled>Selecione un Usuario</option>
                     {usuario.map((u)=>{
                         return(
-                            <option value={u.id}>ID: {u.id} || Nombre: {u.nombre}</option>
+                            <option key={u.id} value={u.id}>ID: {u.id} || Nombre: {u.nombre}</option>
                         )
                     })}
                 </select>

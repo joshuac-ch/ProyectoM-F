@@ -29,6 +29,7 @@ export default function Create() {
     }
     const SubmitCreate=async(e)=>{
         e.preventDefault()
+        
         try{
             await axios.post("http://localhost:4000/api/users/producto/c/",formdata)
             alert("Se creo el producto")
@@ -47,7 +48,17 @@ export default function Create() {
         FectAlmacen_id(),
         FechtSubcategoria()
     },[])
-
+ useEffect(()=>{
+    if(Subcategoria_id.length>0&& proveedores_id.length>0 && almacen_id.length>0){
+        setformdata((p)=>({
+            ...p,
+            subcategoria_id:Subcategoria_id[0].id,
+            proveedor_id:proveedores_id[0].id,
+            almacen_id:almacen_id[0].id      
+            //proveedor_id:proveedores_id
+          }))
+    }
+  },[Subcategoria_id,proveedores_id,almacen_id])
   return (
     <>
     <div className="container mt-5">
@@ -58,23 +69,28 @@ export default function Create() {
         <hr />
         <div className="content-productos-create">
             <form onSubmit={SubmitCreate}>
-                <div className="w-100 p-3">
-                <label for="" class="form-label">Imagen Opcional*</label>
-                <input type="text" class="form-control" onChange={handleText} name='image' placeholder='ingrese imagen'/>       
-                </div>
-            <div class="input-group ">
-                <div class="w-50 p-3">
-                    <label for="" class="form-label">Codigo</label>
-                    <input type="text" class="form-control" onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
-                </div>                   
-            </div>
-            <div class="w-50 p-3">
-                    <label for="" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" onChange={handleText} name='nombre' placeholder='ingrese nombre'/>                
-                </div>  
+                <div className="grupo">
+                    <div className="detalles-grupo">
+                    <div className="">
+                        <label htmlFor="" className="form-label">Imagen Opcional*</label>
+                        <input type="text" className="form-control" onChange={handleText} name='image' placeholder='ingrese imagen'/>       
+                    </div>           
+                    <div className="">
+                        <label htmlFor="" className="form-label">Codigo</label>
+                        <input type="text" className="form-control" onChange={handleText} name='codigo_producto' placeholder='ingrese codigo'/>                
+                    </div>            
+                    <div className="">
+                        <label htmlFor="" className="form-label">Nombre</label>
+                        <input type="text" className="form-control" onChange={handleText} name='nombre' placeholder='ingrese nombre'/>                
+                    </div>
+                    </div>
+                    <div className="imagen-grupo">
+                        <img className='form-control' src={formdata.image} alt="" />
+                    </div> 
+                </div> 
             <div className="w-100 p-3">
-                <label for="" class="form-label">Descripcion Opcional*</label>
-                <textarea  class="form-control" onChange={handleText} name='descripcion' rows={2} id=""></textarea>      
+                <label htmlFor="" className="form-label">Descripcion Opcional*</label>
+                <textarea  className="form-control" onChange={handleText} name='descripcion' rows={2} id=""></textarea>      
                 </div>
             <div className="input-group">
                     {/*
@@ -85,33 +101,33 @@ export default function Create() {
                     */}
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Fecha Vencimiento Opcional*</label>
-                        <input type="datetime-local" onChange={handleText} class="form-control" name='fecha_vencimiento' /> 
+                        <input type="datetime-local" onChange={handleText} className="form-control" name='fecha_vencimiento' /> 
                     </div>  
             </div>
             <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio ingreso</label>
-                        <input type="number"  step={0.01} onChange={handleText} class="form-control" name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
+                        <input type="number"  step={0.01} onChange={handleText} className="form-control" name='precio_ingreso' placeholder='ingrese precio ingreso'/> 
                     </div> 
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Precio Venta</label>
-                        <input type="number" step={0.01} onChange={handleText} class="form-control" name='precio_venta' placeholder='ingrese precio venta'/> 
+                        <input type="number" step={0.01} onChange={handleText} className="form-control" name='precio_venta' placeholder='ingrese precio venta'/> 
                     </div> 
             </div>    
            
            <div className="input-group ">
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Unidad de medida </label> 
-                            <input type="text" onChange={handleText} class="form-control" placeholder='ejemplo caja, botellas, sixpack' name='unidad_medida' />     
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Unidad de medida </label> 
+                            <input type="text" onChange={handleText} className="form-control" placeholder='ejemplo caja, botellas, sixpack' name='unidad_medida' />     
                                         
                     </div>
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Subcategoria ID</label>
-                            <select  onChange={handleText} class="form-control" name='subcategoria_id' id="">
-                                <option value="" selected disabled>Elija una Subcategoria</option>
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Subcategoria ID</label>
+                            <select  onChange={handleText} className="form-control" name='subcategoria_id' id="">
+                                <option value="" disabled>Elija una Subcategoria</option>
                                 {Subcategoria_id.map((s)=>{
                                     return(
-                                        <option value={s.id}>ID: {s.id}|| Nombre:{s.nombre}</option>                                        
+                                        <option key={s.id} value={s.id}>ID: {s.id}|| Nombre:{s.nombre}</option>                                        
                                     )
                                 })}
                             </select>
@@ -119,24 +135,24 @@ export default function Create() {
                     </div>
             </div>
             <div className="input-group ">
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Almacen id</label>                            
-                            <select  onChange={handleText} class="form-control" name='almacen_id' id="">
-                                    <option value="" selected disabled>Por favor seleccione su almacen</option>
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Almacen id</label>                            
+                            <select  onChange={handleText} className="form-control" name='almacen_id' id="">
+                                    <option value=""  disabled>Por favor seleccione su almacen</option>
                                     {almacen_id.map((a)=>{
                                         return(
-                                            <option value={a.id}>ID:{a.id} || Almacen: {a.nombre}</option>
+                                            <option key={a.id} value={a.id}>ID:{a.id} || Almacen: {a.nombre}</option>
                                         )
                                     })}
                                 </select>                
                     </div>
-                    <div class="w-50 p-3">
-                            <label for="" class="form-label">Proveedor ID</label>
-                            <select name='proveedor_id' onChange={handleText} class="form-control" id="">
-                                <option value="" selected disabled>Por favor seleccione su proveedor</option>
+                    <div className="w-50 p-3">
+                            <label htmlFor="" className="form-label">Proveedor ID</label>
+                            <select name='proveedor_id' onChange={handleText} className="form-control" id="">
+                                <option value=""  disabled>Por favor seleccione su proveedor</option>
                                 {proveedores_id.map((p)=>{
                                     return(
-                                        <option value={p.id}>ID: {p.id} || Nombre: {p.nombre} {p.apellido} || Empresa: {p.empresa}</option>
+                                        <option key={p.id} value={p.id}>ID: {p.id} || Nombre: {p.nombre} {p.apellido} || Empresa: {p.empresa}</option>
                                     )
                                 })}
                             </select>
@@ -146,7 +162,7 @@ export default function Create() {
              
             <div className="d-flex justify-content-center">  
                 
-                <button type="submit" class="btn btn-primary w-25 p-10">Submit</button> 
+                <button type="submit" className="btn btn-primary w-25 p-10">Submit</button> 
                 
             
             </div>        

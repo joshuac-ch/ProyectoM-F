@@ -21,14 +21,14 @@ export default function Movimientos() {
   },[])
   const onUpdate=(id)=>{
     if(FuncionDelimitar("editar")){
-    navegar(`/update-movimiento/${id}`)
+    navegar(`/movimientos/update-movimiento/${id}`)
     }else{
       alert("Solo personal autorizado")
     }
 } 
 const onCreate=()=>{
   if(FuncionDelimitar("editar")){
-    navegar("/create-movimiento")
+    navegar("/movimientos/create-movimiento")
   }else{
     alert("Solo personal autorizado")
   }
@@ -79,11 +79,9 @@ const onDelete=async(id)=>{
     <div className="historial">
       <div className="lista-historial">
         <div className="header-list">
-          <ul>
-            
+          <ul>            
             <li>Accion</li>
-            <li>Fecha</li>
-            
+            <li>Fecha</li>            
           </ul>
           <hr />
         </div>
@@ -118,8 +116,8 @@ const onDelete=async(id)=>{
                           <div className="cantidad">
                           <label htmlFor="">Cantidad: {mo.cantidad}</label>
                           <div className="btn">
-                          <button type="button" onClick={()=>onUpdate(mo.id)} ><i class='bx bxs-show'></i></button>
-                          <button type="button" onClick={()=>onDelete(mo.id)} ><i class='bx bx-trash' ></i></button>
+                          <button type="button" onClick={()=>onUpdate(mo.id)} ><i className='bx bxs-show'></i></button>
+                          <button type="button" onClick={()=>onDelete(mo.id)} ><i className='bx bx-trash' ></i></button>
                           </div>
                           </div>
                           
