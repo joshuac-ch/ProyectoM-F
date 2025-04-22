@@ -47,65 +47,65 @@ export default function CreateEmpleado() {
         </div>
         <hr />
         <div className="content-emple-create">
-            <form method='get' enctype='multipart/form-data' onSubmit={handleSubmit}>
-            <div class="input-group ">
+            <form method='get'  onSubmit={handleSubmit}>
+            <div className="input-group ">
                 
             <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Nombre</label>
-                        <input type="text" onChange={handleChange} name="nombre" class="form-control" placeholder='ingrese nombre'/> 
+                        <input type="text" onChange={handleChange} name="nombre" className="form-control" placeholder='ingrese nombre'/> 
                     </div>
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Apellido</label>
-                        <input type="text" onChange={handleChange} name="apellido" class="form-control" placeholder='ingrese nombre'/> 
+                        <input type="text" onChange={handleChange} name="apellido" className="form-control" placeholder='ingrese nombre'/> 
                     </div>      
             </div>
             <div className="input-group">
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Username</label>
-                        <input type="text" onChange={handleChange} name='username' class="form-control" placeholder='ingrese nombre'/> 
+                        <input type="text" onChange={handleChange} name='username' className="form-control" placeholder='ingrese nombre'/> 
                     </div> 
                     <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Password</label>
-                        <input type="text" onChange={handleChange} name='password' class="form-control" placeholder='ingrese username'/> 
+                        <input type="text" onChange={handleChange} name='password' className="form-control" placeholder='ingrese username'/> 
                     </div> 
             </div>    
            
            <div className="input-group ">
-           <div class="w-50 p-3">
-                <label for="" class="form-label">Rol</label>
-                <select name="rol" onChange={handleChange}  className='form-control' id="">
-                    <option value="">Seleccionar un rol</option>
-                    <option value="administrador">administrador</option>
-                    <option value="vendedor">vendedor</option>
+           <div className="w-50 p-3">
+                <label for="" className="form-label">Rol</label>
+                <select name="rol" onChange={handleChange}  className='form-control' >
+                   <option value="" selected disabled>Seleccionar un rol</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="vendedor">Vendedor</option>
                 </select>                
             </div>
            <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Correo</label>
-                        <input type="text" onChange={handleChange} name='correo' class="form-control" placeholder='ingrese username'/> 
+                        <input type="text" onChange={handleChange} name='correo' className="form-control" placeholder='ingrese username'/> 
                     </div> 
            </div>
            
            <div className="input-group ">
            <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Telefono</label>
-                        <input type="text" onChange={handleChange} name='telefono' class="form-control" placeholder='ingrese su telefono'/> 
+                        <input type="text" onChange={handleChange} name='telefono' className="form-control" placeholder='ingrese su telefono'/> 
                     </div> 
            
            <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Dirrecion</label>
-                        <input type="text" onChange={handleChange} name='direccion' class="form-control" placeholder='ingrese dirrecion'/> 
+                        <input type="text" onChange={handleChange} name='direccion' className="form-control" placeholder='ingrese dirrecion'/> 
                     </div> 
            </div>
            <div className="input-group ">
                      
-           <div className="w-50 p-3">
+                    <div className="w-50 p-3">
                         <label htmlFor="" className='form-label'>Almacen ID</label>
                         
-                        <select  onChange={handleChange} name='almacen_id' class="form-control"  id="">
+                        <select  onChange={handleChange} name='almacen_id' className="form-control" >
                         <option value="" selected disabled>Seleccionar un Almacen</option>
                             {almacen_id.map((a)=>{
                                 return(
-                                    <option value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
+                                    <option key={a.id} value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
                                 )
                             })}
                         </select>
@@ -114,7 +114,7 @@ export default function CreateEmpleado() {
           
             <div className="d-flex justify-content-center">  
                 
-                <button type="submit" class="btn btn-primary w-25 p-10">Submit</button> 
+                <button type="submit" className="btn btn-primary w-25 p-10">Submit</button> 
                 
             
             </div>        

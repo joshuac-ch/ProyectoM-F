@@ -102,7 +102,7 @@ export default function EditUser() {
                         <option value="">Cambiar de almacen</option>
                             {almacen_id.map((a)=>{
                                 return(
-                                    <option value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
+                                    <option key={a.id} value={a.id}>ID: {a.id} || Nombre: {a.nombre}</option>
                                 )
                             })}
                         </select>

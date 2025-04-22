@@ -25,7 +25,7 @@ export default function User() {
   const redirigir=useNavigate()
   const CreateEmpleado=()=>{
     if(FuncionDelimitar("editar")){
-    redirigir("/crear-empleado")
+    redirigir("/user/crear-empleado")
   } else{
     alert("Solo personal autorizado")
   }
