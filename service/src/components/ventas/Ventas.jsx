@@ -6,6 +6,7 @@ import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionFecha from '../hooks/FuncionFecha'
 import FuncionAlmacenes from '../hooks/Almacenes'
 import FuncionEmpleados from '../hooks/Empleados'
+import FunctionInventarrio from '../hooks/Inventarrio'
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
@@ -22,7 +23,7 @@ export default function Ventas() {
     const navegar=useNavigate()
     const onUpdate=(id)=>{
         if(FuncionDelimitar("editar")){
-            navegar(`/update-ventas/${id}`)
+            navegar(`/ventas/update-ventas/${id}`)
         }else{
             alert("Solo personal autorizado")
         }        
@@ -58,7 +59,7 @@ export default function Ventas() {
         FechtDetalle()
     },[])
     const redirigirDetalle=(id)=>{
-        navegar(`/detalle-especifico/${id}`)
+        navegar(`/ventas/detalle-especifico/${id}`)
     }
     const ProximoAVANCE=()=>{
         alert("Sigue en desarrollo")
@@ -67,7 +68,7 @@ export default function Ventas() {
         if(ventas.length==0){
             alert("No hay suficientes datos para mostrar el reporte")
         }else{
-            navegar("/reporte-mensual")
+            navegar("/ventas/reporte-mensual")
         }
        
     }
@@ -76,10 +77,10 @@ export default function Ventas() {
    
     const {FectUsuarios,empleado}=FuncionEmpleados()
     const [TiendaSelecionada, setTiendaSelecionada] = useState(0)
-   
+    const {inventario,FectchInventario}=FunctionInventarrio()
     useEffect(()=>{
         FectAlmacen_id(),
-        FectUsuarios()
+        FectUsuarios(),FectchInventario()
     },[])
     const dataTienda=TiendaSelecionada==0?
     ventas:ventas.filter((v)=>v.almacen_id===parseInt(TiendaSelecionada))
@@ -89,7 +90,13 @@ export default function Ventas() {
     const handleTextSelect=(e)=>{
         setTiendaSelecionada(e)
     }
-    
+    const CrearDetalle=()=>{
+        if(inventario.length>0){
+        navegar("/ventas/crear-detalle-venta")
+        }else{
+            alert("No agrego ningun producto al inventario")
+        }
+    }
     return (
     <>
     <div className="container mt-4">
@@ -97,7 +104,7 @@ export default function Ventas() {
             <h2>Ventas</h2>
             <div className="header-btn">
             
-            <button type="button" onClick={()=>navegar("/crear-detalle-venta")}>Crear Detalle de Venta</button>
+            <button type="button" onClick={CrearDetalle}>Crear Detalle de Venta</button>
             <button type='button' onClick={Reportes}>Reportes</button>
             <button type="button" onClick={ProximoAVANCE}>Generar Boleta</button>
             <button type="button" onClick={ProximoAVANCE}>Generar Factura</button>
@@ -109,10 +116,9 @@ export default function Ventas() {
             <h4 >Buscar venta por Almacen </h4>
             <select name="selecionar_tienda" onChange={(e)=>handleTextSelect(e.target.value)} className='form-control' id="">
                 <option value={0}>Todos</option>               
-                {almacen_id.map((a)=>(
-                    <>                     
-                      <option value={a.id}>{a.nombre}</option>
-                    </>
+                {almacen_id.map((a)=>(                                      
+                      <option key={a.id} value={a.id}>{a.nombre}</option>
+                   
                 )                                 
                   
                 )}
@@ -128,7 +134,7 @@ export default function Ventas() {
                 ):dataTienda.sort((a,b)=>b.id-a.id)
                 .map((v)=>{
                     return(
-                        <div className="venta container mt-4">
+                        <div key={v.id} className="venta container mt-4">
                             <div className="header-venta">
                                 <label htmlFor="">Venta Numero:{v.id}</label> 
                                 <div className="btn-icon">
