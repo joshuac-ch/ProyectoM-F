@@ -335,7 +335,7 @@ export default function CreateDetalleVenta() {
                 //navegar("/ventas");
                 const ventaID=response.data.id
                 
-                navegar(`/detalle-especifico/${ventaID}`)
+                navegar(`/ventas/detalle-especifico/${ventaID}`)
 
             } catch (err) {
                alert(err.response?.data?.message || err.message);
