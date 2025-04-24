@@ -22,14 +22,14 @@ export default function Contact() {
   const navegar=useNavigate()
   const redirigirCliente=()=>{
     if(FuncionDelimitar("crear")){
-       navegar("/crear-cliente")
+       navegar("/contact/crear-cliente")
     }else{
       alert("Solo personal autorizado")
     }
 }
   const UpdateCliente=(id)=>{
     if(FuncionDelimitar("editar")){
-    navegar(`/cliente/${id}`)
+    navegar(`/contact/cliente/${id}`)
     }else{
       alert("Solo personal autorizado")
     }
@@ -109,10 +109,10 @@ export default function Contact() {
                 <td>{c.tipo_cliente}</td>
                 <td>
                   <button onClick={()=>UpdateCliente(c.id)} className="btn btn-warning btn-sm me-2">
-                  <i class='bx bxs-edit-alt' ></i>
+                  <i className='bx bxs-edit-alt' ></i>
                   </button>
                   <button onClick={()=>DeleteCliente(c.id)} className="btn btn-danger btn-sm me">
-                  <i class='bx bxs-trash' ></i>
+                  <i className='bx bxs-trash' ></i>
                   </button>
                 
                 </td>

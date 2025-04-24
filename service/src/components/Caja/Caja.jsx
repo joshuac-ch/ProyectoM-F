@@ -31,7 +31,7 @@ export default function Caja() {
    
     const onUpdate=(id)=>{
         if(FuncionDelimitar("editar")){
-        navegar(`/update-caja/${id}`)   
+        navegar(`/caja/update-caja/${id}`)   
         }else{
             alert("Solo personal autorizado")
         }
@@ -85,9 +85,9 @@ export default function Caja() {
         <div className="header-caja">
             <h1>Caja</h1>
             <div className="header-btn">
-                <button type="button" onClick={()=>navegar("/create-caja")}>Abrir Caja</button>
-                <button type="button" onClick={()=>navegar("/registrar-caja")}>Registrar movimiento</button>
-                <button type="button" onClick={()=>navegar("/movimiento-caja")}>Ver Movimientos</button>
+                <button type="button" onClick={()=>navegar("/caja/create-caja")}>Abrir Caja</button>
+                <button type="button" onClick={()=>navegar("/caja/registrar-caja")}>Registrar movimiento</button>
+                <button type="button" onClick={()=>navegar("/caja/movimiento-caja")}>Ver Movimientos</button>
             </div>
         </div>
         <hr />
@@ -121,7 +121,7 @@ export default function Caja() {
                         ):
                         Cajas.map((c)=>{
                             return(
-                                <tr>
+                                <tr key={c.id}>
                                     <th scope="row">{c.id}</th>
                                     <td>{c.saldo_inicial.toFixed(2)}</td>
                                     <td>{c.saldo_final.toFixed(2)}</td>

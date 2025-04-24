@@ -10,6 +10,6 @@ export default function FunctionInventarrio() {
     }catch(err){
     console.error("Hubo un error",err)
   }}
-    return ({inventario,FectchInventario}
+    return ({inventario,FectchInventario,setinventario}
   )
 }
