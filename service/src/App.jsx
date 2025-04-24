@@ -47,9 +47,11 @@ import CreateInventarrio from './components/InventarioProductos/CRUD/CreateInven
 import ActualizarInventario from './components/InventarioProductos/CRUD/ActualizarInventario.jsx';
 import Rutaprotegia from './components/login/Rutaprotegia.jsx';
 import DetalleEspecifico from './components/ventas/CRUD/DetalleEspecifico.jsx';
+import ReporteMensual from './components/Reportes/reporteMensual.jsx';
 function App() {
     return (
     <>
+   
     <BrowserRouter>
     <Routes>
       {/*RUTA DE LOGIN*/}
@@ -71,37 +73,53 @@ function App() {
         <Route path='/inventario' element={<Inventario></Inventario>}></Route>
         <Route path='/sub' element={<Subcate></Subcate>}></Route>
         {/*RUTAS DE CRUD */}
-          <Route path='/detalle-especifico/:id' element={<DetalleEspecifico></DetalleEspecifico>}></Route>
-          <Route path='/crear-detalle-venta' element={<CreateDetalleVenta></CreateDetalleVenta>}></Route>
-
+          <Route path='/ventas/detalle-especifico/:id' element={<DetalleEspecifico></DetalleEspecifico>}></Route>
+          <Route path='/ventas/crear-detalle-venta' element={<CreateDetalleVenta></CreateDetalleVenta>}></Route>
+        {/*Reporte Mensual*/}
+        <Route path='/ventas/reporte-mensual' element={<ReporteMensual></ReporteMensual>}></Route>
+        {/*Inventario de productos */}
         <Route path='/invetario-producto' element={<Iproductos></Iproductos>}></Route>
-        <Route path='/inventario-producto-create' element={<CreateInventarrio></CreateInventarrio>}></Route>
-        <Route path='/inventario-update/:id' element={<ActualizarInventario></ActualizarInventario>}></Route>
+        <Route path='/invetario-producto/inventario-producto-create' element={<CreateInventarrio></CreateInventarrio>}></Route>
+        <Route path='/invetario-producto/inventario-update/:id' element={<ActualizarInventario></ActualizarInventario>}></Route>
+        {/*Caja */}
         <Route path='/caja' element={<Caja></Caja>}></Route>
-        <Route path='/movimiento-caja' element={<HistorialCaja></HistorialCaja>}></Route>
-        <Route path='/cerrar-caja' element={<CerrarCaja></CerrarCaja>}></Route>
-        <Route path='/registrar-caja' element={<RegistrarMovimiento></RegistrarMovimiento>}></Route>
+        <Route path='/caja/movimiento-caja' element={<HistorialCaja></HistorialCaja>}></Route>
+        <Route path='/caja/cerrar-caja' element={<CerrarCaja></CerrarCaja>}></Route>
+        <Route path='/caja/registrar-caja' element={<RegistrarMovimiento></RegistrarMovimiento>}></Route>
+        {/*Ventas */}
         <Route path='/ventas' element={<Ventas></Ventas>}></Route>
-        <Route path='/create-ventas' element={<CreateVentas></CreateVentas>}></Route>
-        <Route path='/update-ventas/:id' element={<UpdateVentas></UpdateVentas>}></Route>
-        <Route path='/create-movimiento' element={<CreateMovimiento></CreateMovimiento>}></Route>
-        <Route path='/update-movimiento/:id' element={<UpdateMovimiento></UpdateMovimiento>}></Route>
-        <Route path='/create-caja' element={<Createcaja></Createcaja>}></Route>
-        <Route path='/update-caja/:id' element={<UpdateCaja></UpdateCaja>}></Route>
-        <Route path='/crear-producto' element={<Create></Create>}></Route>
-        <Route path='/create-cate' element={<CreateCategoria></CreateCategoria>}></Route>
-        <Route path='/crear-almacen' element={<CreateAlmacen></CreateAlmacen>}></Route>
-        <Route path='/update-almacen/:id' element={<UpdateAlmacen></UpdateAlmacen>}></Route>
-        <Route path='/update-cate/:id' element={<UpdateCategoria></UpdateCategoria>}></Route>
-        <Route path='/update-producto/:id' element={<UpdateProductos></UpdateProductos>}></Route>
-        <Route path='/crear-empleado' element={<CreateEmpleado></CreateEmpleado>}></Route>
-        <Route path='/crear-Subcate' element={<CreateSubCategoria></CreateSubCategoria>}></Route>
-        <Route path='/update-subcate/:id' element={<EditSubCategoria></EditSubCategoria>}></Route>
+        <Route path='/ventas/create-ventas' element={<CreateVentas></CreateVentas>}></Route>
+        <Route path='/ventas/update-ventas/:id' element={<UpdateVentas></UpdateVentas>}></Route>
+        {/**Movimientos*/}
+        <Route path='/movimientos/create-movimiento' element={<CreateMovimiento></CreateMovimiento>}></Route>
+        <Route path='/movimientos/update-movimiento/:id' element={<UpdateMovimiento></UpdateMovimiento>}></Route>
+
+        <Route path='/caja/create-caja' element={<Createcaja></Createcaja>}></Route>
+        <Route path='/caja/update-caja/:id' element={<UpdateCaja></UpdateCaja>}></Route>
+        {/*productos */}
+        <Route path='/productos/crear-producto' element={<Create></Create>}></Route>
+        <Route path='/productos/update-producto/:id' element={<UpdateProductos></UpdateProductos>}></Route>
+        {/**Categoria */}
+        <Route path='/cate/create-cate' element={<CreateCategoria></CreateCategoria>}></Route>
+        <Route path='/cate/update-cate/:id' element={<UpdateCategoria></UpdateCategoria>}></Route>
+
+        <Route path='/inventario/crear-almacen' element={<CreateAlmacen></CreateAlmacen>}></Route>
+        <Route path='/inventario/update-almacen/:id' element={<UpdateAlmacen></UpdateAlmacen>}></Route>
+       
+        {/*Subcategoria */}
+        <Route path='/sub/crear-Subcate' element={<CreateSubCategoria></CreateSubCategoria>}></Route>
+        <Route path='/sub/update-subcate/:id' element={<EditSubCategoria></EditSubCategoria>}></Route>
+       
+        <Route path='/user/crear-empleado' element={<CreateEmpleado></CreateEmpleado>}></Route>
         <Route path='/user/:id' element={<EditUser></EditUser>}></Route>
-        <Route path='/cliente/:id' element={<UpdateCliente></UpdateCliente>}></Route>
-        <Route path='/crear-proveedor' element={<CreateProveedor></CreateProveedor>}></Route>
-        <Route path='/update-proveedor/:id' element={<UpdateProveedor></UpdateProveedor>}></Route>
-        <Route path='/crear-cliente' element={<Createcliente></Createcliente>}></Route>
+       
+      
+        {/*Proveedores */}       
+        <Route path='/proveedores/crear-proveedor' element={<CreateProveedor></CreateProveedor>}></Route>
+        <Route path='/proveedores/update-proveedor/:id' element={<UpdateProveedor></UpdateProveedor>}></Route>
+        {/*Contactos */}
+        <Route path='/contact/cliente/:id' element={<UpdateCliente></UpdateCliente>}></Route>
+        <Route path='/contact/crear-cliente' element={<Createcliente></Createcliente>}></Route>
         </Route>
        
         </Route>
