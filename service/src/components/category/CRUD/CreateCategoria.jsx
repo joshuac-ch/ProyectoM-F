@@ -13,8 +13,12 @@ export default function CreateCategoria() {
     }
     const SubmitForm=async(e)=>{
         e.preventDefault()
+        const datosFormateados={
+            ...Formdata,
+            nombre:Formdata.nombre.toLowerCase()            
+        }
         try{
-            await axios.post("http://localhost:4000/api/users/categoria/c",Formdata)
+            await axios.post("http://localhost:4000/api/users/categoria/c",datosFormateados)
             alert("Se creo correctamente la categoria")
             navegar("/cate")
         }catch(e){

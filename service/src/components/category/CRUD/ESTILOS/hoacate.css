@@ -1,5 +1,5 @@
 .categoria1{
-    
+    width: 400px;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;

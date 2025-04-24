@@ -19,7 +19,7 @@ export default function Category() {
   const navegar=useNavigate() 
   const RedirigirUpdate=(id)=>{
     if(FuncionDelimitar("editar")){
-     navegar(`/update-cate/${id}`) 
+     navegar(`/cate/update-cate/${id}`) 
     }else{
       alert("Solo personal autorizado")
     }
@@ -47,7 +47,7 @@ export default function Category() {
     <div className="container mt-4">
       <div className="header-categorias">
         <h1>Categorias</h1>
-        <button type="button" onClick={()=>navegar("/create-cate")}>Nueva Categoria</button>
+        <button type="button" onClick={()=>navegar("/cate/create-cate")}>Nueva Categoria</button>
       </div>
       <hr />
       <div className="body-categorias">
@@ -59,7 +59,7 @@ export default function Category() {
               ):
               categoria.map((c)=>{
                 return(
-                  <div id='c.id' className="categoria1">
+                  <div key={c.id} id='c.id' className="categoria1">
                     <div className="first-cate">
                    <h4 className='identificador'>{c.id}</h4>
                       <div className="cont">
@@ -76,10 +76,10 @@ export default function Category() {
                     
                       <div className="tools">
                       <button onClick={()=>RedirigirUpdate(c.id)} className="btn btn-warning btn-sm me-2">
-                        <i class='bx bxs-edit-alt' ></i>
+                        <i className='bx bxs-edit-alt' ></i>
                       </button>
                      <button onClick={()=>OndeleteCategoria(c.id)} className="btn btn-danger btn-sm me">
-                        <i class='bx bxs-trash' ></i>
+                        <i className='bx bxs-trash' ></i>
                       </button>
                       </div>
                   </div>
