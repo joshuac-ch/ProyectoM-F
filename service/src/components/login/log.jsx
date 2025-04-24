@@ -44,7 +44,7 @@ const Log = () => {
         <h3 className="text-center mb-4 text-black">Iniciar Sesión</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label text-black">Correo Electrónico</label>
+            <label className="form-label text-black">Username</label>
             <input
               type="text"
               className="form-control"
