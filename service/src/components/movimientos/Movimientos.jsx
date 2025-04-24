@@ -95,7 +95,7 @@ const onDelete=async(id)=>{
                 movimiento.sort((a,b)=>b.id-a.id).filter((m)=> m.almacen_id===empleado.almacen_id).map((mo)=>{
                   
                     return (
-                      <div className="content" >
+                      <div key={mo.id} className="content" >
                       
                       <div className="content-1">
                         <div className="accion">
