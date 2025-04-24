@@ -1,7 +1,9 @@
 .header-inventario{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     button{
+        padding: 5px 10px;
         color: black;
         font-weight: bold;
         background-color: rgb(137, 173, 228);
@@ -41,9 +43,10 @@
     
 }
 .agregar{
+    
     button{
         border: 0;
-        
+       
         background-color: transparent;
         border-radius: 10px;
         i{
@@ -62,4 +65,12 @@
     td{
         background-color: transparent;
     }
+}
+.herramientas-inventario{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    button{
+        padding: 5px 10px;
+    }    
 }

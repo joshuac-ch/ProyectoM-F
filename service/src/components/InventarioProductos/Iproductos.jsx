@@ -5,6 +5,9 @@ import FunctionInventarrio from '../hooks/Inventarrio'
 import FunctionProducto from '../hooks/Producto'
 import axios from 'axios'
 import FuncionDelimitar from '../hooks/Delimitar'
+import FuncionAlmacenes from '../hooks/Almacenes'
+import FuncionEmpleados from '../hooks/Empleados'
+
 export default function Iproductos() {
     const navegar=useNavigate()
     const {inventario,setinventario,FectchInventario}=FunctionInventarrio()
@@ -39,21 +42,22 @@ export default function Iproductos() {
     },[producto])
     const PermitirIngreso=()=>{
       if(FuncionDelimitar("editar")){
-        navegar("/inventario-producto-create")
+        navegar("/invetario-producto/inventario-producto-create")
       }else{
         alert("No tiene permiso para el inventario de productos")
       }
     }
     const OnUpdate=(id)=>{
       if(FuncionDelimitar("editar")){
-      navegar(`/inventario-update/${id}`)
+      navegar(`/invetario-producto/inventario-update/${id}`)
     }else{
       alert("No tiene permiso para editar el inventario de productos")
 
     }
   }
   const OnDelete=async(id)=>{
-    const mensage=window.confirm("Estas seguro de querer este producto del inventario")
+    if(FuncionDelimitar("eliminar")){
+      const mensage=window.confirm("Estas seguro de querer este producto del inventario")
     if(mensage){
       try{
         await axios.delete(`http://localhost:4000/api/users/inven/d/${id}`)
@@ -64,15 +68,53 @@ export default function Iproductos() {
         alert(err?.response?.data?.message)
       }
     }
+    }else{
+      alert("No tiene permiso para eliminar productos del inventario")
+    }
   }
-  
-    return (
+  const FuncionFecha=(fecha)=> {
+    const fechaLima=new Date(fecha).toLocaleString("es-PE",{
+      timeZone:"America/Lima",
+      hour12: true,
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit',
+      second:'2-digit'    
+  })
+      return fechaLima
+  }
+  const {almacen_id,FectAlmacen_id}=FuncionAlmacenes()
+  const {empleado,FectUsuarios}=FuncionEmpleados()
+  useEffect(()=>{
+    FectAlmacen_id(),FectUsuarios()
+  },[])
+  const [tiendaInventario, settiendaInventario] = useState(0)
+  const DataInventario=tiendaInventario==0?
+  inventario:inventario.filter((i)=>i.almacen_id==parseInt(tiendaInventario))
+  const handleSelectInvenatrio=(e)=>{
+    settiendaInventario(e)
+  }
+  return (
    <>
    <div className="container mt-4">
         <div className="header-inventario">
             <h1>Inventario de productos</h1>
+            <div className='herramientas-inventario'>
             <button type="button" onClick={()=>PermitirIngreso()}>Gestionar Inventario</button>
             {/*<button type='button' onClick={()=>PermitirIngreso("/inventario-update/:id")}>Actualizar inventario</button> */}
+            
+            <div>
+            <select onChange={(e)=>handleSelectInvenatrio(e.target.value)} className='form-control' name="" id="">
+              <option value="" disabled>Buscar por almacen</option>
+              <option value={0} >Todos</option>
+              {almacen_id.map((a)=>
+                <option key={a.id} value={a.id}>{a.nombre}</option>
+              )}
+            </select>
+            </div>
+            </div>
         </div>
         <div className="body-inventario">
         <table className="table table-inventario">
@@ -93,10 +135,10 @@ export default function Iproductos() {
     <tr id="not-found-inventario">
       <td>No se agregado ningun producto a inventario</td>
     </tr>
-  ):inventario.map((i)=>{
+  ):DataInventario.map((i)=>{
     const relacionprodcuto=mostarProductos.find((r)=>r.id===i.producto_id)  
                    return(                      
-                            <tr key={i.id}>
+                            <tr key={i.producto_id}>
                              <th scope="row">{i.id}</th>
                              <td>{i.cantidad_actual}</td>
                              <td>                               
@@ -121,9 +163,9 @@ export default function Iproductos() {
                                )}                          
                              </td>
                              <td>{i.almacen_id}</td>
-                            {/*<td>{i.stock_minimo}</td>NO MOSTRAR HASTA HACER LA FUNCION DE STOCK MINIMO MUESTRE ALERTAS CUANDO HAYA ESCAZES*/}
+                            {/*<td>{i.stock_minimo} .split(".")[0].replace("T"," ")</td>NO MOSTRAR HASTA HACER LA FUNCION DE STOCK MINIMO MUESTRE ALERTAS CUANDO HAYA ESCAZES*/}
                              <td>{i.stock_maximo}</td>
-                             <td>{i.ultimo_movimiento.split(".")[0].replace("T"," ")}</td>
+                             <td>{ FuncionFecha(i.ultimo_movimiento)}</td>
                              <td className='agregar'>
                                <button onClick={()=>OnUpdate(i.id)} type="button"><i className='bx bx-plus-circle'></i></button>
                                <button onClick={()=>OnDelete(i.id)} type='button'><i className='bx bx-trash'></i></button>
