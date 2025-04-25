@@ -9,6 +9,7 @@ import FuncionEmpleados from '../hooks/Empleados'
 import FunctionInventarrio from '../hooks/Inventarrio'
 import FuncionClientes from '../hooks/Clientes'
 import FunctionUsuario from '../hooks/Usuario'
+
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
