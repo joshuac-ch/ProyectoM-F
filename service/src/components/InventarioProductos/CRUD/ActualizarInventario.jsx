@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionProducto from '../../hooks/Producto'
 import FunctionUsuario from '../../hooks/Usuario'
-import axios from 'axios'
+
 import FuncionEmpleados from '../../hooks/Empleados'
+import { axiosInstance } from '../../lib/axios'
 
 export default function ActualizarInventario() {
     const {id}=useParams()
@@ -20,7 +21,7 @@ export default function ActualizarInventario() {
       useEffect(()=>{
           const ShowInventario=async()=>{
             try{
-              const {data}=await axios.get(`http://localhost:4000/api/users/inven/s/${id}`)
+              const {data}=await axiosInstance.get(`/inven/s/${id}`)
               setinventarioProducto(data)
               
             }catch(err){
@@ -59,7 +60,7 @@ export default function ActualizarInventario() {
        if(inventarioProducto.almacen_id===empleado.almacen_id){
             try{
                 console.log('Datos enviados al backend:', FormDataActualizar); // Agrega esta línea para ver los dato
-                await axios.put(`http://localhost:4000/api/users/inven/u/`,FormDataActualizar)
+                await axiosInstance.put(`/inven/u/`,FormDataActualizar)
                 alert("Se actualizo el inventario ")
                 navegar("/invetario-producto")
             }catch(err){

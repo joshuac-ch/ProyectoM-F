@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import FunctionProducto from '../hooks/Producto';
 import FunctionInventarrio from '../hooks/Inventarrio';
-import axios from 'axios';
+
 import FuncionEmpleados from '../hooks/Empleados';
+import { axiosInstance } from '../lib/axios';
 
 export default function ProductosAgotarse() {
     
@@ -21,7 +22,7 @@ export default function ProductosAgotarse() {
             
             const response=await Promise.all(
               idList.map((id)=>
-              axios.get(`http://localhost:4000/api/users/producto/s/${id}`) 
+              axiosInstance.get(`/producto/s/${id}`) 
             ))
           const datos=response.map((res)=> res.data)          
           setmostratProductos(datos)

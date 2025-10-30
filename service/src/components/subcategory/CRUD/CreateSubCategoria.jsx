@@ -1,7 +1,8 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FunctionCategoria from '../../hooks/Categoria'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateSubCategoria() {
   const back=useNavigate()
@@ -16,7 +17,7 @@ export default function CreateSubCategoria() {
   const SubmitData=async(e)=>{
     e.preventDefault()
     try{
-      await axios.post("http://localhost:4000/api/users/subcategoria/c/",formData)
+      await axiosInstance.post("/subcategoria/c/",formData)
       alert("Se creo correctamente la subcategoria")
       back("/sub")
     }catch(e){

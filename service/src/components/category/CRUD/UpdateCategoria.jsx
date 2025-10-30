@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateCategoria() {
     const navegar=useNavigate()
@@ -16,7 +17,7 @@ export default function UpdateCategoria() {
     useEffect(()=>{       
         const fectchCategoria=async()=>{
         try{
-            const {data}=await axios.get(`http://localhost:4000/api/users/categoria/u/${id}`)
+            const {data}=await axiosInstance.get(`/categoria/u/${id}`)
             setcategoria(data)            
         }catch(e){
             alert("Hubo un error",e)
@@ -27,7 +28,7 @@ export default function UpdateCategoria() {
     const FormUpdate=async(e)=>{
           e.preventDefault()
           try{
-            await axios.put(`http://localhost:4000/api/users/categoria/up/${id}`,categoria)
+            await axiosInstance.put(`/categoria/up/${id}`,categoria)
             alert("Se actualizo la categoria")
             navegar("/cate")
           }

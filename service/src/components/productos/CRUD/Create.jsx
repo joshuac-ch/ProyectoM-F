@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import "../CRUD/estilos/create.css"
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+
 import { FuncionProveedoresId } from '../../hooks/Proveedores'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FuncionSubcategoria from '../../hooks/Subcategoria'
+import { axiosInstance } from '../../lib/axios'
 export default function Create() {
     const regresar=useNavigate()
     const RegresarPrincipal=()=>{
@@ -31,7 +32,7 @@ export default function Create() {
         e.preventDefault()
         
         try{
-            await axios.post("http://localhost:4000/api/users/producto/c/",formdata)
+            await axiosInstance.post("/producto/c/",formdata)
             alert("Se creo el producto")
             regresar("/productos")
         }catch(e){

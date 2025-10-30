@@ -1,11 +1,12 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
+import { axiosInstance } from '../lib/axios'
 
 export default function FunctionProducto() {
   const [producto, setproducto] = useState([]) 
   const FectProdcutos=async()=>{
     try{
-        const {data}=await axios.get("http://localhost:4000/api/users/producto/g")
+        const {data}=await axiosInstance.get("/producto/g")
         setproducto(data)
     }
     catch(err){

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionUsuario from '../../hooks/Usuario'
-import axios from 'axios'
+
 import FuncionEmpleados from '../../hooks/Empleados'
+import { axiosInstance } from '../../lib/axios'
 
 export default function RegistrarMovimiento() {
     const navegar=useNavigate()
@@ -24,7 +25,7 @@ export default function RegistrarMovimiento() {
         e.preventDefault()
         //console.log("Datos a enviar:", DataRegistrarMovimiento); // Agregar esto para depuración
         try{
-            await axios.post("http://localhost:4000/api/users/caja/movimiento",DataRegistrarMovimiento)
+            await axiosInstance.post("/caja/movimiento",DataRegistrarMovimiento)
             alert("Se registro el movimiento")
             navegar("/caja")
         }catch(err){

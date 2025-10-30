@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../CRUD/create.css"
-import axios from 'axios'
+
 import FuncionAlmacenes from '../../hooks/Almacenes'
+import { axiosInstance } from '../../lib/axios'
 export default function CreateEmpleado() {
     const redirigir=useNavigate()
     const RegresarUser=()=>{
@@ -26,7 +27,7 @@ export default function CreateEmpleado() {
         e.preventDefault()
         console.log(formData)
         try{
-            await axios.post("http://localhost:4000/api/users/usuario/c",formData)
+            await axiosInstance.post("/usuario/c",formData)
             alert("Se creo el usuario")
             redirigir("/user")
         }catch(error){

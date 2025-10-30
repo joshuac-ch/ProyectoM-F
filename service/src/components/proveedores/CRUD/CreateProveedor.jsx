@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateProveedor() {
     const navegar=useNavigate()
@@ -22,7 +23,7 @@ export default function CreateProveedor() {
     const SubmitProveedor=async(e)=>{
         e.preventDefault()
         try{
-            await axios.post("http://localhost:4000/api/users/proveedor/c",FormProveedor)
+            await axiosInstance.post("/proveedor/c",FormProveedor)
             alert("Se creo correctamente el proveedor")
             navegar("/proveedores")
         }catch(err){

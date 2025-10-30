@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import "../Inventario/hojainven.css";
-import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
 import FuncionDelimitar from '../hooks/Delimitar';
 import FuncionAlmacenes from '../hooks/Almacenes';
+import { axiosInstance } from '../lib/axios';
 export default function Inventario() {
   
   const [almacen, setalmacen] = useState([])
   const navegar=useNavigate()
   const FecthAlmacen=async()=>{
     try{
-      const {data}=await axios.get("http://localhost:4000/api/users/almacen/g")
+      const {data}=await axiosInstance.get("/almacen/g")
       setalmacen(data)
     }catch(e){
       alert("Hubo un error",e)
@@ -31,7 +32,7 @@ export default function Inventario() {
       const mensaje=window.confirm("Estas seguro de eliminar este inventario?")
     if(mensaje){
       try{
-        await axios.delete(`http://localhost:4000/api/users/almacen/d/${id}`)
+        await axiosInstance.delete(`/almacen/d/${id}`)
         alert("Se elimino correctamente el almacen")
         setalmacen(almacen.filter((a)=>a.id!==id))
       }catch(e){  

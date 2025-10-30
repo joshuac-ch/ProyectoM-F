@@ -1,13 +1,14 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import "../category/CRUD/ESTILOS/hoacate.css"
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
+import { axiosInstance } from '../lib/axios'
 export default function Category() {
   const [categoria, setcategoria] = useState([])
   const GetCategoria=async()=>{
     try{
-      const {data}=await axios.get("http://localhost:4000/api/users/categoria/s")
+      const {data}=await axiosInstance.get("/categoria/s")
       setcategoria(data)
     }catch(e){
       console.log("hubo un error",e.message)
@@ -29,7 +30,7 @@ export default function Category() {
     const mensaje=window.confirm("Estas seguro que quieres eliminar esta categoria")
     if(mensaje){
       try{
-        await axios.delete(`http://localhost:4000/api/users/categoria/d/${id}`)
+        await axiosInstance.delete(`/categoria/d/${id}`)
         alert("Se elimino correctamente a la categoria")
         setcategoria(categoria.filter((e)=>e.id!==id))
         

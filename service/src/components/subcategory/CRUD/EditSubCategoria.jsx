@@ -1,7 +1,8 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import FunctionCategoria from '../../hooks/Categoria'
+import { axiosInstance } from '../../lib/axios'
 
 export default function EditSubCategoria() {
     const regresa=useNavigate()
@@ -15,7 +16,7 @@ export default function EditSubCategoria() {
     useEffect(()=>{
         const FectchSubcategorias=async()=>{
             try{
-                const {data}=await axios.get(`http://localhost:4000/api/users/subcategoria/s/${id}`)
+                const {data}=await axiosInstance.get(`/subcategoria/s/${id}`)
                 setsubcategoria(data)
             }catch(e){
                 alert("hubo un error",e)
@@ -26,7 +27,7 @@ export default function EditSubCategoria() {
     const SumibtSubcate=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/subcategoria/u/${id}`,subcategoria)
+            await axiosInstance.put(`/subcategoria/u/${id}`,subcategoria)
             alert("Se actualizo la subcategoria")
             regresa("/sub")
         }catch(e){

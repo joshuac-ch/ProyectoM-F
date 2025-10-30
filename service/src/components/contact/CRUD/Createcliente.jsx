@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function Createcliente() {
     const navegar=useNavigate()
@@ -22,7 +23,7 @@ export default function Createcliente() {
     const SubmitForm=async(e)=>{
         e.preventDefault()
         try{            
-           await axios.post("http://localhost:4000/api/users/cliente/c",FormData)
+           await axiosInstance.post("/cliente/c",FormData)
            alert("Se creo el usuario") 
            navegar("/contact")
         }catch(error){

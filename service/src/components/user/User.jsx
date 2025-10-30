@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import "../user/hojauser.css"
 import { Navigate, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+
 import FuncionDelimitar from '../hooks/Delimitar'
 import FunctionUsuario from '../hooks/Usuario'
+import { axiosInstance } from '../lib/axios'
 
 
 export default function User() {
@@ -12,7 +13,7 @@ export default function User() {
   const [users, setusers] = useState([])
   const FectchUsers=async()=>{
     try{
-      const {data}=await axios.get("http://localhost:4000/api/users/usuario/g")
+      const {data}=await axiosInstance.get("/usuario/g")
       setusers(data)
     }catch(e){
       console.error("hubo un error",e)
@@ -57,7 +58,7 @@ export default function User() {
     const confirmar = window.confirm("¿Estás seguro de eliminar este usuario?");
     if (confirmar) {
       try {
-        await axios.delete(`http://localhost:4000/api/users/usuario/d/${id}`);
+        await axiosInstance.delete(`/usuario/d/${id}`);
         setusers(users.filter((user) => user.id !== id)); // Actualiza la lista eliminando el usuario
         
         alert("Usuario eliminado correctamente");

@@ -1,10 +1,11 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FuncionSubcategoria from '../../hooks/Subcategoria'
 import { FuncionProveedoresId } from '../../hooks/Proveedores'
 import FuncionDelimitar from '../../hooks/Delimitar'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateProductos() {
   const navigate=useNavigate()
@@ -30,7 +31,7 @@ export default function UpdateProductos() {
   useEffect(()=>{
     const fechtProductos=async()=>{
       try{
-        const {data}=await axios.get(`http://localhost:4000/api/users/producto/s/${id}`)
+        const {data}=await axiosInstance.get(`/producto/s/${id}`)
         setproductos(data)
       }catch(e){
         alert("#Hubo un error",e)
@@ -43,7 +44,7 @@ export default function UpdateProductos() {
     e.preventDefault()
     if(FuncionDelimitar("editar")){
     try{
-      await axios.put(`http://localhost:4000/api/users/producto/u/${id}`,productos)
+      await axiosInstance.put(`/producto/u/${id}`,productos)
       alert("Se actualizaron los datos")
       navigate("/productos")
     }catch(e){

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../Caja/hojacaja.css"
-import axios from 'axios'
+
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionEmpleados from '../hooks/Empleados'
+import { axiosInstance } from '../lib/axios'
 
 export default function Caja() {
     const [Cajas, setCajas] = useState([])
@@ -17,7 +18,7 @@ export default function Caja() {
         const FecthCaja=async()=>{
             try{
                 //const {data}=await axios.get("http://localhost:4000/api/users/caja/g")
-                const {data}=await axios.get(`http://localhost:4000/api/users/caja/especifica/${empleado.almacen_id}`)
+                const {data}=await axiosInstance.get(`/caja/especifica/${empleado.almacen_id}`)
                 setCajas(data)
                 
             }catch(e){
@@ -41,7 +42,7 @@ export default function Caja() {
         const mensaje=window.confirm("Estas seguro de eliminar esta caja?")
         if(mensaje){
             try{
-                await axios.delete(`http://localhost:4000/api/users/caja/d/${id}`)
+                await axiosInstance.delete(`/caja/d/${id}`)
                 alert("Se elimino correctamente la caja")
                 setCajas(Cajas.filter((c)=>c.id!==id))
             }catch(err){
@@ -55,7 +56,7 @@ export default function Caja() {
         const mesaje=window.confirm("Estas seguro de cerrar esta caja?")
         if(mesaje){
             try{
-                await axios.put(`http://localhost:4000/api/users/caja/cerrar/${id}`)
+                await axiosInstance.put(`/caja/cerrar/${id}`)
                 alert("Se cerro la caja exitosamente")                
                              
             }catch (err) {

@@ -1,9 +1,10 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionProducto from '../../hooks/Producto'
 import FunctionUsuario from '../../hooks/Usuario'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateMovimiento() {
     const navegar=useNavigate()
@@ -23,7 +24,7 @@ export default function UpdateMovimiento() {
     useEffect(()=>{
         const FectMovimientos=async()=>{
             try{
-                const {data}=await axios.get(`http://localhost:4000/api/users/movimiento/s/${id}`)
+                const {data}=await axiosInstance.get(`/movimiento/s/${id}`)
                 setmovimiento(data)
             }catch(err){
                 alert("Hubo un error para mostrar el movimiento",err)
@@ -34,7 +35,7 @@ export default function UpdateMovimiento() {
     const SumbitUpdateMovimiento=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/movimiento/u/${id}`,movimiento)
+            await axiosInstance.put(`/movimiento/u/${id}`,movimiento)
             alert("Se actualizo el movimiento")
             navegar("/movimientos")
         }catch(err){

@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import "../InventarioProductos/hojain.css"
 import FunctionInventarrio from '../hooks/Inventarrio'
 import FunctionProducto from '../hooks/Producto'
-import axios from 'axios'
+
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionAlmacenes from '../hooks/Almacenes'
 import FuncionEmpleados from '../hooks/Empleados'
+import { axiosInstance } from '../lib/axios'
 
 export default function Iproductos() {
     const navegar=useNavigate()
@@ -24,7 +25,7 @@ export default function Iproductos() {
         // Hacer múltiples llamadas a /producto/:id
         const responses = await Promise.all(
           idList.map((id) =>
-            axios.get(`http://localhost:4000/api/users/producto/s/${id}`)
+            axiosInstance.get(`/producto/s/${id}`)
           )
         );
     
@@ -60,7 +61,7 @@ export default function Iproductos() {
       const mensage=window.confirm("Estas seguro de querer este producto del inventario")
     if(mensage){
       try{
-        await axios.delete(`http://localhost:4000/api/users/inven/d/${id}`)
+        await axiosInstance.delete(`/inven/d/${id}`)
         alert("Se elimino el producto exitosamente")
         setinventario(inventario.filter((i)=>i.id!==id))
       

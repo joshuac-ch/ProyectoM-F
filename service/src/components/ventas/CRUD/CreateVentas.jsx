@@ -1,9 +1,10 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FunctionUsuario from '../../hooks/Usuario'
 import FuncionClientes from '../../hooks/Clientes'
 import FuncionAlmacenes from '../../hooks/Almacenes'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateVentas() {
    const navegar=useNavigate() 
@@ -17,7 +18,7 @@ export default function CreateVentas() {
     e.preventDefault()
     //console.log(ventaData)
     try{
-        await axios.post("http://localhost:4000/api/users/venta/c",ventaData)
+        await axiosInstance.post("/venta/c",ventaData)
         alert("Se creo la venta")
         navegar("/ventas")
     }catch(err){

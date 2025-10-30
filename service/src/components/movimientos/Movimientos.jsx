@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import "../movimientos/hojamo.css"
-import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionEmpleados from '../hooks/Empleados'
+import { axiosInstance } from '../lib/axios'
 export default function Movimientos() {
   
   const navegar=useNavigate()
   const [movimiento, setmovimiento] = useState([])
   const FectchMovimientos=async()=>{
     try{
-      const {data}=await axios.get("http://localhost:4000/api/users/movimiento/g/")
+      const {data}=await axiosInstance.get("/movimiento/g/")
       setmovimiento(data)
     }catch(err){
       console.log("Hubo un error",err)
@@ -40,7 +41,7 @@ const onDelete=async(id)=>{
     const mensaje=window.confirm("Esta seguro de querer eliminar este movimiento de producto?")
     if(mensaje){
       try{
-        await axios.delete(`http://localhost:4000/api/users/movimiento/d/${id}`)
+        await axiosInstance.delete(`/movimiento/d/${id}`)
         alert("Se elimino el movimiento de producto")
         setmovimiento(movimiento.filter((m)=>m.id!==id))
       }catch(err){

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../productos/hojaproduct.css"
 import { FaEdit, FaSearch, FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import FuncionDelimitar from '../hooks/Delimitar';
 import FunctionCategoria from '../hooks/Categoria';
 import FuncionSubcategoria from '../hooks/Subcategoria';
@@ -11,6 +11,7 @@ import autoTable from 'jspdf-autotable';
 
 import * as XLSX from "xlsx"
 import { saveAs } from 'file-saver';
+import { axiosInstance } from '../lib/axios';
 export default function Productos() {
   const formato=new Date()
     const productos=[
@@ -38,7 +39,7 @@ const CrearProducto=()=>{
 const [myproduct, setmyproduct] = useState([])
 const GetProductos=async()=>{
   try{
-    const {data}=await axios.get("http://localhost:4000/api/users/producto/g/")
+    const {data}=await axiosInstance.get("/producto/g/")
     setmyproduct(data)
   }catch(e){
     alert("Hubo un error",e)
@@ -49,7 +50,7 @@ const [subcategoria, setsubcategoria] = useState({})
 useEffect(()=>{
   const FectSubcate=async()=>{
    try{
-    const {data}=await axios.get("http://localhost:4000/api/users/subcategoria/g/") 
+    const {data}=await axiosInstance.get("/subcategoria/g/") 
     const recorrer={};
     data.forEach((c)=>{
       recorrer[c.id]=c.nombre 
@@ -74,7 +75,7 @@ const onDelete=async(id)=>{
   const mensaje=window.confirm("Estas seguro querer eliminar este producto?")
   if(mensaje){
     try{
-      await axios.delete(`http://localhost:4000/api/users/producto/d/${id}`)
+      await axiosInstance.delete(`/producto/d/${id}`)
       alert("Se elimino correctamente el producto")
       setmyproduct(myproduct.filter((m)=>m.id!==id))
     }catch(e){

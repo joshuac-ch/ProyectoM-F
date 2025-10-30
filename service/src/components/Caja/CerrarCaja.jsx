@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../lib/axios'
 
 export default function CerrarCaja() {
     const {id}=useState()
@@ -14,7 +15,7 @@ export default function CerrarCaja() {
     const OnCerrarSumbit=async(e)=>{
         e.preventDefault()
         try{
-            await axios.post(`http://localhost:4000/api/users/caja/cerrar/${id}`)
+            await axiosInstance.post(`/caja/cerrar/${id}`)
             alert("Se cerro la caja exitosamente")
             navegar("/caja")
         }catch(err){

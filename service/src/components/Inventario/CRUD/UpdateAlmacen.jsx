@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateAlmacen() {
     const navegar=useNavigate()
@@ -13,7 +14,7 @@ export default function UpdateAlmacen() {
     useEffect(()=>{
         const FecthAlmacen=async()=>{
             try{
-               const {data}=await axios.get(`http://localhost:4000/api/users/almacen/show/${id}`)
+               const {data}=await axiosInstance.get(`/almacen/show/${id}`)
                setalmacen(data)  
             }catch(e){
                 alert("Se encontro un error",e)
@@ -27,7 +28,7 @@ export default function UpdateAlmacen() {
     const UpdateAlmacen=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/almacen/u/${id}`,almacen)
+            await axiosInstance.put(`/almacen/u/${id}`,almacen)
             alert("Se actualizo el almacen")
             navegar("/inventario")
         }catch(err){

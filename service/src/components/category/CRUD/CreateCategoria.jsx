@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateCategoria() {
     const navegar=useNavigate()
@@ -18,7 +19,7 @@ export default function CreateCategoria() {
             nombre:Formdata.nombre.toLowerCase()            
         }
         try{
-            await axios.post("http://localhost:4000/api/users/categoria/c",datosFormateados)
+            await axiosInstance.post("/categoria/c",datosFormateados)
             alert("Se creo correctamente la categoria")
             navegar("/cate")
         }catch(e){

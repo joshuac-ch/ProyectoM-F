@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import FuncionAlmacenes from "../../hooks/Almacenes";
+import { axiosInstance } from "../../lib/axios";
 
 export default function EditUser() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ export default function EditUser() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:4000/api/users/usuario/s/${id}`);
+        const { data } = await axiosInstance.get(`/usuario/s/${id}`);
         setUser(data.user ||data);
       } catch (err) {
         console.error("Error al obtener el usuario", err);
@@ -36,7 +37,7 @@ export default function EditUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:4000/api/users/usuario/u/${id}`, user);
+      await axiosInstance.put(`/usuario/u/${id}`, user);
       alert("Usuario actualizado correctamente");
       navigate("/user");
     } catch (err) {

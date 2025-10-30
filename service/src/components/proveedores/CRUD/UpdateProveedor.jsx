@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import "../CRUD//estilos/create.css"
-import axios from 'axios'
+
+import { axiosInstance } from '../../lib/axios'
 export default function UpdateProveedor() {
     const navegar=useNavigate()
     const {id}=useParams()
@@ -14,7 +15,7 @@ export default function UpdateProveedor() {
     useEffect(()=>{
         const ShowProveedores=async()=>{
             try{
-                const {data}=await axios.get(`http://localhost:4000/api/users/proveedor/s/${id}`)
+                const {data}=await axiosInstance.get(`/proveedor/s/${id}`)
                 setproveedor(data)
             }catch(e){
                 alert("Hubo un error la mostrar el proveedor",e)
@@ -25,7 +26,7 @@ export default function UpdateProveedor() {
     const SubmitUpdateProveedores=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/proveedor/u/${id}`,proveedor)
+            await axiosInstance.put(`/proveedor/u/${id}`,proveedor)
             alert("Se actualizo el proveedor exitosamente")
             navegar("/proveedores")
         }catch(err){

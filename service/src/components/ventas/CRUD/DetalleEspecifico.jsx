@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import FunctionProducto from '../../hooks/Producto'
@@ -7,6 +7,7 @@ import "../hojaventas.css"
 import FuncionCajas from '../../hooks/Cajas'
 import { QRCodeCanvas } from 'qrcode.react';
 import FuncionFecha from '../../hooks/FuncionFecha'
+import { axiosInstance } from '../../lib/axios'
 export default function DetalleEspecifico() {
     
     const navegar=useNavigate()
@@ -28,7 +29,7 @@ export default function DetalleEspecifico() {
     useEffect(()=>{
         const MostrarDetalleEspecifico=async()=>{
             try{                
-                const {data} =await axios.get(`http://localhost:4000/api/users/detalle-especifico/${id}`)
+                const {data} =await axiosInstance.get(`/detalle-especifico/${id}`)
                 setdetalle(data)
             }catch(err){
                 console.error("Hubo un error",err)

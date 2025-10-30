@@ -1,9 +1,10 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FunctionProducto from '../../hooks/Producto'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FuncionEmpleados from '../../hooks/Empleados'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateInventarrio() {
   const navegar=useNavigate()
@@ -23,7 +24,7 @@ export default function CreateInventarrio() {
     console.log(FormDataInventario)
     e.preventDefault()
     try{        
-        await axios.post("http://localhost:4000/api/users/inven/c",FormDataInventario)
+        await axiosInstance.post("/inven/c",FormDataInventario)
         alert("Se registro en el inventario")
         navegar("/invetario-producto")
     }catch(err){

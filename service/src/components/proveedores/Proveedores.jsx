@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import "../proveedores/hojaprove.css"
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+
 import FuncionDelimitar from '../hooks/Delimitar'
+import { axiosInstance } from '../lib/axios'
 export default function Proveedores() {
   /*  const proveedores=[
 {id:1,user_name:"JG",nombre:"joshua gustavo",correo:"joshua@gmail.com",dirrecion:"Av. pirua",telefono:"996230942"},
@@ -21,7 +22,7 @@ export default function Proveedores() {
     const [proveedor, setproveedor] = useState([])
     const FectchProveedores=async()=>{
         try{
-            const {data}=await axios.get("http://localhost:4000/api/users/proveedor/g")
+            const {data}=await axiosInstance.get("/proveedor/g")
             setproveedor(data)    
         }catch(e){
             console.log("Hubo un error",e)
@@ -42,7 +43,7 @@ export default function Proveedores() {
         const message=window.confirm("Estas seguro de queres eliminar este proveedor?")
         if(message){
             try{
-                await axios.delete(`http://localhost:4000/api/users/proveedor/d/${id}`)
+                await axiosInstance.delete(`/proveedor/d/${id}`)
                 alert("Se elimino correctamente el proveedor")
                 setproveedor(proveedor.filter((p)=>p.id!==id)) //Para filtar solo los usuarios existentes o se actulize la pagina en tiempo real 
             }catch(err){

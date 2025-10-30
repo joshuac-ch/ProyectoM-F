@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "../ventas/hojaventas.css"
-import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionFecha from '../hooks/FuncionFecha'
@@ -9,12 +9,13 @@ import FuncionEmpleados from '../hooks/Empleados'
 import FunctionInventarrio from '../hooks/Inventarrio'
 import FuncionClientes from '../hooks/Clientes'
 import FunctionUsuario from '../hooks/Usuario'
+import { axiosInstance } from '../lib/axios'
 
 export default function Ventas() {
     const [ventas, setventas] = useState([])
     const FectchVentas=async()=>{
         try{
-            const {data}=await axios.get("http://localhost:4000/api/users/venta/g")
+            const {data}=await axiosInstance.get("/venta/g")
             setventas(data)
         }catch(err){
             console.log("Hubo un error",err)
@@ -36,7 +37,7 @@ export default function Ventas() {
         const mensaje=window.confirm("Esta seguro de eliminar esta venta?")
         if(mensaje){
             try{
-                await axios.delete(`http://localhost:4000/api/users/venta/d/${id}`)
+                await axiosInstance.delete(`/venta/d/${id}`)
                 alert("Se elimino la venta")
                 setventas(ventas.filter((v)=>v.id!==id))
             }catch(err){
@@ -52,7 +53,7 @@ export default function Ventas() {
     const [detallv, setdetallv] = useState([])
     const FechtDetalle=async()=>{
         try{
-            const {data}=await axios.get("http://localhost:4000/api/users/detalle/g")
+            const {data}=await axiosInstance.get("/detalle/g")
             setdetallv(data)
         }catch(err){
             console.error("Hubo un error",err)

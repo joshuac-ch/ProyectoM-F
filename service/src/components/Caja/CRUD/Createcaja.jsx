@@ -1,10 +1,11 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import FunctionUsuario from '../../hooks/Usuario'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FuncionEmpleados from '../../hooks/Empleados'
+import { axiosInstance } from '../../lib/axios'
 
 export default function Createcaja() {
     const navegar=useNavigate()
@@ -25,7 +26,7 @@ export default function Createcaja() {
         e.preventDefault()
         console.log(FormCajaData)
         try{
-            await axios.post("http://localhost:4000/api/users/caja/c",FormCajaData)
+            await axiosInstance.post("/caja/c",FormCajaData)
             alert("Se creo la caja")
             navegar("/caja")
         }catch(err){

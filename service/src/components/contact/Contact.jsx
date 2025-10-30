@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import "../contact/hojacontact.css"
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+
 import FuncionDelimitar from '../hooks/Delimitar'
 import FuncionClientes from '../hooks/Clientes'
+import { axiosInstance } from '../lib/axios'
 export default function Contact() {
   
   const [clientes, setclientes] = useState([])
   const GetContactos=async()=>{
     try{
-      const {data}=await axios.get("http://localhost:4000/api/users/cliente/g")
+      const {data}=await axiosInstance.get("/cliente/g")
       setclientes(data)
     }catch(e){  
       console.log("hubo un error",e)
@@ -39,7 +40,7 @@ export default function Contact() {
     const mensaje=window.confirm("Estas seguro de eliminar este contacto")
     if(mensaje){
       try{
-        await axios.delete(`http://localhost:4000/api/users/cliente/d/${id}`)
+        await axiosInstance.delete(`/cliente/d/${id}`)
         setclientes(clientes.filter((s)=>s.id!==id)) //Siver para filtrar solo los que hay
         navegar("/contact")
       }catch(e){

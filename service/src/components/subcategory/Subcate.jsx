@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import "../subcategory/hojasub.css" 
-import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom'
 import FuncionDelimitar from '../hooks/Delimitar'
+import { axiosInstance } from '../lib/axios'
 export default function Subcate() {
     const [subcategoria, setsubcategoria] = useState([])
     const [categorias, setCategorias] = useState({}); // Guardará { idCategoria: nombreCategoria }
     const FecthSubcategoria=async()=>{
         try{
-            const {data}=await axios.get("http://localhost:4000/api/users/subcategoria/g/")
+            const {data}=await axiosInstance.get("/subcategoria/g/")
             setsubcategoria(data)
              // Extraer los IDs de categoría únicos
             //const uniqueCategoryIds = [...new Set(data.map((c) => c.categoria_id))];
@@ -26,7 +27,7 @@ export default function Subcate() {
    useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/users/categoria/s/");
+        const { data } = await axiosInstance.get("/categoria/s/");
         const categoriasMap = {};
         data.forEach((categoria) => {
           
@@ -56,7 +57,7 @@ export default function Subcate() {
         const message=window.confirm("Esta seguro de eliminar esta subcategoria?")
         if(message){
             try{
-                await axios.delete(`http://localhost:4000/api/users/subcategoria/d/${id}`)
+                await axiosInstance.delete(`/subcategoria/d/${id}`)
                 alert("Se eliminor correctamente la subcategoria")
                 setsubcategoria(subcategoria.filter((s)=>s.id!==id))                
             }catch(e){  

@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateCaja() {
     const navegar=useNavigate()
@@ -21,7 +22,7 @@ export default function UpdateCaja() {
     useEffect(()=>{
         const FecthCajas=async()=>{
             try{
-                const {data}=await axios.get(`http://localhost:4000/api/users/caja/s/${id}`)
+                const {data}=await axiosInstance.get(`/caja/s/${id}`)
                 setcaja(data)
             }catch(err){
                 alert("Hubo un error al mostrar los datos",err)
@@ -32,7 +33,7 @@ export default function UpdateCaja() {
     const SubmitUpdateCaja=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/caja/u/${id}`,caja)
+            await axiosInstance.put(`/caja/u/${id}`,caja)
             alert("Se actualizo la caja")
             navegar("/caja")
         }catch(err){

@@ -1,10 +1,11 @@
-import axios from 'axios'
+
 import React, { useState } from 'react'
+import { axiosInstance } from '../lib/axios'
 
 export default function FuncitonDetalle() {
   const [detalle, setdetalle] = useState([])
   const FuncitonDetalleectDetalle=async()=>{
-    const {data}=await axios.get("http://localhost:4000/api/users/detalle/g")
+    const {data}=await axiosInstance.get("/detalle/g")
     setdetalle(data) 
   }
     return (

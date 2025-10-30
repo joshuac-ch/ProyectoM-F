@@ -1,9 +1,10 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionProducto from '../../hooks/Producto'
 import FunctionUsuario from '../../hooks/Usuario'
+import { axiosInstance } from '../../lib/axios'
 
 export default function CreateMovimiento() {
   const [Formmovimiento, setFormmovimiento] = useState({
@@ -22,7 +23,7 @@ export default function CreateMovimiento() {
    const SubmitCreateMovimiento=async(e)=>{
     e.preventDefault()
     try{
-        await axios.post("http://localhost:4000/api/users/movimiento/c/",Formmovimiento)
+        await axiosInstance.post("/movimiento/c/",Formmovimiento)
         alert("Se creo el movimiento exitosamente")
         navegar("/movimientos")
     }catch(err){

@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateCliente() {
     const {id}=useParams()
@@ -17,7 +18,7 @@ export default function UpdateCliente() {
     useEffect(()=>{
         const UpdateUser=async()=>{
             try{
-                const { data }=await axios.get(`http://localhost:4000/api/users/cliente/s/${id}`)
+                const { data }=await axiosInstance.get(`/cliente/s/${id}`)
                 setClienteData(data)
                 
             }catch(err){
@@ -32,7 +33,7 @@ export default function UpdateCliente() {
     const SutmitUpdate=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/cliente/u/${id}`,ClienteData)
+            await axiosInstance.put(`/cliente/u/${id}`,ClienteData)
             alert("Se actualizo el contacto")
             navegar("/contact")
         }catch(err){

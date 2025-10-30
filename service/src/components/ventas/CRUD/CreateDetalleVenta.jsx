@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import "../CRUD/ESTILOS/detalle.css"
 import FunctionVentas from '../../hooks/Ventas'
 import FunctionProducto from '../../hooks/Producto'
-import axios from 'axios'
+
 import FuncionAlmacenes from '../../hooks/Almacenes'
 import FunctionUsuario from '../../hooks/Usuario'
 import FuncionClientes from '../../hooks/Clientes'
 import FuncionEmpleados from '../../hooks/Empleados'
 import FuncitonBuscador from '../../hooks/BBuscador'
 import FuncionSubcategoria from '../../hooks/Subcategoria'
+import { axiosInstance } from '../../lib/axios'
 export default function CreateDetalleVenta() {
     const navegar=useNavigate()
     const {FecthVenta,venta}=FunctionVentas()
@@ -187,7 +188,7 @@ export default function CreateDetalleVenta() {
     };
     console.log(dataCompleta);
             try {
-                const response=await axios.post("http://localhost:4000/api/users/detalle-venta-completo/", dataCompleta);
+                const response=await axiosInstance.post("/detalle-venta-completo/", dataCompleta);
                 //alert("Se creó el detalle de venta");
                 
                 //navegar("/ventas");
@@ -232,10 +233,10 @@ export default function CreateDetalleVenta() {
             const productoSelec=productoSeleccionado.find((p)=>p.producto_id===produc_id)
                       
             if (productoSelec.subcategoria_id === subcategoriaVerduras.id) {
-                //alert("✅ Se puede editar el producto.");
+                //alert(" Se puede editar el producto.");
                 return true;
               } else {
-                setmensaje("❌ Solo editable para la subcategoría: 'verduras'")
+                setmensaje("Solo editable para la subcategoría: 'verduras'")
                 setshowMensaje(true)
                 setTimeout(()=>{
                     setshowMensaje(false)
@@ -330,7 +331,7 @@ export default function CreateDetalleVenta() {
     
     console.log(dataCompleta);
             try {
-                const response=await axios.post("http://localhost:4000/api/users/detalle-venta-completo/", dataCompletaCodigo);
+                const response=await axiosInstance.post("/detalle-venta-completo/", dataCompletaCodigo);
                 //alert("Se creó el detalle de venta de codigo de barras");
                 //navegar("/ventas");
                 const ventaID=response.data.id

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import "../ESTILOS/estilos.css"
-import axios from 'axios'
+
+import { axiosInstance } from '../../lib/axios'
 export default function CreateAlmacen() {
     const [valueFomr, setvalueFomr] = useState({
         nombre:"",
@@ -14,7 +15,7 @@ export default function CreateAlmacen() {
   const SubmitCreate=async(e)=>{
     e.preventDefault()
     try{
-        await axios.post("http://localhost:4000/api/users/almacen/c",valueFomr)
+        await axiosInstance.post("/almacen/c",valueFomr)
         alert("Se creo el almacen")
         navegar("/inventario")
     }catch(e){

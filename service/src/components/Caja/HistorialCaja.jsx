@@ -1,6 +1,7 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { axiosInstance } from '../lib/axios';
 
 export default function HistorialCaja() {
      const [movimientos, setMovimientos] = useState([]);    
@@ -11,7 +12,7 @@ export default function HistorialCaja() {
         
         const ObtenerMovimientos = async () => {
             try {
-                const { data } = await axios.get("http://localhost:4000/api/users/movimiento-caja"); // Cambia por el ID de la caja
+                const { data } = await axiosInstance.get("/movimiento-caja"); // Cambia por el ID de la caja
                 setMovimientos(data);
             } catch (error) {
                 console.error("Error al obtener los movimientos", error);

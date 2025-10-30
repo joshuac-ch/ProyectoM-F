@@ -1,6 +1,7 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosInstance } from '../../lib/axios'
 
 export default function UpdateVentas() {
   const navegar=useNavigate()
@@ -15,7 +16,7 @@ export default function UpdateVentas() {
   useEffect(()=>{
     const ShowVentas=async()=>{
         try{
-            const {data}=await axios.get(`http://localhost:4000/api/users/venta/s/${id}`)
+            const {data}=await axiosInstance.get(`/venta/s/${id}`)
             setventasData(data)
         }catch(err){
             alert("Hubo un error",err)
@@ -29,7 +30,7 @@ export default function UpdateVentas() {
     const SumibtUpdateVentas=async(e)=>{
         e.preventDefault()
         try{
-            await axios.put(`http://localhost:4000/api/users/venta/u/${id}`,ventasData)
+            await axiosInstance.put(`/venta/u/${id}`,ventasData)
             alert("Se actualizo la venta")
             navegar("/ventas")
         }catch(err){
